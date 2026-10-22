@@ -250,9 +250,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   <div class="title-inner">
     <div class="kanji" aria-hidden="true">相撲</div>
     <h1 class="logo jiggle" aria-label="Jiggle Pit"><span>J</span><span>I</span><span>G</span><span>G</span><span>L</span><span>E</span><span class="gap"></span><span>P</span><span>I</span><span>T</span></h1>
-    <p class="subtitle">Sumo · Blood · Dinosaurs</p>
     <p class="press">Press Enter · SUMO!</p>
-    <p class="exhibit">Exhibition bout in progress</p>
     <nav class="title-menu" aria-label="Main menu">
       <button type="button" class="big-btn" id="goVersus">Versus <small>1–2 players</small></button>
       <button type="button" class="big-btn" id="goTour">Tournament <small>9 fights to the Colossus</small></button>
@@ -470,53 +468,53 @@ const ELEMENTS = {
 };
 
 const ROSTER = [
-  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.80, power: 1.22, jiggle: 12, element: 'earth',
+  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.85, power: 1.38, jiggle: 12, element: 'earth',
     skin: '#f4b48a', skinDark: '#cc8256', belt: '#2846c8', hair: '#14100c', hairStyle: 'knot', fluid: '#d1121e', fluidName: 'Blood' },
-  { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.30, power: 0.84, jiggle: 19, element: 'teleport',
+  { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.22, power: 0.8, jiggle: 19, element: 'teleport',
     skin: '#ffe2d2', skinDark: '#eaa98c', belt: '#ff3d8b', hair: '#2a1a12', hairStyle: 'knot', fluid: '#7dff2a', fluidName: 'Neon goo' },
-  { id: 'rex',     name: 'Chonkasaurus',    mass: 148, size: 70, speed: 0.98, power: 1.04, jiggle: 15, element: 'fire',
+  { id: 'rex',     name: 'Chonkasaurus',    mass: 148, size: 70, speed: 0.98, power: 0.99, jiggle: 15, element: 'fire',
     skin: '#8fd14f', skinDark: '#56903a', belt: '#ffb21a', hair: null, hairStyle: 'none', fluid: '#a24bff', fluidName: 'Purple goo', tail: true },
-  { id: 'wobbles', name: 'Grandpa Wobbles', mass: 164, size: 74, speed: 0.88, power: 1.08, jiggle: 10, element: 'ice',
+  { id: 'wobbles', name: 'Grandpa Wobbles', mass: 164, size: 74, speed: 0.88, power: 1.2, jiggle: 10, element: 'ice',
     skin: '#f0c4a8', skinDark: '#c08a6c', belt: '#1c8fd6', hair: '#eceae4', hairStyle: 'knot', fluid: '#c4102a', fluidName: 'Blood', beard: true },
-  { id: 'tomo',    name: 'Toxic Tomo',      mass: 128, size: 66, speed: 1.1, power: 1.1, jiggle: 14, element: 'acid',
+  { id: 'tomo',    name: 'Toxic Tomo',      mass: 128, size: 66, speed: 1.1, power: 1.26, jiggle: 14, element: 'acid',
     skin: '#d6e48a', skinDark: '#9fb05a', belt: '#6a1fb0', hair: '#2f5a1a', hairStyle: 'knot', fluid: '#e8ff3a', fluidName: 'Bile' },
-  { id: 'sparky',  name: 'Sparky Sato',     mass: 118, size: 63, speed: 1.12, power: 0.95, jiggle: 16, element: 'lightning',
+  { id: 'sparky',  name: 'Sparky Sato',     mass: 118, size: 63, speed: 1.12, power: 0.85, jiggle: 16, element: 'lightning',
     skin: '#ffcf96', skinDark: '#dc9a64', belt: '#18181c', hair: '#ffe23a', hairStyle: 'spiky', fluid: '#22e8ff', fluidName: 'Plasma goo' },
-  { id: 'taro',    name: 'Typhoon Taro',    mass: 108, size: 60, speed: 1.18, power: 0.92, jiggle: 17, element: 'wind',
+  { id: 'taro',    name: 'Typhoon Taro',    mass: 108, size: 60, speed: 1.18, power: 0.98, jiggle: 17, element: 'wind',
     skin: '#e8b490', skinDark: '#bf8662', belt: '#0fa89a', hair: '#10201e', hairStyle: 'band', fluid: '#e0141e', fluidName: 'Blood' },
-  { id: 'kuro',    name: 'Cosmo Kuro',      mass: 156, size: 72, speed: 1.02, power: 1.18, jiggle: 13, element: 'gravity',
+  { id: 'kuro',    name: 'Cosmo Kuro',      mass: 156, size: 72, speed: 1.08, power: 1.25, jiggle: 13, element: 'gravity',
     skin: '#6d5ce0', skinDark: '#3e2f9a', belt: '#ff4fd8', hair: '#0a0620', hairStyle: 'knot', fluid: '#ff4fd8', fluidName: 'Stardust', stars: true },
   { id: 'mecha',   name: 'Mecha-Zeki',      mass: 190, size: 76, speed: 0.78, power: 1.15, jiggle: 26, element: 'machine',
     skin: '#a8b8c8', skinDark: '#5a6a7a', belt: '#ff8a1a', hair: null, hairStyle: 'none', fluid: '#16120e', fluidName: 'Engine oil', look: 'robot', traits: { armor: 0.85 } },
-  { id: 'ghost',   name: 'Boo-Zeki',        mass: 110, size: 64, speed: 1.10, power: 0.97, jiggle: 14, element: 'ghost',
+  { id: 'ghost',   name: 'Boo-Zeki',        mass: 110, size: 64, speed: 1.10, power: 0.88, jiggle: 14, element: 'ghost',
     skin: '#e4fff8', skinDark: '#8adcc8', belt: '#3a2a5a', hair: null, hairStyle: 'none', fluid: '#8affe8', fluidName: 'Ectoplasm', look: 'ghost', traits: { phase: 0.2, float: 0.6 } },
   { id: 'stitches', name: 'Stitches',       mass: 158, size: 72, speed: 0.92, power: 1.08, jiggle: 11, element: 'horror',
     skin: '#b8c0a8', skinDark: '#6a7460', belt: '#2a0a0e', hair: '#1a1a1a', hairStyle: 'none', fluid: '#3a0006', fluidName: 'Black blood', look: 'horror', traits: { leech: 0.25 } },
   { id: 'kiki',    name: 'Kiki Puff',       mass: 84,  size: 54, speed: 1.34, power: 0.82, jiggle: 21, element: 'heart',
     skin: '#ffffff', skinDark: '#ffd0e4', belt: '#ff4fa0', hair: null, hairStyle: 'none', bow: '#ff2f6a', fluid: '#ff7ad0', fluidName: 'Glitter', look: 'cat', traits: { bounce: 1 } },
-  { id: 'momo',    name: 'Momo Nyan',       mass: 88,  size: 55, speed: 1.30, power: 0.9, jiggle: 20, element: 'kitten',
+  { id: 'momo',    name: 'Momo Nyan',       mass: 88,  size: 55, speed: 1.30, power: 0.96, jiggle: 20, element: 'kitten',
     skin: '#fff4e0', skinDark: '#f0c890', belt: '#3aa8ff', hair: null, hairStyle: 'none', bow: '#3a7aff', fluid: '#7ad7ff', fluidName: 'Sprinkles', look: 'cat', traits: { feet: 0.5 } },
-  { id: 'goro',    name: 'Ikari Goro',      mass: 150, size: 70, speed: 0.97, power: 0.95, jiggle: 13, element: 'rage',
+  { id: 'goro',    name: 'Ikari Goro',      mass: 150, size: 70, speed: 0.97, power: 0.82, jiggle: 13, element: 'rage',
     skin: '#ff9a7a', skinDark: '#c85a40', belt: '#1a1a1a', hair: '#1a0a06', hairStyle: 'knot', fluid: '#e0141e', fluidName: 'Blood', look: 'angry', traits: { rage: 0.3 } },
   { id: 'rexzuna', name: 'Yokozuna Rex',    mass: 260, size: 92, speed: 0.78, power: 1.30, jiggle: 9, element: 'boss',
     skin: '#6a8a3a', skinDark: '#3a5a1a', belt: '#e6b422', hair: null, hairStyle: 'none', fluid: '#c4102a', fluidName: 'Blood', tail: true, look: 'rex', boss: true, lock: { tournaments: 1 }, traits: { armor: 0.8 } },
-  { id: 'buzz',    name: 'Buzz Kabuto',     mass: 120, size: 64, speed: 1.10, power: 0.95, jiggle: 15, element: 'bug',
+  { id: 'buzz',    name: 'Buzz Kabuto',     mass: 120, size: 64, speed: 1.10, power: 1.02, jiggle: 15, element: 'bug',
     skin: '#5a9a3a', skinDark: '#24481a', belt: '#e0a020', hair: null, hairStyle: 'none', fluid: '#c8ff3a', fluidName: 'Green ichor', look: 'bug', traits: { armor: 0.9, grip: true }, voice: { p: 820, t: 'bug' } },
   { id: 'talon',   name: 'Talon Tengu',     mass: 96,  size: 58, speed: 1.26, power: 1.0, jiggle: 18, element: 'sky',
     skin: '#f4f0e4', skinDark: '#b8ae98', belt: '#d02a2a', hair: null, hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'bird', traits: { float: 0.72, glide: true }, voice: { p: 680, t: 'bird' } },
-  { id: 'mitsu',   name: 'Mitsume',         mass: 172, size: 78, speed: 0.86, power: 1.15, jiggle: 11, element: 'eye',
+  { id: 'mitsu',   name: 'Mitsume',         mass: 172, size: 78, speed: 0.86, power: 1.25, jiggle: 11, element: 'eye',
     skin: '#8a6ad8', skinDark: '#45348a', belt: '#ffd23a', hair: null, hairStyle: 'none', fluid: '#3ad0ff', fluidName: 'Blue blood', look: 'cyclops', traits: { foresight: 0.15 }, voice: { p: 82, t: 'deep' } },
   { id: 'hexa',    name: 'Madam Hexa',      mass: 104, size: 60, speed: 1.08, power: 0.92, jiggle: 17, element: 'hex',
     skin: '#9ad07a', skinDark: '#548a44', belt: '#3a0a5a', hair: '#2a1a3a', hairStyle: 'none', fluid: '#7aff3a', fluidName: 'Bog water', look: 'witch', traits: { float: 0.78 }, voice: { p: 330, t: 'witch' } },
-  { id: 'ashura',  name: 'Ashura Kong',     mass: 225, size: 86, speed: 0.76, power: 1.1, jiggle: 10, element: 'titan', arms: 4,
+  { id: 'ashura',  name: 'Ashura Kong',     mass: 225, size: 86, speed: 0.76, power: 0.9, jiggle: 10, element: 'titan', arms: 4,
     skin: '#5ab04a', skinDark: '#2a6a2a', belt: '#7a2aa8', hair: '#14200f', hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'hulk', traits: { armor: 0.92 }, voice: { p: 64, t: 'monster' } },
-  { id: 'pom',     name: 'Pudding Pom',     mass: 112, size: 60, speed: 1.22, power: 1.08, jiggle: 7, element: 'jelly',
+  { id: 'pom',     name: 'Pudding Pom',     mass: 112, size: 60, speed: 1.26, power: 1.3, jiggle: 7, element: 'jelly',
     skin: '#ffe28a', skinDark: '#e0a040', belt: '#ff6ab0', hair: null, hairStyle: 'none', fluid: '#ff7ab8', fluidName: 'Strawberry syrup', look: 'pudding', traits: { kbResist: 0.7 }, voice: { p: 430, t: 'jelly' } },
-  { id: 'drac',    name: 'Count Sumula',    mass: 140, size: 68, speed: 1.00, power: 1.04, jiggle: 13, element: 'blood',
+  { id: 'drac',    name: 'Count Sumula',    mass: 140, size: 68, speed: 1.00, power: 1.14, jiggle: 13, element: 'blood',
     skin: '#e8e2f2', skinDark: '#a294b8', belt: '#1a0a14', hair: '#0e0a12', hairStyle: 'none', fluid: '#5a0010', fluidName: 'Old blood', look: 'vampire', traits: { leech: 0.08 }, voice: { p: 100, t: 'vamp' } },
   { id: 'hyakume', name: 'Hyakume',         mass: 150, size: 72, speed: 0.90, power: 0.92, jiggle: 9, element: 'warp',
     skin: '#8a5aa8', skinDark: '#45285e', belt: '#ff3a6a', hair: null, hairStyle: 'none', fluid: '#ff6af0', fluidName: 'Ichor', look: 'eyes', traits: { allSeeing: true }, voice: { p: 118, t: 'monster' } },
-  { id: 'namazu',  name: 'Namazu',          mass: 146, size: 70, speed: 1.00, power: 1.00, jiggle: 12, element: 'water',
+  { id: 'namazu',  name: 'Namazu',          mass: 146, size: 70, speed: 1.00, power: 1.1, jiggle: 12, element: 'water',
     skin: '#5a8ab0', skinDark: '#2a4a6a', belt: '#ffd23a', hair: null, hairStyle: 'none', fluid: '#bff4ff', fluidName: 'Fish juice', look: 'fish', traits: { slick: 0.5 }, voice: { p: 170, t: 'jelly' } },
   { id: 'shiba',   name: 'Shiba-Zeki',      mass: 104,  size: 58, speed: 1.30, power: 1.0, jiggle: 18, element: 'dog',
     skin: '#e8a050', skinDark: '#b06a2a', belt: '#3a7aff', hair: null, hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'dog', traits: { zoom: true }, voice: { p: 470, t: 'dog' } },
@@ -527,6 +525,12 @@ const VOICE_OF = { tonka: { p: 92, t: 'deep' }, mochi: { p: 250, t: 'human' }, r
   sparky: { p: 205, t: 'human' }, taro: { p: 180, t: 'human' }, kuro: { p: 118, t: 'deep' }, mecha: { p: 110, t: 'robot' }, ghost: { p: 300, t: 'ghost' }, stitches: { p: 78, t: 'monster' },
   kiki: { p: 620, t: 'cat' }, momo: { p: 540, t: 'cat' }, goro: { p: 130, t: 'deep' }, rexzuna: { p: 58, t: 'monster' } };
 for (const r of ROSTER) if (!r.voice) r.voice = VOICE_OF[r.id];
+// Personal touches layered on each voice: vowel colour, wobble, grit and a signature extra sound
+const VOICE_X = { tonka: { v: ['o', 'u'], x: 'thud' }, mochi: { v: ['i', 'e'], x: 'squeak' }, rex: { x: 'growl' }, wobbles: { vib: 9, vibD: 0.14 }, tomo: { v: ['o', 'a'], x: 'burp' },
+  sparky: { x: 'zap' }, taro: { breath: 0.7, x: 'wind' }, kuro: { x: 'echo' }, mecha: { x: 'clank' }, ghost: { x: 'whoosh' }, stitches: { x: 'growl', v: ['o', 'u'] }, kiki: { x: 'chime' },
+  momo: { x: 'squeak' }, goro: { dist: 14, v: ['a', 'a'] }, rexzuna: { x: 'growl' }, buzz: { x: 'buzz' }, talon: { x: 'flap' }, mitsu: { v: ['o', 'u'], x: 'laser' }, hexa: { x: 'sparkle' },
+  ashura: { dist: 10, x: 'thud' }, pom: { x: 'boing' }, drac: { x: 'screech' }, hyakume: { x: 'gurgle' }, namazu: { x: 'splash' }, shiba: { x: 'squeak' }, kongo: { x: 'gong' } };
+for (const r of ROSTER) r.voice = Object.assign({}, r.voice, VOICE_X[r.id] || {});
 const TRAITS = {
   tonka: 'Sheer mass: the hardest wrestler to shove out.', mochi: 'Lightest frame, fastest feet.', rex: 'Thick tail, thicker skull.',
   wobbles: 'Soft as pudding, hits like a glacier.', tomo: 'Iron stomach, rotten breath.', sparky: 'Static hair, quick hands.',
@@ -744,6 +748,11 @@ const SFX2 = {
   gong(S, t, k) { for (const [f, g] of [[98, 0.5], [147, 0.3], [196, 0.25], [262, 0.15], [311, 0.1]]) { const o = S.osc('sine', f, t, 3.5); S.env(o, t, 0.005, g * k, 3.2); } const n = S.src(t, 0.3), lp = S.filt('lowpass', 900); n.connect(lp); S.env(lp, t, 0.002, 0.4 * k, 0.25); },
   dash(S, t, k) { const n = S.src(t, 0.18), bp = S.filt('bandpass', 1500, 1.5); bp.frequency.exponentialRampToValueAtTime(400, t + 0.15); n.connect(bp); S.env(bp, t, 0.005, 0.3 * k, 0.15); },
   flop(S, t, k) { SFX2.splurt(S, t, k); const o = S.osc('sine', 110, t, 0.6); o.frequency.exponentialRampToValueAtTime(30, t + 0.5); S.env(o, t, 0.003, 1.2 * k, 0.5); },
+  squeak(S, t, k) { const o = S.osc('sine', 1400, t, 0.12); o.frequency.exponentialRampToValueAtTime(2600, t + 0.05); o.frequency.exponentialRampToValueAtTime(1200, t + 0.1); S.env(o, t, 0.003, 0.25 * k, 0.09); },
+  growl(S, t, k) { const o = S.osc('sawtooth', 70, t, 0.4), lp = S.filt('lowpass', 500, 2), ws = shaper(S, 20); o.frequency.linearRampToValueAtTime(55, t + 0.35); o.connect(ws); ws.connect(lp); S.env(lp, t, 0.02, 0.35 * k, 0.32); },
+  sparkle(S, t, k) { [1760, 2350, 2790, 3520].forEach((f, i) => { const o = S.osc('sine', f, t + i * 0.04, 0.2); S.env(o, t + i * 0.04, 0.002, 0.12 * k, 0.16); }); },
+  screech(S, t, k) { const o = S.osc('sawtooth', 2200, t, 0.25), bp = S.filt('bandpass', 3000, 4); o.frequency.exponentialRampToValueAtTime(1500, t + 0.2); o.connect(bp); S.env(bp, t, 0.005, 0.2 * k, 0.2); SFX2.flap(S, t, k * 0.5); },
+  bell(S, t, k) { for (const [f, g] of [[1046, 0.2], [2886, 0.08]]) { const o = S.osc('sine', f, t, 1); S.env(o, t, 0.002, g * k, 0.9); } },
   sumo(S, t, k) { shout(S, t, [{ c: 's', v: 'u', p: 170, d: 0.22 }, { c: 'm', v: 'o', p: 140, d: 0.55, end: 0.75 }], 0.7 * k, 'human'); },
   fatal(S, t, k) { SFX2.boom(S, t, k); SFX2.stab(S, t, k); shout(S, t + 0.25, [{ c: 'f', v: 'a', p: 90, d: 0.25 }, { c: 't', v: 'a', p: 80, d: 0.25 }, { c: 'l', v: 'i', p: 70, d: 0.3, end: 0.9 }], 0.6 * k, 'monster'); },
 };
@@ -810,7 +819,10 @@ Sfx.voice = function (f, kind, k = 1) {
   if ((kind === 'hit' || kind === 'grunt' || kind === 'attack') && f.vT && now - f.vT < 0.14) return;
   if (kind === 'die' || kind === 'limb') { if (f.vBig && now - f.vBig < 0.3) return; f.vBig = now; }
   f.vT = now;
-  const T = VTYPE[V.t] || VTYPE.human, K = Object.assign({}, VKIND[kind] || VKIND.hit);
+  const T = Object.assign({}, VTYPE[V.t] || VTYPE.human), K = Object.assign({}, VKIND[kind] || VKIND.hit);
+  if (V.breath != null) T.breath = V.breath;
+  if (V.v && (kind === 'hit' || kind === 'big' || kind === 'grunt')) K.v = V.v;
+  if (V.vib) { K.vib = V.vib; K.vibD = V.vibD; } if (V.dist) K.dist = (K.dist || 0) + V.dist;
   if (T.cat) K.v = kind === 'die' || kind === 'limb' ? ['i', 'a', 'o', 'u'] : kind === 'win' ? ['i', 'a'] : ['i', 'a'];
   if (T.bird) K.v = kind === 'die' || kind === 'limb' ? ['a', 'e', 'a'] : ['a', 'a'];
   if (T.dog) { if (kind === 'die' || kind === 'limb') { K.v = ['i', 'u']; K.p = [[0, 2.2], [0.4, 2.4], [1, 1.1]]; } else { K.v = ['a', 'u']; K.p = [[0, 1.5], [0.3, 1.2], [1, 0.6]]; K.dur = Math.min(K.dur, 0.2); if (kind === 'win') K.reps = 3; } }
@@ -818,6 +830,9 @@ Sfx.voice = function (f, kind, k = 1) {
   const reps = K.reps || 1;
   for (let i = 0; i < reps; i++) formant(this, now + i * K.dur * 1.05, Object.assign({}, K, { T, pitch: pitch * (1 + (reps > 1 ? (i % 2) * 0.12 : 0)), g }));
   if (kind === 'die') { this.play('splurt', 1.2 * k); SFX2.boom(this, now + 0.1, 0.5 * k); }
+  if (V.x && kind !== 'win') { const xk = (kind === 'die' || kind === 'limb' ? 1.2 : 0.6) * k;
+    if (V.x === 'echo') { for (const [dl, gg] of [[0.16, 0.45], [0.32, 0.2]]) formant(this, now + dl, Object.assign({}, K, { T, pitch, g: g * gg })); }
+    else this.play({ thud: 'thud', squeak: 'squeak', growl: 'growl', burp: 'glorp', zap: 'zap', wind: 'whoosh', clank: 'clang', whoosh: 'whoosh', chime: 'ready', buzz: 'buzz', flap: 'flap', laser: 'laser', sparkle: 'sparkle', boing: 'boing', screech: 'screech', gurgle: 'bubble', splash: 'splash', gong: 'gong' }[V.x] || 'thud', xk); }
 };
 
 // Music: a little step sequencer in the spirit of 90s arcade boards.
@@ -901,7 +916,7 @@ const Music = {
     const bt = this.bassT[pos];
     if (bt && bt !== '.') { const semi = bt === 'r' ? 0 : bt === 'o' ? 12 : +bt; this.bass(t, ch.root * Math.pow(2, semi / 12), spb * 0.9); }
     const toks = this.parsed[bar % 8], n = toks[pos];
-    if (n && n !== '-' && n !== '.') { let len = 1; while (toks[pos + len] === '-') len++; const f = noteHz(n); if (S.lead === 'pluck') this.pluck(t, f, len * spb); else this.voice(S.lead === 'saw' ? 'sawtooth' : 'square', t, f, len * spb * 0.92, 0.075); }
+    if (n && n !== '-' && n !== '.') { let len = 1; while (toks[pos + len] === '-') len++; const f = noteHz(n); if (S.lead === 'pluck') this.pluck(t, f, len * spb); else if (S.lead === 'bell') this.bell(t, f, len * spb); else this.voice(S.lead === 'saw' ? 'sawtooth' : 'square', t, f, len * spb * 0.92, 0.075); }
     if (S.arp && pos % 2 === 0) this.voice('triangle', t, ch.root * 4 * ch.tones[(pos / 2) % 4], spb * 0.8, 0.05, true);
     if (S.k[pos] === 'x') this.kick(t);
     if (S.s[pos] === 'x' || (bar % 8 === 7 && pos >= 12)) this.snare(t, bar % 8 === 7 && pos >= 12 ? 0.7 : 1);
@@ -920,6 +935,7 @@ const Music = {
     const lp = Sfx.filt('lowpass', type === 'square' ? 3800 : 2600); o.connect(lp); o2.connect(lp);
     this.out(lp, t, 0.008, g, Math.max(0.05, d), !short);
   },
+  bell(t, f, d) { for (const [m, g] of [[1, 0.12], [2.76, 0.04], [5.4, 0.015]]) { const o = Sfx.osc('sine', f * m, t, Math.max(0.4, d) + 0.2); this.out(o, t, 0.003, g, Math.max(0.35, d), true); } },
   pluck(t, f, d) { const o = Sfx.osc('sawtooth', f, t, d + 0.3), bp = Sfx.filt('lowpass', f * 6, 6); bp.frequency.setValueAtTime(f * 8, t); bp.frequency.exponentialRampToValueAtTime(f * 1.2, t + 0.25); o.connect(bp); this.out(bp, t, 0.003, 0.16, Math.max(0.25, d), true); },
   pad(t, f, d, g) { const lp = Sfx.filt('lowpass', 900); for (const dt of [-8, 0, 8]) { const o = Sfx.osc('sawtooth', f, t, d + 0.6); o.detune.value = dt; o.connect(lp); } this.out(lp, t, 0.3, g, d + 0.3, true); },
   bass(t, f, d) { const o = Sfx.osc('sawtooth', f, t, d + 0.05), o2 = Sfx.osc('square', f * 0.5, t, d + 0.05), lp = Sfx.filt('lowpass', 1800, 4); lp.frequency.setValueAtTime(2200, t); lp.frequency.exponentialRampToValueAtTime(380, t + d); o.connect(lp); o2.connect(lp); this.out(lp, t, 0.004, 0.2, d); },
@@ -930,6 +946,53 @@ const Music = {
   stab(t, ch) { const lp = Sfx.filt('lowpass', 4000, 1); lp.frequency.setValueAtTime(4000, t); lp.frequency.exponentialRampToValueAtTime(600, t + 0.35); for (const k of ch.tones) for (const dt of [-7, 7]) { const o = Sfx.osc('sawtooth', ch.root * 2 * k, t, 0.45); o.detune.value = dt; o.connect(lp); } const n = Sfx.src(t, 0.1), bp = Sfx.filt('bandpass', 2400, 0.7); n.connect(bp); this.out(bp, t, 0.001, 0.22, 0.08); this.out(lp, t, 0.003, 0.12, 0.38); },
 };
 try { Music.on = localStorage.getItem('jigglepit-music') !== '0'; } catch (e) {}
+// Every stage gets its own tune, composed here from a key, a scale, a chord progression and a seed:
+// a two-bar motif and its answer, repeated with a lift and closed with a held cadence on the tonic.
+const SCALES = { major: [0, 2, 4, 5, 7, 9, 11], minor: [0, 2, 3, 5, 7, 8, 10], dorian: [0, 2, 3, 5, 7, 9, 10], phryg: [0, 1, 3, 5, 7, 8, 10], harm: [0, 2, 3, 5, 7, 8, 11],
+  lydian: [0, 2, 4, 6, 7, 9, 11], mixo: [0, 2, 4, 5, 7, 9, 10], pmaj: [0, 2, 4, 7, 9], pmin: [0, 3, 5, 7, 10], insen: [0, 1, 5, 7, 10], blues: [0, 3, 5, 6, 7, 10] };
+const NN = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
+const midiName = m => NN[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
+const RHYTHMS = ['x.x.x.x.x.x.x.x.', 'x..x..x.x.x.x...', 'x.xxx.x.x..xx.x.', 'x...x.x.x...x.xx', 'xx.x.x.xx.x.x.x.', 'x.x.xx.xx.x.x...', 'x..x..x...x.x.x.'];
+function makeSong(o) {
+  const R = mulberry32(o.seed), sc = SCALES[o.scale], cs = SCALES[o.chordScale || o.scale].length === 7 ? SCALES[o.chordScale || o.scale] : SCALES.major, key = o.key;
+  const chordPcs = [], chords = o.prog.map(dg => {
+    const root = key + cs[dg % 7], third = (cs[(dg + 2) % 7] - cs[dg % 7] + 12) % 12, fifth = (cs[(dg + 4) % 7] - cs[dg % 7] + 12) % 12;
+    chordPcs.push([root % 12, (root + third) % 12, (root + fifth) % 12]); return midiName(root) + (third === 3 ? 'm' : '');
+  });
+  const pool = []; for (let oc = 0; oc < 3; oc++) for (const s of sc) pool.push(key + 12 + oc * 12 + s);
+  let idx = Math.floor(pool.length / 3);
+  const bar = (b, rhythm) => {
+    const toks = []; const pcs = chordPcs[b];
+    for (let p = 0; p < 16; p++) {
+      if (rhythm[p] !== 'x') { toks.push(toks.length && toks[toks.length - 1] !== '.' ? '-' : '.'); continue; }
+      if (p === 0 || p === 8) { let best = idx, bd = 99; for (let j = Math.max(1, idx - 4); j < Math.min(pool.length - 1, idx + 5); j++) if (pcs.includes(pool[j] % 12) && Math.abs(j - idx) < bd) { bd = Math.abs(j - idx); best = j; } idx = best; }
+      else { const r2 = R(); idx += r2 < 0.35 ? -1 : r2 < 0.7 ? 1 : r2 < 0.82 ? -2 : r2 < 0.94 ? 2 : 0; }
+      idx = clamp(idx, 2, pool.length - 3); toks.push(midiName(pool[idx]));
+    }
+    return toks;
+  };
+  const rA = RHYTHMS[(R() * RHYTHMS.length) | 0], rB = RHYTHMS[(R() * RHYTHMS.length) | 0];
+  const A0 = bar(0, rA), A1 = bar(1, rB), B2 = bar(2, rA), B3 = bar(3, rB), A4 = bar(4, rA), A5 = bar(5, rB), B6 = bar(6, rA);
+  idx = pool.findIndex(m => m % 12 === key % 12 && m >= key + 24); if (idx < 0) idx = 7;
+  const cad = [midiName(pool[idx]), '-', '-', '-', '-', '-', '-', '-', midiName(pool[idx - 1] || pool[idx]), '-', midiName(pool[idx + 1] || pool[idx]), '-', midiName(pool[idx + 2] || pool[idx]), '-', '-', '-'];
+  const mel = [A0, A1, B2, B3, A4, A5, B6, cad].map(t => t.join(' '));
+  return Object.assign({ bpm: 150, bass: 'r . o . r . o . r . o . r o 7 .', lead: 'square', stab: [0], arp: true, k: 'x...x...x...x...', s: '....x.......x...', h: '.x.x.x.x.x.x.x.x', t: '................' }, o, { chords, mel });
+}
+const STAGE_SONGS = {
+  caldera: { seed: 11, key: 40, scale: 'phryg', prog: [0, 1, 0, 6, 0, 1, 5, 4], bpm: 168, lead: 'saw', bass: 'r r o r r r o r r r o r r o r o', k: 'x.x.x.x.x.x.x.x.', h: 'x.x.x.x.x.x.x.x.', stab: [0, 2], arp: false, taikoB: true, t: 'x.......x.......' },
+  glacier: { seed: 22, key: 50, scale: 'lydian', prog: [0, 1, 0, 1, 4, 3, 1, 4], bpm: 122, lead: 'bell', bass: 'r . . . o . . . r . . . o . . .', k: 'x.......x.......', s: '........x.......', h: '..x...x...x...x.', stab: [] },
+  swamp: { seed: 33, key: 43, scale: 'blues', chordScale: 'mixo', prog: [0, 0, 3, 0, 4, 3, 0, 4], bpm: 132, lead: 'saw', bass: 'r . r o . r 10 . r . r o . 7 . .', k: 'x.....x.x.......', h: 'x.xx.xx.x.xx.xx.', arp: false, stab: [] },
+  foundry: { seed: 44, key: 38, scale: 'harm', prog: [0, 0, 5, 4, 0, 0, 3, 4], bpm: 176, lead: 'square', bass: 'r r r r o r r r r r r r o r 1 r', k: 'x.x.x.x.x.x.x.x.', s: '....x.......x.x.', h: 'xxxxxxxxxxxxxxxx', stab: [0, 1, 2, 3], arp: false },
+  raft: { seed: 55, key: 43, scale: 'major', prog: [0, 4, 5, 3, 0, 4, 3, 4], bpm: 158, lead: 'square', bass: 'r . o . r . o . r . o . r o r o' },
+  bog: { seed: 66, key: 45, scale: 'harm', prog: [0, 3, 4, 0, 5, 1, 4, 4], bpm: 112, lead: 'pluck', bass: 'r . . r . . r . r . . r . . o .', k: 'x.....x.....x...', s: '...x.....x......', h: 'x..x..x..x..x..x', stab: [] },
+  peak: { seed: 77, key: 48, scale: 'mixo', prog: [0, 6, 3, 0, 0, 6, 3, 4], bpm: 150, lead: 'saw', stab: [0, 2] },
+  sushi: { seed: 88, key: 50, scale: 'pmaj', chordScale: 'major', prog: [0, 3, 4, 0, 5, 3, 4, 0], bpm: 140, lead: 'pluck', bass: 'r . o . r . o . r . o . r . 7 .', h: '..x...x...x...x.' },
+  galleon: { seed: 99, key: 45, scale: 'dorian', prog: [0, 6, 0, 4, 0, 6, 3, 4], bpm: 126, lead: 'square', bass: 'r . . . o . . . r . . . o . . .', k: 'x...x...x...x...', s: '..x...x...x...x.', h: '................', arp: false, stab: [] },
+  moon: { seed: 111, key: 40, scale: 'lydian', prog: [0, 1, 5, 4, 0, 1, 3, 4], bpm: 104, lead: 'bell', bass: 'r . . . . . . . o . . . . . . .', k: 'x.......x.......', s: '................', h: '....x.......x...', stab: [] },
+  kaiju: { seed: 122, key: 40, scale: 'minor', prog: [0, 5, 2, 6, 0, 5, 2, 4], bpm: 118, lead: 'saw', bass: 'r r r r r r r r r r r r r r r r', h: '..x...x...x...x.', stab: [] },
+  summit: { seed: 133, key: 38, scale: 'insen', chordScale: 'phryg', prog: [0, 1, 0, 6, 0, 1, 3, 0], bpm: 150, lead: 'pluck', t: 'x..x..x.x..x.x..', k: 'x.......x.......', stab: [0] },
+};
+for (const id in STAGE_SONGS) SONGS['st_' + id] = makeSong(STAGE_SONGS[id]);
 
 // ---------------------------------------------------------------------------
 // Fighter: rigid core with a spring-mass belly ring, wobbly head and
@@ -1009,10 +1072,11 @@ class Fighter {
     }
     if (d.look === 'angry' && Math.random() < dt * (this.hp < 50 ? 14 : 3)) game.particles.push({ k: 'puff', x: this.x + this.head.ox + rand(-r, r) * 0.3, y: this.y + this.head.oy - r * 0.4, vx: rand(-30, 30), vy: -rand(60, 120), r: rand(5, 9), life: 0.5, max: 0.5, c: '255,250,250' });
     this.eyeOpen = Math.max(0, (this.eyeOpen || 0) - dt);
+    if (fighting && !this.ko) { const wb = wobbly(this); if (wb && !this.wasWobbly) { addText(this.guardBroken > 0 ? 'STANCE BROKEN!' : 'WOBBLY!', this.x, this.y - this.r * 2.2, '#ffb43a', 44); Sfx.play('boing', 0.8); } this.wasWobbly = wb; }
     this.flickerT = Math.max(0, this.flickerT - dt); this.pancakeT = Math.max(0, this.pancakeT - dt);
     this.comboT = Math.max(0, this.comboT - dt); this.comboPop = Math.max(0, this.comboPop - dt * 3);
     if (this.guardBroken > 0) { this.guardBroken -= dt; this.guard = Math.min(100, this.guard + 26 * dt); }
-    else { this.guardT -= dt; if (this.guardT <= 0) this.guard = Math.min(100, this.guard + (this.bracing ? 13 : 34) * dt); }
+    else { this.guardT -= dt; if (this.guardT <= 0) this.guard = Math.min(100, this.guard + (this.bracing ? 16 : 36) * dt); }
     this.stun = Math.max(0, this.stun - dt); this.hurtT = Math.max(0, this.hurtT - dt); this.actCD = Math.max(0, this.actCD - dt);
     this.noCollide = Math.max(0, this.noCollide - dt); this.saltT = Math.max(0, this.saltT - dt); this.hopCD = Math.max(0, this.hopCD - dt);
     this.punchBuf = Math.max(0, this.punchBuf - dt); this.grabBuf = Math.max(0, this.grabBuf - dt);
@@ -1022,7 +1086,8 @@ class Fighter {
     for (const k of ['shoveBuf', 'upperBuf', 'sweepBuf', 'miniBuf']) this[k] = Math.max(0, this[k] - dt);
     if (it.shove) this.shoveBuf = 0.2; if (it.upper) this.upperBuf = 0.2; if (it.sweep) this.sweepBuf = 0.2; if (it.mini) this.miniBuf = 0.2;
     this.miniCD = Math.max(0, this.miniCD - dt); this.chainT = Math.max(0, this.chainT - dt); if (this.chainT <= 0) this.slapChain = 0;
-    this.parryT = Math.max(0, this.parryT - dt); if (it.braceTap) this.parryT = 0.16;
+    this.parryT = Math.max(0, this.parryT - dt); if (it.braceTap) this.parryT = 0.22;
+    this.counterT = Math.max(0, (this.counterT || 0) - dt);
     this.shieldFlash = Math.max(0, this.shieldFlash - dt * 3); this.dashCD -= dt; this.dashT = Math.max(0, this.dashT - dt); this.launchT = Math.max(0, this.launchT - dt); this.spinT = Math.max(0, this.spinT - dt);
     if (this.down > 0) { this.down -= dt * (it.brace ? 2.2 : 1); if (this.down <= 0) { this.stun = 0; this.wasBracing = !!it.brace; this.squash = -0.2; dust(this.x, GROUND, 6, 0.8); } }
     this.downK += ((this.down > 0 ? 1 : 0) - this.downK) * Math.min(1, dt * 12);
@@ -1044,7 +1109,7 @@ class Fighter {
     if (fighting && !this.ko) {
       addMeter(this, 2 * dt); this.aliveT += dt; this.sinceHit += dt;
       // the longer you survive, the faster (still slow) you heal once you stop taking hits
-      if (this.sinceHit > 3 && this.burnT <= 0 && this.hp < 100) this.hp = Math.min(100, this.hp + (0.25 + Math.min(1, this.aliveT / 60)) * dt);
+      if (this.sinceHit > 3 && this.burnT <= 0 && this.hp < 100) this.hp = Math.min(100, this.hp + (0.15 + 0.6 * Math.min(1, this.aliveT / 60)) * dt);
     }
 
     // Status effects
@@ -1183,6 +1248,17 @@ class Fighter {
     if (!this.heldBy) {
       if (!this.noGrav) this.vy += this.g * (this.vy > 0 ? 1.3 : 1) * ((d.traits && d.traits.float) || 1) * (stage.grav ? stage.grav() : 1) * dt;   // fall faster than you rise: weight
       this.x += this.vx * dt; this.y += this.vy * dt;
+      if (fighting && !this.inPit && !this.noDig && !wobbly(this)) {
+        const lip = r * 0.1, lo = EDGE_L - lip, hi = EDGE_R + lip;
+        if (this.x < lo || this.x > hi) {
+          const side = this.x < lo ? -1 : 1; this.x = side < 0 ? lo : hi;
+          if (sign(this.vx) === side) this.vx = -side * Math.min(160, Math.abs(this.vx) * 0.2);
+          if (this.kbT > 0 && sign(this.kbx) === side) this.kbx = 0;
+          if (this.thrown) { this.vx = -side * 120; }
+          this.tawaraT = (this.tawaraT || 0) - dt;
+          if (this.tawaraT <= 0) { this.tawaraT = 1.2; addText('SAVED BY THE TAWARA!', this.x, this.y - r * 1.9, '#e0c080', 30); dust(this.x, GROUND, 8, 1); Sfx.play('thud', 0.6); this.squash = 0.25; }
+        }
+      }
       if (this.thrown) this.angle += this.spin * dt;
       const lip = this.thrown ? r * 0.15 : r * 0.38;   // feet can hang over the bales before you drop
       const onPlat = this.x > EDGE_L - lip && this.x < EDGE_R + lip;
@@ -2197,10 +2273,14 @@ function addMeter(f, v) {
   const before = f.meter; f.meter = Math.min(100, f.meter + v);
   if (before < 100 && f.meter >= 100 && game.state === 'fight') { Sfx.play('ready', 0.6); addText('SPECIAL READY', f.x, f.y - f.r * 2, ELEMENTS[f.def.element].color, 26); }
 }
-const DMG_SCALE = 0.8;   // health lasts a quarter longer than the raw numbers suggest
+const RINGOUT_HP = 35;
+// Sumo footing: while you still have strength your heels hold the straw bales. Only a wobbly wrestler
+// (low health, or a shattered guard) can be pushed or thrown out of the ring.
+function wobbly(f) { return f.hp <= RINGOUT_HP || f.guardBroken > 0; }
+const DMG_SCALE = 0.48;   // a deep health pool: bouts last nearly twice as long as the raw numbers suggest
 function damage(f, amt) {
   if (game.state === 'finish' || game.state === 'fatality') return;
-  if (amt < 500) amt *= DMG_SCALE * (f.toadT > 0 ? 1.4 : 1);
+  if (amt < 500) amt *= DMG_SCALE * (f.toadT > 0 ? 1.4 : 1) * Math.pow(120 / Math.min(f.mass, 300), 0.2);   // heavier bodies soak a little more
   if (f.def.traits && f.def.traits.armor) amt *= f.def.traits.armor;
   f.hp = Math.max(0, f.hp - amt);
   f.sinceHit = 0; if (f.bars) f.bars.hp.amp = Math.min(10, f.bars.hp.amp + amt * 1.4);
@@ -2224,7 +2304,7 @@ function guardBreak(o) {
 }
 function parry(a, o) {
   const dir = sign(a.x - o.x);
-  o.guard = Math.min(100, o.guard + 15); o.shieldFlash = 1.6; o.guardT = 0; addMeter(o, 8);
+  o.guard = Math.min(100, o.guard + 20); o.shieldFlash = 1.6; o.guardT = 0; addMeter(o, 10); o.counterT = 0.7;
   a.punch = null; a.sc = null; a.stun = Math.max(a.stun, 0.5); a.kbx = dir * 380; a.kbT = 0.12; a.hurtT = 0.2; a.jiggleHit(0, 0, dir * 300, -100);
   for (let i = 0; i < 20; i++) { const ang = rand(0, 6.283); game.particles.push({ k: 'spark', x: o.x + o.facing * o.r * 1.2, y: o.y - o.r * 0.3, vx: Math.cos(ang) * rand(200, 600), vy: Math.sin(ang) * rand(200, 600), life: rand(0.2, 0.45) }); }
   game.props.push({ type: 'ring', x: o.x + o.facing * o.r * 1.2, y: o.y - o.r * 0.3, t: 0, dur: 0.35, col: '140,255,255' });
@@ -2350,17 +2430,18 @@ function hit(a, o, info) {
   let blocked = o.bracing && facingAttacker && !info.power && !M.low;
   if (!blocked && facingAttacker && !M.low && !info.power && o.def.traits && o.def.traits.foresight && o.stun <= 0 && !o.ko && o.guardBroken <= 0 && Math.random() < o.def.traits.foresight) { blocked = true; o.shieldFlash = 1.2; addText('FORESEEN!', o.x, o.y - o.r * 2.2, '#ff4a6a', 30); }
   const spd = clamp(info.relV / 1150, 0.55, 1.35), T = a.def.traits || {};
-  let dmg = 6.2 * a.def.power * Math.pow(a.mass / 120, 0.35) * spd * (info.head ? 1.35 : 1) * M.dmg;
+  let dmg = 6.2 * a.def.power * Math.pow(Math.min(a.mass, 300) / 120, 0.45) * spd * (info.head ? 1.35 : 1) * M.dmg;
+  if (a.counterT > 0) { a.counterT = 0; dmg *= 1.6; info.counter = true; addText('COUNTER!', info.x, info.y - 70, '#8affff', 46); Sfx.play('parry', 0.8); }
   if (o.down > 0) dmg *= 0.6;
   if (info.kind === 'upper' && !o.onGround) dmg *= 1.25;
   const chained = (!info.kind || info.kind === 'slap') && a.slapChain >= 2;
   if (T.rage) dmg *= 1 + T.rage * (1 - a.hp / 100);
   if (a.sp && a.sp.kind === 'rage') dmg *= 0.5;
-  if (blocked) { o.guard -= dmg * 1.05 * (M.guard ? 2 : 1); o.guardT = 0.7; o.shieldFlash = 1; if (o.guard <= 0) { guardBreak(o); blocked = false; } }
-  if (blocked) dmg *= 0.1;   // chip damage still drains the health bar
+  if (blocked) { o.guard -= dmg * 0.85 * (M.guard ? 1.6 : 1); o.guardT = 0.6; o.shieldFlash = 1; if (o.guard <= 0) { guardBreak(o); blocked = false; } }
+  if (blocked) dmg *= 0.05;   // a little chip damage still gets through
   const planted = o.bracing;
   let kb = blocked ? 0 : clamp(330 * a.def.power * Math.pow(a.mass / o.mass, 0.5) * spd * M.kb * (chained ? 0.5 : 1), 50, 820);
-  if (info.power) { dmg *= 2.3; kb = Math.min(1100, kb * 1.5); }
+  if (info.power) { dmg *= 1.8; kb = Math.min(1100, kb * 1.5); }
   if (o.def.traits && o.def.traits.kbResist) kb *= o.def.traits.kbResist;
   if (planted && M.low) kb *= 0.15;
   if (a.def.giant) kb *= 0.7;
@@ -2370,7 +2451,7 @@ function hit(a, o, info) {
   if (o.frozenT > 0) { shatter(o); dmg += 9; }
   const dir = sign(o.x - a.x);
   if (kb > 0) { o.kbx = dir * kb; o.kbT = 0.13; }
-  if (blocked) { a.kbx = -dir * 170 * Math.sqrt(o.mass / a.mass); a.kbT = 0.08; }   // attackers bounce off a planted guard
+  if (blocked) { a.kbx = -dir * 200 * Math.sqrt(o.mass / a.mass); a.kbT = 0.09; if (!info.kind || info.kind === 'slap') a.actCD = Math.max(a.actCD, 0.08); }   // attackers bounce off a planted guard
   const nearEdge = Math.min(o.x - EDGE_L, EDGE_R - o.x) < o.r * 1.7 && sign(o.x - W / 2) === dir;
   if (!blocked && !armored && o.onGround && !o.heldBy) { o.vy = -kb * 0.22 * Math.sqrt(100 / o.mass) * (nearEdge ? 0.3 : 1); o.onGround = false; }
   if (!blocked && !armored && M.lift && !o.heldBy) { o.vy = -M.lift * Math.pow(120 / o.mass, 0.4); o.onGround = false; o.launchT = 0.9; }
@@ -2387,7 +2468,7 @@ function hit(a, o, info) {
   if (!blocked && M.trip && !armored) trip(o, a);
   a.vx -= dir * kb * 0.12 * Math.sqrt(o.mass / a.mass);
   damage(o, dmg); addMeter(a, dmg * 1.6); addMeter(o, dmg);
-  if (T.leech) a.hp = Math.min(100, a.hp + dmg * T.leech);
+  if (T.leech) a.hp = Math.min(100, a.hp + dmg * DMG_SCALE * T.leech);
   if (!blocked) {
     a.combo = a.comboT > 0 ? a.combo + 1 : 1; a.comboT = 0.9; o.combo = 0; o.comboT = 0;
     if (a.combo > 1) { addMeter(a, 2 * a.combo); a.comboPop = 1; }
@@ -2422,11 +2503,11 @@ function strike(a, o, opt) {
   if (o.invisible || o.inTar) return false;
   let blocked = !opt.unblockable && o.bracing && (o.facing === sign((opt.from != null ? opt.from : a.x) - o.x) || !!(o.def.traits && o.def.traits.allSeeing));
   let dmg = opt.dmg, kb = opt.kb || 0;
-  if (blocked) { o.guard -= dmg * 1.6; o.guardT = 0.7; o.shieldFlash = 1; if (o.guard <= 0) { guardBreak(o); blocked = false; } }
-  if (blocked) { dmg *= 0.15; kb = 0; footDust(o, 1); Sfx.play('clang', 1); } else Sfx.voice(o, dmg > 10 ? 'big' : 'hit', 1);
+  if (blocked) { o.guard -= dmg * 1.3; o.guardT = 0.6; o.shieldFlash = 1; if (o.guard <= 0) { guardBreak(o); blocked = false; } }
+  if (blocked) { dmg *= 0.08; kb = 0; footDust(o, 1); Sfx.play('clang', 1); } else Sfx.voice(o, dmg > 10 ? 'big' : 'hit', 1);
   if (o.frozenT > 0) { shatter(o); dmg += 9; }
   damage(o, dmg); addMeter(a, dmg * 0.25); addMeter(o, dmg);
-  if (a.def.traits && a.def.traits.leech) a.hp = Math.min(100, a.hp + dmg * a.def.traits.leech);
+  if (a.def.traits && a.def.traits.leech) a.hp = Math.min(100, a.hp + dmg * DMG_SCALE * a.def.traits.leech);
   const dir = opt.dir || sign(o.x - a.x);
   if (kb) { o.kbx = dir * kb * Math.pow(120 / o.mass, 0.5); o.kbT = 0.15; }
   if (opt.lift && !blocked) { o.vy = -opt.lift * Math.pow(120 / o.mass, 0.35); o.onGround = false; }
@@ -2678,7 +2759,7 @@ function sigFx(f, o, fx, x, y, last) {
 // Mini specials: a quick move on its own cooldown, separate from the meter special
 const MINI = {
   earth:     { name: 'Boulder Toss', cd: 6, range: [80, 600], fire(f, o) { shoot(f, o, { look: 'rock', vx: 560, vy: -560, grav: 1500, r: 20, dmg: 7, kb: 420, text: 'BOULDER!', col: stage.rock }); } },
-  teleport:  { name: 'Blink Step', cd: 5, range: [60, 900], fire(f, o) { puff(f.x, f.y, '194,123,255'); let nx = o.x - o.facing * (o.r + f.r + 6); if (nx < EDGE_L + 30 || nx > EDGE_R - 30) nx = o.x + o.facing * (o.r + f.r + 6); f.x = clamp(nx, EDGE_L + 30, EDGE_R - 30); f.facing = sign(o.x - f.x); f.vx = 0; puff(f.x, f.y, '194,123,255'); Sfx.play('tele', 0.8); } },
+  teleport:  { name: 'Blink Step', cd: 7, range: [60, 900], fire(f, o) { puff(f.x, f.y, '194,123,255'); let nx = o.x - o.facing * (o.r + f.r + 6); if (nx < EDGE_L + 30 || nx > EDGE_R - 30) nx = o.x + o.facing * (o.r + f.r + 6); f.x = clamp(nx, EDGE_L + 30, EDGE_R - 30); f.facing = sign(o.x - f.x); f.vx = 0; puff(f.x, f.y, '194,123,255'); Sfx.play('tele', 0.8); } },
   fire:      { name: 'Fireball', cd: 5, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'fireball', mouth: true, vx: 760, r: 16, dmg: 5, kb: 260, text: 'FIREBALL!', col: '#ff7a1a', effect(a, t) { t.burnT = Math.max(t.burnT, 1.4); } }); Sfx.play('sizzle', 1); } },
   ice:       { name: 'Ice Shard', cd: 5, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'shard', vx: 1000, r: 12, dmg: 4, kb: 180, text: 'CHILL!', col: '#7fe3ff', effect(a, t) { t.freeze += 0.4; if (t.freeze >= 1) freezeSolid(t); } }); Sfx.play('freeze', 0.6); } },
   acid:      { name: 'Acid Spit', cd: 5, range: [60, 520], fire(f, o) { shoot(f, o, { look: 'glob', mouth: true, vx: 520, vy: -380, grav: 1300, r: 12, dmg: 4, kb: 120, text: 'SPIT!', col: '#c6ff2a', land(m) { for (let k = 0; k < 3; k++) addPuddle(m.x + (k - 1) * 20, m.owner); } }); Sfx.play('glorp', 0.6); } },
@@ -2697,7 +2778,7 @@ const MINI = {
   hex:       { name: 'Bubbling Potion', cd: 6, range: [80, 600], fire(f, o) { shoot(f, o, { look: 'potion', vx: 520, vy: -560, grav: 1300, r: 12, dmg: 3, kb: 60, text: 'BLEGH!', col: '#7aff3a', effect(a, t) { t.poisonT = Math.max(t.poisonT, 2); }, land(m) { game.hz.push({ type: 'cloud', x: m.x, t: 0, warn: 0, dur: 3, owner: m.owner }); Sfx.play('potion', 1); } }); } },
   titan:     { name: 'Ground Pound', cd: 6, range: [0, 300], fire(f, o) { f.squash = 0.55; game.shake += 16; dust(f.x, GROUND, 20, 1.5); crackDecal(f.x, 100); Sfx.play('flop', 1.2); game.props.push({ type: 'ring', x: f.x, y: GROUND, t: 0, dur: 0.5, col: '120,255,140', flat: true }); if (o.y + o.base > GROUND - 30 && Math.abs(o.x - f.x) < 340 && !o.inPit) strike(f, o, { dmg: 6, kb: 220, lift: 430, stun: 0.5, dir: sign(o.x - f.x), text: 'GROUND POUND!', color: '#4aff6a' }); } },
   jelly:     { name: 'Gummy Glob', cd: 5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'glob', vx: 640, vy: -220, grav: 650, r: 14, dmg: 3, kb: 80, text: 'GOOPED!', col: '#ff9ad8', effect(a, t) { t.gooT = 2.2; } }); Sfx.play('glorp', 0.8); } },
-  blood:     { name: 'Bat Swarm', cd: 6, range: [80, 900], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'bat', vx: 300, vy: -200 + k * 150, home: 1700, maxV: 540, r: 11, life: 3, dmg: 2, kb: 40, col: '#c4102a', effect(a) { a.hp = Math.min(100, a.hp + 2); } }); Sfx.play('flap', 1.2); } },
+  blood:     { name: 'Bat Swarm', cd: 6, range: [80, 900], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'bat', vx: 300, vy: -200 + k * 150, home: 1700, maxV: 540, r: 11, life: 3, dmg: 2, kb: 40, col: '#c4102a', effect(a) { a.hp = Math.min(100, a.hp + 1); } }); Sfx.play('flap', 1.2); } },
   warp:      { name: 'Eyeball', cd: 5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'eyeball', vx: 600, vy: -320, grav: 1300, bounce: 2, r: 13, dmg: 4, kb: 120, stun: 0.5, text: 'LOOK AT ME', col: '#d04aff', effect(a, t) { t.cursed = Math.max(t.cursed, 0.8); } }); Sfx.play('glorp', 0.7); } },
   water:     { name: 'Bubble Trap', cd: 6, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'bubble', mouth: true, vx: 420, vy: -60, r: 22, life: 3, dmg: 2, kb: 0, stun: 0.3, text: 'BUBBLED!', col: '#9ae8ff', effect(a, t) { t.rootT = 1.3; t.vy = -260; t.onGround = false; } }); Sfx.play('bubble', 1.2); } },
   dog:       { name: 'Big Bark', cd: 5, range: [0, 380], fire(f, o) { Sfx.voice(f, 'big', 1.5); game.props.push({ type: 'ring', x: f.x + f.facing * f.r, y: f.y - f.r * 0.6, t: 0, dur: 0.45, col: '255,176,74' }); addText('WOOF!', f.x + f.facing * f.r * 1.5, f.y - f.r * 1.5, '#ffb04a', 50); if (!o.inPit && sign(o.x - f.x) === f.facing && Math.abs(o.x - f.x) - o.r - f.r < 380) strike(f, o, { dmg: 2, kb: 220, stun: 0.65, text: 'STARTLED!', color: '#ffb04a', from: f.x }); } },
@@ -2951,13 +3032,13 @@ const SPECIALS = {
       const cx = f.x + f.facing * f.r * 0.1, cy = f.y + f.r * 0.05;
       if (s.t < 1.3) {
         const gap = Math.abs(o.x - f.x) - o.r - f.r;
-        if (gap > 10 && gap < 620 && !o.inTar && !o.heldBy && !o.invisible) { o.kbx = sign(f.x - o.x) * (o.bracing ? 12 : 250) * Math.pow(100 / o.mass, 0.2); o.kbT = Math.max(o.kbT, 0.05); }
+        if (gap > 10 && gap < 620 && !o.inTar && !o.heldBy && !o.invisible) { o.kbx = sign(f.x - o.x) * (o.bracing ? 110 : 250) * Math.pow(100 / o.mass, 0.2); o.kbT = Math.max(o.kbT, 0.05); }
         for (let k = 0; k < 3; k++) { const a = rand(0, 6.283), d = rand(150, 380); game.particles.push({ k: 'swirl', x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d * 0.7, tx: cx, ty: cy, life: 0.8 }); }
         f.squash = -0.08 * Math.sin(s.t * 20);
       } else if (!s.crush) {
         s.crush = true;
         const gap = Math.abs(o.x - f.x) - o.r - f.r;
-        if (gap < 70) strike(f, o, { dmg: 18 * f.def.power, kb: 650, dir: sign(o.x - f.x), lift: 380, stun: 0.7, sever: 'gravity', text: 'SPAGHETTIFIED!', color: ELEMENTS.gravity.color });
+        if (gap < 70) strike(f, o, { unblockable: true, dmg: 18 * f.def.power, kb: 650, dir: sign(o.x - f.x), lift: 380, stun: 0.7, sever: 'gravity', text: 'SPAGHETTIFIED!', color: ELEMENTS.gravity.color });
         else if (gap < 200) strike(f, o, { dmg: 4, kb: 300, dir: sign(o.x - f.x), stun: 0.3 });
         for (let k = 0; k < 40; k++) { const a = rand(0, 6.283); game.particles.push({ k: 'puff', x: cx, y: cy, vx: Math.cos(a) * rand(300, 700), vy: Math.sin(a) * rand(300, 700), r: rand(6, 14), life: 0.5, max: 0.5, c: '196,91,255' }); }
         game.shake += 18; game.tint = { c: ELEMENTS.gravity.color, t: 0.35 }; Sfx.play('thud', 1.5); Sfx.play('boing', 1.4);
@@ -3152,11 +3233,11 @@ const SPECIALS = {
       if (!s.app && s.t > 0.5) {
         s.app = true; let nx = o.x - o.facing * (o.r + f.r * 0.6); if (nx < EDGE_L + 30 || nx > EDGE_R - 30) nx = o.x + o.facing * (o.r + f.r * 0.6);
         f.x = clamp(nx, EDGE_L + 30, EDGE_R - 30); f.y = GROUND - f.base; f.vy = 0; f.onGround = true; f.invisible = false; f.facing = sign(o.x - f.x) || 1; puff(f.x, f.y, '120,10,30');
-        s.bite = !o.inPit && !o.invisible && strike(f, o, { dmg: 4, kb: 0, stun: 1.2, text: 'BLEH!', color: '#c4102a', from: f.x });
+        s.bite = !o.inPit && !o.invisible && strike(f, o, { dmg: 4, kb: 0, stun: 1.0, text: 'BLEH!', color: '#c4102a', from: f.x });
         if (s.bite) { Sfx.play('crunch', 1.4); Sfx.voice(o, 'limb', 1); game.slowT = Math.max(game.slowT, 0.6); game.zoomK = Math.max(game.zoomK, 0.18); game.zoomAt = { x: o.x, y: o.y - o.r }; addText('BLOOD FEAST!', o.x, o.y - o.r * 2.4, '#c4102a', 60); spray(o.x, o.y - o.r * 0.6, f.facing, o.def.fluid, 40, 1.2); }
       }
-      if (s.app && s.bite && s.t < 1.6) {
-        o.stun = Math.max(o.stun, 0.1); o.vx = 0; o.kbT = 0; const dd = 9 * f.def.power * dt; damage(o, dd); f.hp = Math.min(100, f.hp + dd * 0.5);
+      if (s.app && s.bite && s.t < 1.3) {
+        o.stun = Math.max(o.stun, 0.1); o.vx = 0; o.kbT = 0; const dd = 9 * f.def.power * dt; damage(o, dd); f.hp = Math.min(100, f.hp + dd * DMG_SCALE * 0.5);
         if (Math.random() < 0.5) { const h = o.headWorld(), m = f.mouthWorld(); game.particles.push({ k: 'drop', x: h.x, y: h.y + o.r * 0.3, c: o.def.fluid, r: rand(2, 4), life: 2, vx: (m.x - h.x) * 3, vy: -rand(50, 150), landY: GROUND + rand(-12, 13) }); }
         if (s.t > 1.3 && !s.severed) { s.severed = true; sever(o, 'blood'); }
       }
@@ -3185,7 +3266,7 @@ const SPECIALS = {
       s.hitting = dx > -o.r * 0.4 && dx < s.range + o.r && Math.abs(o.y - m.y) < o.r * 1.4 && !o.inTar && !o.invisible;
       if (s.hitting) {
         if (o.bracing && (o.facing === -f.facing || (o.def.traits && o.def.traits.allSeeing))) { o.guard -= 20 * dt; o.guardT = 0.6; o.shieldFlash = 1; damage(o, 0.8 * dt); if (o.guard <= 0) guardBreak(o); }
-        else { damage(o, 7 * f.def.power * dt); o.kbx = f.facing * 420 * Math.sqrt(100 / o.mass); o.kbT = Math.max(o.kbT, 0.04); o.hurtT = Math.max(o.hurtT, 0.15); s.exp += dt; if (s.exp > 1.0 && !s.severed) { s.severed = true; sever(o, 'water'); } }
+        else { damage(o, 9 * f.def.power * dt); o.kbx = f.facing * 420 * Math.sqrt(100 / o.mass); o.kbT = Math.max(o.kbT, 0.04); o.hurtT = Math.max(o.hurtT, 0.15); s.exp += dt; if (s.exp > 1.0 && !s.severed) { s.severed = true; sever(o, 'water'); } }
         if (Math.random() < 0.6) game.particles.push({ k: 'drop', x: o.x - f.facing * o.r * 0.6, y: o.y + rand(-o.r, o.r * 0.5), c: '#ffffff', r: rand(2, 4), life: 1, vx: -f.facing * rand(100, 300), vy: -rand(200, 500), landY: GROUND + rand(-12, 13) });
       }
       f.head.vx += rand(-30, 30);
@@ -5587,7 +5668,7 @@ function startDemo() {
 }
 function startMatch() {
   const P = game.pick;
-  if (game.mode !== 'demo') { Sfx.quiet = false; Music.play(ROSTER[P.b].boss || ROSTER[P.b].giant ? 'boss' : FIGHT_TRACK[stage.id] || 'fight1'); }
+  if (game.mode !== 'demo') { Sfx.quiet = false; Music.play(ROSTER[P.b].boss || ROSTER[P.b].giant ? 'boss' : SONGS['st_' + stage.id] ? 'st_' + stage.id : FIGHT_TRACK[stage.id] || 'fight1'); }
   game.fighters = [new Fighter(ROSTER[P.a], 0, COSTUMES[P.ca]), new Fighter(ROSTER[P.b], 1, COSTUMES[P.cb])];
   game.wins = [0, 0]; game.round = 1; game.fat = null;
   dctx.clearRect(0, 0, W, H);
@@ -5663,7 +5744,7 @@ function updateClash(dt, intents) {
   if (Math.abs(c.bar) >= 1 || c.t > 4) {
     game.clash = null; game.clashCD = 4; a.clashing = b.clashing = false;
     if (Math.abs(c.bar) < 0.15) { a.kbx = -sign(b.x - a.x) * 260; a.kbT = 0.15; b.kbx = -sign(a.x - b.x) * 260; b.kbT = 0.15; banner('STALEMATE', null, 0.8); return; }
-    const w = c.bar > 0 ? a : b, l = w === a ? b : a, dir = sign(l.x - w.x), outside = sign(l.x - W / 2) === dir;
+    const w = c.bar > 0 ? a : b, l = w === a ? b : a, dir = sign(l.x - w.x), outside = sign(l.x - W / 2) === dir && wobbly(l);
     l.kbx = dir * 600; l.kbT = 0.25; l.stun = 0.9; l.vy = -260; l.onGround = false; l.thrown = outside; l.wasThrown = outside; l.spin = dir * 4;
     addText(outside ? 'SHOVED OUT!' : 'SHOVED BACK!', l.x, l.y - l.r * 2, '#ffc21a', 48); Sfx.play('thud', 1.4); game.shake += 14; hype(1.2);
   }
@@ -6121,6 +6202,8 @@ function drawHUD(ctx) {
     const left = i === 0, x = left ? 40 : W - 40 - bw, E = ELEMENTS[f.def.element];
     const hpc = f.hp > 50 ? ['#fff27a', '#ffc21a', '#d97a0a'] : f.hp > 25 ? ['#ffc28a', '#ff7a1a', '#b4400a'] : ['#ff8a9a', '#e0142a', '#7a0a12'];
     drawLiquidBar(ctx, x, top - 2, bw, bh + 4, f.bars.hp, f.hpLag / 100, left, { hi: hpc[0], mid: hpc[1], lo: hpc[2], lag: 'rgba(244,234,210,0.5)' });
+    { const nx2 = left ? x + bw * RINGOUT_HP / 100 : x + bw * (1 - RINGOUT_HP / 100); ctx.strokeStyle = 'rgba(255,180,60,0.9)'; ctx.lineWidth = 2; ctx.setLineDash([4, 3]); ctx.beginPath(); ctx.moveTo(nx2, top - 4); ctx.lineTo(nx2, top + bh + 4); ctx.stroke(); ctx.setLineDash([]);
+      if (wobbly(f) && game.state === 'fight') { ctx.font = '700 14px "Barlow Condensed", sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = Math.sin(amb.t * 10) > 0 ? '#ffb43a' : '#ffffff'; ctx.fillText(f.guardBroken > 0 ? 'STANCE BROKEN · CAN BE PUSHED OUT' : 'WOBBLY · CAN BE PUSHED OUT', x + bw / 2, top + bh + 1); } }
     if (game.state === 'fight' && f.sinceHit > 3 && f.hp < 100 && !f.ko) {
       const ex = left ? x + bw * f.hp / 100 : x + bw * (1 - f.hp / 100);
       ctx.fillStyle = `rgba(150,255,140,${0.5 + 0.5 * Math.sin(amb.t * 6)})`; ctx.font = '700 20px "Barlow Condensed", sans-serif'; ctx.textAlign = 'center';
