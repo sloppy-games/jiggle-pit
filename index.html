@@ -105,6 +105,38 @@ button:focus-visible { outline: 2px solid var(--hazard); outline-offset: 2px; }
 body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); left: auto; right: 16px; transform: none; }
 #touch[hidden] { display: none; }
 #sound, #music, #pickFor { display: none !important; }
+#options { background: radial-gradient(ellipse at 50% -10%, rgba(150,0,255,0.5), rgba(10,0,24,0) 60%), linear-gradient(180deg, #0d0024, #04000c 75%); }
+#options h2 { color: #fff; text-shadow: 0 0 6px #fff, 0 0 16px #ff2bd6, 0 0 38px #ff2bd6; }
+.opt-hint { color: #cdb8ff; margin: 0; text-align: center; }
+.opt-hint.wait { color: #ffe600; font-weight: 700; }
+.opt-grid { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.opt-col { background: rgba(20,0,40,0.8); border: 2px solid #00f0ff; border-radius: 12px; padding: 12px 16px; box-shadow: 0 0 18px rgba(0,240,255,0.35); }
+#opt1 { border-color: #ff2bd6; box-shadow: 0 0 18px rgba(255,43,214,0.35); }
+.opt-col h3 { margin: 0 0 8px; font-family: var(--font-display); font-weight: 400; font-size: 28px; color: #fff; }
+.opt-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.opt-row span { color: #e8e0f0; }
+.opt-row button { min-width: 92px; border: 2px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.4); color: #fff; border-radius: 6px; padding: 3px 10px; font-weight: 700; letter-spacing: 0.04em; }
+.opt-row button:hover { border-color: #ffe600; }
+.opt-row button.wait { border-color: #ffe600; color: #ffe600; animation: blink 0.8s steps(2) infinite; }
+.opt-btns { display: flex; gap: 12px; }
+@media (max-width: 640px) { .opt-grid { grid-template-columns: 1fr; } }
+#trainUI[hidden] { display: none; }
+#trainUI { position: fixed; inset: 0; z-index: 4; pointer-events: none; font-family: var(--font-body); }
+#trainUI .tbar { position: absolute; left: 50%; top: 150px; transform: translateX(-50%); display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; pointer-events: auto; background: rgba(8,4,16,0.78); border: 2px solid #ffd23a; border-radius: 10px; padding: 6px 10px; max-width: calc(100vw - 32px); }
+#trainUI .tlab { font-family: var(--font-display); color: #ffd23a; font-size: 18px; letter-spacing: 0.06em; margin-right: 2px; }
+#trainUI button { border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); color: #e8e0f0; border-radius: 6px; padding: 3px 9px; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; }
+#trainUI button[aria-pressed="true"] { background: #7aff8a; color: #08200a; border-color: #7aff8a; }
+#trainUI button.fat { border-color: #ff3b4a; color: #ffb0b8; }
+#trainUI .tpanel { position: absolute; left: 16px; top: 250px; width: 290px; pointer-events: auto; background: rgba(8,4,16,0.8); border: 2px solid rgba(0,240,255,0.7); border-radius: 10px; overflow: hidden; }
+#trainUI .tpanel.right { left: auto; right: 16px; border-color: rgba(255,43,214,0.7); }
+#trainUI .tpanel[hidden] { display: none; }
+#trainUI .tpanel header { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: rgba(255,255,255,0.06); }
+#trainUI .tpanel header b { font-family: var(--font-display); font-weight: 400; font-size: 19px; letter-spacing: 0.04em; color: #fff; }
+#trainUI .tpanel header span { display: flex; gap: 4px; } #trainUI .tpanel header button { width: 26px; padding: 0; }
+#trainUI .tpanel.min .tbody { display: none; }
+#trainUI .tbody { padding: 6px 10px 10px; font-size: 14px; line-height: 1.45; }
+#trainUI .tbody div { display: flex; gap: 10px; } #trainUI .tbody kbd { min-width: 64px; color: #ffd23a; font-family: var(--font-body); font-weight: 700; }
+@media (max-width: 900px) { #trainUI .tpanel { top: auto; bottom: 120px; width: 240px; } #trainUI .tbar { top: 110px; } }
 #menu .screen-head .step, #stagesel .screen-head .step { visibility: hidden; }
 #touch {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 4; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px;
@@ -321,6 +353,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
       <button type="button" class="big-btn" id="goVersus">Versus <small>1–2 players</small></button>
       <button type="button" class="big-btn" id="goTour">Tournament <small>9 fights to the Colossus</small></button>
       <button type="button" class="big-btn alt" id="goTrain">Training <small>dojo practice</small></button>
+      <button type="button" class="big-btn alt" id="goOptions">Options <small>controls</small></button>
       <button type="button" class="big-btn alt" id="goMoves">Moves <small>controls & combos</small></button>
       <button type="button" class="big-btn alt" id="goUnlocks">Unlocks <small id="unlockCount"></small></button>
     </nav>
@@ -439,6 +472,25 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   </div>
 </div>
 
+<div id="options" class="screen" hidden>
+  <div class="menu-inner">
+    <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Options · Controls</h2><span class="step"></span></header>
+    <p class="opt-hint" id="optHint">Click a key, then press the new key you want. Esc cancels.</p>
+    <div class="opt-grid"><section class="opt-col" id="opt0"></section><section class="opt-col" id="opt1"></section></div>
+    <div class="opt-btns"><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
+  </div>
+</div>
+<div id="trainUI" hidden>
+  <div class="tbar">
+    <span class="tlab">DUMMY</span>
+    <button type="button" data-dm="0">Idle</button><button type="button" data-dm="1">Block</button><button type="button" data-dm="2">Fight back</button><button type="button" data-dm="3">Player 2</button>
+    <button type="button" id="tMeter">Free meters: on</button>
+    <button type="button" id="tFat0" class="fat">P1 fatality</button><button type="button" id="tFat1" class="fat">P2 fatality</button>
+    <button type="button" id="tShow">Show moves</button>
+  </div>
+  <section class="tpanel" id="tp0"><header><b class="tname"></b><span><button type="button" class="tmin" aria-label="Minimize">—</button><button type="button" class="tclose" aria-label="Close">×</button></span></header><div class="tbody"></div></section>
+  <section class="tpanel right" id="tp1"><header><b class="tname"></b><span><button type="button" class="tmin" aria-label="Minimize">—</button><button type="button" class="tclose" aria-label="Close">×</button></span></header><div class="tbody"></div></section>
+</div>
 <div id="toast" class="toast" role="status" hidden></div>
 
 <div id="pause" class="pause" hidden role="dialog" aria-label="Paused">
@@ -6599,15 +6651,26 @@ const CONTROLS = [
 ];
 // Playing solo against the CPU, the right hand can also fight from J K L / U I O with Space for the special
 const SOLO = { punch: ['KeyJ'], sweep: ['KeyK'], grab: ['KeyL'], shove: ['KeyU'], upper: ['KeyI'], mini: ['KeyO'], special: ['Space'] };
+const ACTIONS = [['left', 'Move left'], ['right', 'Move right'], ['up', 'Jump'], ['down', 'Block (tap to parry)'], ['punch', 'Slap'], ['shove', 'Shove'], ['upper', 'Uppercut'], ['sweep', 'Sweep'], ['grab', 'Grab / throw'], ['mini', 'Mini special'], ['special', 'Special (hold)']];
+const DEFAULT_KEYS = CONTROLS.map(c => Object.fromEntries(ACTIONS.map(([a]) => [a, c[a][0]])));
+function keyLabel(code) {
+  if (!code) return '—'; if (code.startsWith('Key')) return code.slice(3); if (code.startsWith('Digit')) return code.slice(5); if (code.startsWith('Numpad')) return 'Num' + code.slice(6);
+  return { ArrowLeft: '←', ArrowRight: '→', ArrowUp: '↑', ArrowDown: '↓', Period: '.', Comma: ',', Slash: '/', Semicolon: ';', Quote: "'", Space: 'Space', BracketLeft: '[', BracketRight: ']', Backslash: '\\', Minus: '-', Equal: '=', Backquote: '`', ShiftLeft: 'L-Shift', ShiftRight: 'R-Shift', ControlLeft: 'L-Ctrl', ControlRight: 'R-Ctrl', AltLeft: 'L-Alt', AltRight: 'R-Alt', Enter: 'Enter', Tab: 'Tab' }[code] || code;
+}
+function setBinding(p, action, code) { CONTROLS[p][action][0] = code; GAME_KEYS.add(code); }
+function saveBindings() { try { localStorage.setItem('jigglepit-keys', JSON.stringify(CONTROLS.map(c => Object.fromEntries(ACTIONS.map(([a]) => [a, c[a][0]]))))); } catch (e) { } }
+function loadBindings() { try { const b = JSON.parse(localStorage.getItem('jigglepit-keys') || 'null'); if (Array.isArray(b)) b.forEach((m, p) => { for (const [a] of ACTIONS) if (m && m[a]) setBinding(p, a, m[a]); }); } catch (e) { } }
 const GAME_KEYS = new Set(CONTROLS.flatMap(c => Object.values(c).flat()).concat(['Space'], Object.values(SOLO).flat()));
+loadBindings();
 function keyDown(code) { if (!keys.has(code)) pressed.add(code); keys.add(code); }
 function keyUp(code) { if (keys.has(code)) released.add(code); keys.delete(code); }
 addEventListener('keydown', e => {
+  if (rebind) { e.preventDefault(); finishRebind(e.code); return; }
   if (GAME_KEYS.has(e.code) && !game.screen) e.preventDefault();
   if (e.repeat) return;
   keyDown(e.code);
   if (game.paused) { if (e.code === 'Escape' || e.code === 'Enter' || e.code === 'KeyP') togglePause(); else if (e.code === 'KeyQ') { togglePause(); showMenu(); } else if (e.code === 'KeyR') { togglePause(); startMatch(); } else if (e.code === 'KeyM') toggleSound(); else if (e.code === 'KeyN') toggleMusic(); return; }
-  if (game.mode === 'train' && !game.screen && /^Digit[1-4]$/.test(e.code)) { const n = +e.code.slice(5); if (n <= 3) { train.dummy = n - 1; toast(['Dummy stands still', 'Dummy holds block', 'Dummy fights back'][n - 1]); } else { train.meter = !train.meter; toast('Free meters ' + (train.meter ? 'on' : 'off')); } }
+  if (game.mode === 'train' && !game.screen && /^Digit[1-5]$/.test(e.code) && !GAME_KEYS.has(e.code)) { const n = +e.code.slice(5); if (n <= 4) setDummy(n - 1); else { train.meter = !train.meter; refreshTrainUI(); toast('Free meters ' + (train.meter ? 'on' : 'off')); } }
   if (e.code === 'KeyM') toggleSound();
   if (e.code === 'KeyN') toggleMusic();
   if (game.screen) menuKey(e);
@@ -6618,6 +6681,23 @@ addEventListener('keydown', e => {
 addEventListener('keyup', e => keyUp(e.code));
 addEventListener('blur', () => keys.clear());
 
+let rebind = null;
+function renderOptions() {
+  for (const p of [0, 1]) {
+    document.getElementById('opt' + p).innerHTML = `<h3>Player ${p + 1}</h3>` + ACTIONS.map(([a, label]) => `<div class="opt-row"><span>${label}</span><button type="button" data-p="${p}" data-a="${a}" class="${rebind && rebind.p === p && rebind.a === a ? 'wait' : ''}">${rebind && rebind.p === p && rebind.a === a ? 'Press a key…' : keyLabel(CONTROLS[p][a][0])}</button></div>`).join('');
+    document.querySelectorAll(`#opt${p} button`).forEach(b => b.addEventListener('click', () => { rebind = { p: +b.dataset.p, a: b.dataset.a }; document.getElementById('optHint').textContent = `Player ${rebind.p + 1} · ${ACTIONS.find(x => x[0] === rebind.a)[1]}: press the new key (Esc cancels)`; document.getElementById('optHint').classList.add('wait'); renderOptions(); }));
+  }
+}
+function finishRebind(code) {
+  const R = rebind; rebind = null; const hint = document.getElementById('optHint'); hint.classList.remove('wait');
+  if (code === 'Escape') { hint.textContent = 'Cancelled. Click a key, then press the new key you want.'; renderOptions(); return; }
+  const old = CONTROLS[R.p][R.a][0];
+  for (const p of [0, 1]) for (const [a] of ACTIONS) if (CONTROLS[p][a][0] === code && !(p === R.p && a === R.a)) setBinding(p, a, old);   // a clash swaps the two keys
+  setBinding(R.p, R.a, code); saveBindings(); updateKeyHints(); Sfx.play('ready', 0.6);
+  hint.textContent = `Player ${R.p + 1} ${ACTIONS.find(x => x[0] === R.a)[1]} is now ${keyLabel(code)}.`; renderOptions();
+}
+function keysLine(p) { const k = a => `<kbd>${keyLabel(CONTROLS[p][a][0])}</kbd>`; return `${k('left')}${k('right')} move · ${k('up')} jump · ${k('down')} block · ${k('punch')} slap · ${k('shove')} shove · ${k('upper')} uppercut · ${k('sweep')} sweep · ${k('grab')} grab · ${k('mini')} mini · hold ${k('special')} special`; }
+function updateKeyHints() { document.querySelectorAll('#menu .keys').forEach((el, i) => { el.innerHTML = keysLine(i); }); }
 function humanIntent(c, edges) {
   const solo = c === CONTROLS[0] && p2cpu, ks = name => solo && SOLO[name] ? c[name].concat(SOLO[name]) : c[name];
   const any = a => a.some(k => keys.has(k)), tap = a => edges && a.some(k => pressed.has(k));
@@ -6693,12 +6773,12 @@ const cpu = {
     }
     if (this.punishT > 0 && this.braceT <= 0) { this.punishT -= dt; if (gap < 90 && me.actCD <= 0 && !me.punch && me.onGround) { this.punishT = 0; if (Math.random() < 0.55) it.upper = true; else it.shove = true; return it; } }
     for (const mm of game.minis) if (mm.owner === o && !mm.cpuSeen2 && Math.abs(mm.x - me.x) < 280 && sign(mm.vx || 0) === sign(me.x - mm.x)) { mm.cpuSeen2 = true; if (Math.random() < 0.2 + 0.6 * this.skill) { me.facing = sign(o.x - me.x) || me.facing; this.braceT = 0.5; } }
-    if (o.sp && !this.spSeen && Math.random() < 0.15 + 0.6 * this.skill) { this.spSeen = o.sp; this.braceT = 0.7; }
+    if (o.sp && !this.spSeen && Math.random() < (0.15 + 0.6 * this.skill) * (me.def.giant ? 0.82 : 1)) { this.spSeen = o.sp; this.braceT = 0.7; }
     if (!o.sp) this.spSeen = null;
     if (game.props.some(q => q.type === 'storm' && q.target === me && q.t < q.dur * 0.8) && Math.random() < dt * 5 * this.skill) this.braceT = 0.45;
     if (this.braceT > 0) { it.brace = true; return it; }
     if (o.sc && gap < 120 && !o.sc.cpuSeen) { o.sc.cpuSeen = true; if (Math.random() < 0.5 * this.skill) { this.braceT = 0.8; it.brace = true; return it; } }
-    if (o.punch && o.punch.phase !== 'recover' && gap < 90 && !o.punch.cpuSeen) { o.punch.cpuSeen = true; if (o.punch.kind === 'sweep') { if (Math.random() < 0.5 * this.skill) { it.jump = true; return it; } } else if (Math.random() < 0.25 + 0.6 * this.skill && me.guard > 25) { this.braceT = 0.3 + 0.2 * this.skill; it.brace = true; it.braceTap = Math.random() < 0.35 * this.skill; return it; } }
+    if (o.punch && o.punch.phase !== 'recover' && gap < 90 && !o.punch.cpuSeen) { o.punch.cpuSeen = true; if (o.punch.kind === 'sweep') { if (Math.random() < 0.5 * this.skill) { it.jump = true; return it; } } else if (Math.random() < (0.25 + 0.6 * this.skill) * (me.def.giant || me.def.boss ? 0.82 : 1) && me.guard > 25) { this.braceT = 0.3 + 0.2 * this.skill; it.brace = true; it.braceTap = Math.random() < 0.35 * this.skill; return it; } }
     if (me.miniCD <= 0 && MINI[me.def.element] && Math.random() < dt * 1.4 * this.skill) { const rg = MINI[me.def.element].range; if (gap > rg[0] && gap < rg[1]) { it.mini = true; return it; } }
     if (gap > 240 && Math.random() < dt * 0.8) it.dash = toward;
     if (!o.onGround && o.launchT > 0 && gap < 70) { it.upper = true; return it; }
@@ -6876,6 +6956,7 @@ function startRound() {
   // first round: the camera tours the arena and the announcer calls both wrestlers (the giant boss keeps his sky-drop entrance)
   if (game.round === 1 && game.mode !== 'demo' && game.mode !== 'train' && !game.fighters.some(f => f.def.giant)) { game.state = 'pan'; game.pan = { t: 0, sub }; game.banner = null; Sfx.play('taiko', 1.2); Sfx.play('cheer', 0.8); }
   else banner('ROUND ' + game.round, sub, 1.4);
+  if (game.mode === 'train') { game.state = 'fight'; banner('DOJO', 'Practice freely', 1); }
 }
 const PAN_T = 11;
 let annVoice = null;
@@ -7046,7 +7127,7 @@ function enterFinish() {
   if (Math.abs(w.x - l.x) < 220) { const side = w.x <= l.x ? 1 : -1; l.x = clamp(w.x + side * 240, EDGE_L + 120, EDGE_R - 120); if (Math.abs(w.x - l.x) < 200) w.x = clamp(l.x - side * 240, EDGE_L + 120, EDGE_R - 120); }
   l.ko = false; l.dizzy = true; l.stun = 99; w.facing = sign(l.x - w.x); l.facing = -w.facing;
   game.state = 'finish'; game.finT = 0; game.cpuFat = false; game.slow = 1; game.dark = 0.6; game.projs = []; game.kittens = []; game.hz = [];
-  const key = touchMode && game.winner === 0 ? 'SPECIAL' : game.winner === 0 ? 'H' : ';';
+  const key = touchMode && game.winner === 0 ? 'SPECIAL' : keyLabel(CONTROLS[game.winner].special[0]);
   banner('FINISH THEM!', isHuman(game.winner) ? `Press ${key} for the fatality` : '', 0);
   Sfx.play('roar', 0.7);
 }
@@ -7058,7 +7139,7 @@ function startFatality() {
   w.noCollide = l.noCollide = 99; l.noDig = true; endSpecial(w); w.charging = false;
   game.dark = Math.max(game.dark, 0.6); game.cine = { c: ELEMENTS[w.def.element].color, t: 1, f: w };
   Sfx.play('taiko', 1.4); hype(1.2);
-  if (isHuman(game.winner) && !(game.winner === 1 && p2cpu)) bumpStat('fatalities');
+  if (isHuman(game.winner) && !(game.winner === 1 && p2cpu) && game.mode !== 'train') bumpStat('fatalities');
 }
 function showMatchEnd() {
   const w = game.winner, wf = game.fighters[w], lf = game.fighters[1 - w];
@@ -7376,7 +7457,7 @@ function step(dt, intents) {
   for (const f of game.fighters) f.hpLag += (f.hp - f.hpLag) * Math.min(1, dt * 2.2);
   if (game.mode === 'train') {
     for (const f of game.fighters) { if (f.sinceHit > 1.4 && f.hp < 100) f.hp = Math.min(100, f.hp + 80 * dt); f.sinceHit += 0; }
-    if (train.meter) { a.meter = 100; a.miniCD = 0; }
+    if (train.meter) { a.meter = 100; a.miniCD = 0; if (train.dummy === 3) { b.meter = 100; b.miniCD = 0; } }
     if (b.sinceHit > 1.2 && train.combo > 0) { train.last = train.combo; train.best = Math.max(train.best, train.combo); train.combo = 0; }
   }
   if (['ko', 'match', 'collapse'].includes(game.state) && game.winner >= 0 && game.fighters[game.winner]) emote(game.fighters[game.winner], dt);
@@ -7429,6 +7510,7 @@ function updateGame(rdt) {
     else if (game.colT < 1.2 && l.onGround && !l.inPit) { l.vy = -520; l.onGround = false; l.kbx = (l.x < W / 2 ? -1 : 1) * 520; l.kbT = 0.4; }
     if (game.colT > 2.4) { game.colThud = 0; afterReplay('match'); }
   }
+  if (game.state === 'fatality' && game.fat.done && game.mode === 'train') { game.fat.endT += rdt; if (game.fat.endT > 2) { startMatch(); refreshTrainUI(); } return; }
   if (game.state === 'fatality' && game.fat.done) { game.fat.endT += rdt; if (game.fat.el === 'god') { if (game.fat.endT > 0.6) { game.sunK = 0; game.sunFade = 0; tour.i = 0; tour.done = false; bumpStat('matches'); showScreen('title'); toast('The sun has fallen. Your tournament starts over.'); } } else if (game.fat.endT > 2.6) showMatchEnd(); }
   if (game.state === 'ending') {
     game.endT += rdt; if (game.endT > 14 || (game.endT > 3 && pressed.size)) { tour.done = false; tour.i = 0; showScreen('title'); }
@@ -7658,7 +7740,7 @@ function drawHUD(ctx) {
     const zap = full && Math.sin(amb.t * 10) > 0;
     drawLiquidBar(ctx, mx, my - 2, mw, 16, f.bars.sp, null, left, full ? { hi: zap ? '#ffffff' : '#c8f0ff', mid: '#3aa8ff', lo: '#0a2a8a', glow: '#3ab8ff', glowK: 14 + (zap ? 10 : 0), foam: '#ffffff' } : { hi: '#a8e8ff', mid: '#1a7cff', lo: '#06206a', glow: 'rgba(40,140,255,0.6)', glowK: 8 });
     if (full) barSparks(mx, my - 2, mw, 20, 'rgba(190,230,255,0.9)');
-    const human = !(i === 1 && p2cpu), key = touchMode && i === 0 ? 'SPECIAL' : i === 0 ? 'H' : ';';
+    const human = !(i === 1 && p2cpu), key = touchMode && i === 0 ? 'SPECIAL' : keyLabel(CONTROLS[i].special[0]);
     const hint = !human ? (full ? 'READY' : '') : full ? 'RELEASE ' + key : f.charging ? Math.floor(f.meter) + '%' : 'HOLD ' + key;
     hudLabel(E.move.toUpperCase() + (full ? '!' : ''), left ? mx + mw + 12 : mx - 12, my + 13, 21, full ? (Math.sin(amb.t * 10) > 0 ? '#ffffff' : '#8ad8ff') : '#8ac8ff', left, full ? '#3ab8ff' : null, hint);
     const gy = my + 20, gw = 200, gx = left ? x : x + bw - gw, gkey = touchMode && i === 0 ? 'BLOCK' : i === 0 ? 'S' : '↓';
@@ -7769,7 +7851,7 @@ function drawHUD(ctx) {
 // ---------------------------------------------------------------------------
 // Menu
 // ---------------------------------------------------------------------------
-const SCREENS = ['title', 'menu', 'stagesel', 'unlocks', 'moves'];
+const SCREENS = ['title', 'menu', 'stagesel', 'unlocks', 'moves', 'options'];
 const menu = document.getElementById('menu'), touchEl = document.getElementById('touch');
 const previews = [null, null];
 function statRow(label, pct, text) { return `<dt>${label}</dt><dd>${text != null ? text : `<div class="bar"><i style="width:${Math.round(clamp(pct, 0.05, 1) * 100)}%"></i></div>`}</dd>`; }
@@ -7873,6 +7955,7 @@ function showScreen(name) {
   if (name === 'menu') { applyMode(); refreshSlot(0); refreshSlot(1); }
   if (name === 'stagesel') setStage(selStage);
   if (name === 'unlocks') renderUnlocks();
+  if (name === 'options') { rebind = null; renderOptions(); }
   Sfx.quiet = false; Music.play('title');
   if (name === 'title') startDemo();
 }
@@ -7894,6 +7977,8 @@ function sayJP() {
 function goMode(mode) { game.mode = mode; Sfx.init(); sayJP(); Sfx.play('sumoCrowd', 1); Sfx.play('taiko', 1.2); activeSlot = 0; showScreen('menu'); }
 document.getElementById('goVersus').addEventListener('click', () => goMode('versus'));
 document.getElementById('goTrain').addEventListener('click', () => goMode('train'));
+document.getElementById('goOptions').addEventListener('click', () => { Sfx.init(); showScreen('options'); });
+document.getElementById('optReset').addEventListener('click', () => { DEFAULT_KEYS.forEach((m, p) => { for (const [a] of ACTIONS) setBinding(p, a, m[a]); }); saveBindings(); updateKeyHints(); renderOptions(); document.getElementById('optHint').textContent = 'Controls reset to defaults.'; });
 document.getElementById('goTour').addEventListener('click', () => goMode('tour'));
 document.getElementById('goUnlocks').addEventListener('click', () => showScreen('unlocks'));
 document.getElementById('goMoves').addEventListener('click', () => showScreen('moves'));
@@ -7902,23 +7987,39 @@ document.getElementById('fight').addEventListener('click', selectNext);
 document.getElementById('goFight').addEventListener('click', beginFight);
 function selectNext() { if (game.mode === 'tour') startTournament(); else if (game.mode === 'train') beginTraining(); else showScreen('stagesel'); }
 const train = { dummy: 0, meter: true, combo: 0, last: 0, best: 0 };
+const trainUI = document.getElementById('trainUI');
+function trainMoves(p) {
+  const f = game.fighters[p]; if (!f) return '';
+  const E = ELEMENTS[f.def.element], MM = MINI[f.def.element], SG = SIG[f.def.id], FN = FINISH[f.def.id], k = a => keyLabel(CONTROLS[p][a][0]);
+  const rows = [[k('left') + ' ' + k('right'), 'Move (double-tap to dash)'], [k('up'), 'Jump'], [k('down'), 'Block · tap to parry'], [k('punch'), 'Slap'], [k('shove'), 'Shove'], [k('upper'), 'Uppercut'], [k('sweep'), 'Sweep · in the air: belly flop'], [k('grab'), 'Grab, again to throw'], [k('mini'), 'Mini: ' + (MM ? MM.name : '—')], ['Hold ' + k('special'), 'Special: ' + E.move], [k('punch') + ' ' + k('punch') + ' ' + k('upper'), 'Combo: ' + (SG ? SG.name : 'Combo') + ' → ' + (FN ? FN[0] : 'Finisher')]];
+  return rows.map(([a, b]) => `<div><kbd>${a}</kbd><span>${b}</span></div>`).join('');
+}
+function refreshTrainUI() {
+  trainUI.querySelectorAll('[data-dm]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.dm === train.dummy));
+  document.getElementById('tMeter').textContent = 'Free meters: ' + (train.meter ? 'on' : 'off'); document.getElementById('tMeter').setAttribute('aria-pressed', train.meter);
+  document.getElementById('tFat1').hidden = train.dummy !== 3;
+  for (const p of [0, 1]) { const el = document.getElementById('tp' + p), f = game.fighters[p]; if (!f) continue; el.querySelector('.tname').textContent = (p ? 'P2 · ' : 'P1 · ') + f.def.name.toUpperCase(); el.querySelector('.tname').style.color = ELEMENTS[f.def.element].color; el.querySelector('.tbody').innerHTML = trainMoves(p); }
+  if (train.dummy !== 3) document.getElementById('tp1').hidden = true; else if (!train.closed1) document.getElementById('tp1').hidden = false;
+}
+function setDummy(n) { train.dummy = n; p2cpu = n !== 3; train.closed1 = false; refreshTrainUI(); toast(['Dummy stands still', 'Dummy holds block', 'Dummy fights back', 'Player 2 takes control'][n]); }
+function trainFatality(i) {
+  if (game.mode !== 'train' || game.state !== 'fight' || game.fighters.length < 2) return;
+  game.winner = i; game.wins = [i === 0 ? 2 : 0, i === 1 ? 2 : 0]; enterFinish(); startFatality();
+}
+trainUI.querySelectorAll('[data-dm]').forEach(b => b.addEventListener('click', e => { setDummy(+b.dataset.dm); b.blur(); }));
+document.getElementById('tMeter').addEventListener('click', e => { train.meter = !train.meter; refreshTrainUI(); e.currentTarget.blur(); });
+document.getElementById('tFat0').addEventListener('click', e => { trainFatality(0); e.currentTarget.blur(); });
+document.getElementById('tFat1').addEventListener('click', e => { trainFatality(1); e.currentTarget.blur(); });
+document.getElementById('tShow').addEventListener('click', e => { train.closed1 = false; for (const p of [0, 1]) { const el = document.getElementById('tp' + p); el.hidden = p === 1 && train.dummy !== 3; el.classList.remove('min'); } e.currentTarget.blur(); });
+for (const p of [0, 1]) { const el = document.getElementById('tp' + p); el.querySelector('.tmin').addEventListener('click', e => { el.classList.toggle('min'); e.currentTarget.blur(); }); el.querySelector('.tclose').addEventListener('click', e => { el.hidden = true; if (p === 1) train.closed1 = true; e.currentTarget.blur(); }); }
 function beginTraining() {
   Sfx.init(); hideScreens(); game.mode = 'train'; p2cpu = true; stage = STAGES.find(s => s.id === 'bamboo') || STAGES[0]; buildLayers(); initAmbient();
-  game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[1]; train.combo = 0; train.last = 0; train.best = 0; startMatch();
+  game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[1]; train.combo = 0; train.last = 0; train.best = 0; p2cpu = train.dummy !== 3; startMatch();
+  document.getElementById('tp0').hidden = false; refreshTrainUI();
 }
 function drawTrainPanel(ctx) {
-  const [a, b] = game.fighters; if (!a) return;
-  ctx.save(); rrect(ctx, W / 2 - 300, 150, 600, 64, 10); ctx.fillStyle = 'rgba(8,4,16,0.72)'; ctx.fill(); ctx.strokeStyle = '#ffd23a'; ctx.lineWidth = 2; ctx.stroke();
-  ctx.textAlign = 'center'; ctx.font = '22px Bangers, Impact, sans-serif'; ctx.fillStyle = '#ffd23a'; ctx.fillText('TRAINING DOJO', W / 2, 174);
-  ctx.font = '700 14px "Barlow Condensed", sans-serif'; const modes = ['1 IDLE', '2 BLOCK', '3 FIGHT BACK']; let x = W / 2 - 230;
-  modes.forEach((m, i) => { ctx.fillStyle = train.dummy === i ? '#7aff8a' : '#a9a0c0'; ctx.fillText(m, x + i * 110, 198); });
-  ctx.fillStyle = train.meter ? '#7aff8a' : '#a9a0c0'; ctx.fillText('4 FREE METERS ' + (train.meter ? 'ON' : 'OFF'), W / 2 + 150, 198);
-  ctx.fillStyle = '#ffffff'; ctx.fillText(`COMBO ${train.combo.toFixed(1)}  ·  LAST ${train.last.toFixed(1)}  ·  BEST ${train.best.toFixed(1)}`, W / 2, 238);
-  const E = ELEMENTS[a.def.element], MM = MINI[a.def.element], SG = SIG[a.def.id], FN = FINISH[a.def.id];
-  const rows = [['F', 'Slap'], ['R', 'Shove'], ['T', 'Uppercut'], ['V', 'Sweep (in air: belly flop)'], ['G', 'Grab, then G to throw'], ['S', 'Block (tap to parry)'], ['W', 'Jump'], ['E', 'Mini: ' + (MM ? MM.name : '—')], ['Hold H', 'Special: ' + E.move], ['F F T', 'Combo: ' + (SG ? SG.name : 'Combo') + ' → ' + (FN ? FN[0] : 'Finisher')]];
-  rrect(ctx, 20, 300, 300, rows.length * 22 + 36, 10); ctx.fillStyle = 'rgba(8,4,16,0.7)'; ctx.fill(); ctx.strokeStyle = 'rgba(255,210,60,0.6)'; ctx.stroke();
-  ctx.textAlign = 'left'; ctx.font = '20px Bangers, Impact, sans-serif'; ctx.fillStyle = E.color; ctx.fillText(a.def.name.toUpperCase() + ' MOVES', 34, 324);
-  ctx.font = '600 14px "Barlow Condensed", sans-serif'; rows.forEach(([k, t2], i) => { ctx.fillStyle = '#ffd23a'; ctx.fillText(k, 34, 348 + i * 22); ctx.fillStyle = '#e8e0f0'; ctx.fillText(t2, 96, 348 + i * 22); });
+  ctx.save(); ctx.textAlign = 'center'; ctx.font = '700 16px "Barlow Condensed", sans-serif'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.fillStyle = '#ffffff';
+  const t = `COMBO ${train.combo.toFixed(1)}  ·  LAST ${train.last.toFixed(1)}  ·  BEST ${train.best.toFixed(1)}`; ctx.strokeText(t, W / 2, 240); ctx.fillText(t, W / 2, 240);
   ctx.restore();
 }
 function beginFight() { Sfx.init(); game.mode = 'versus'; p2cpu = savedCpu; hideScreens(); game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[cpuLevel]; startMatch(); }
@@ -8011,6 +8112,7 @@ soundBtn.addEventListener('click', () => { Sfx.init(); toggleSound(); if (!Sfx.m
 let last = performance.now();
 function frame(now) {
   const rdt = Math.min(0.05, (now - last) / 1000); last = now; game.frameDt = game.paused ? 0 : rdt;
+  const tOn = game.mode === 'train' && !game.screen && !game.paused && game.fighters.length === 2; if (trainUI.hidden === tOn) trainUI.hidden = !tOn;
   pollPads();
   if (!game.paused) ambientUpdate(rdt);
   if (game.paused) { pressed.clear(); released.clear(); }
@@ -8021,7 +8123,7 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 function boot() {
-  resize(); setCpu(p2cpu); setLevel(cpuLevel); setStage(selStage); paintPortraits(); showScreen('title'); makeStageThumbs();
+  resize(); updateKeyHints(); setCpu(p2cpu); setLevel(cpuLevel); setStage(selStage); paintPortraits(); showScreen('title'); makeStageThumbs();
   last = performance.now(); requestAnimationFrame(frame);
 }
 const fontsReady = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('50px Bangers'), document.fonts.load('600 16px "Barlow Condensed"'), document.fonts.load('700 40px Cinzel')]) : Promise.resolve();
