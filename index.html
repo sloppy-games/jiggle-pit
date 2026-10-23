@@ -123,8 +123,11 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 @media (max-width: 640px) { .opt-grid { grid-template-columns: 1fr; } }
 #trainUI[hidden] { display: none; }
 #trainUI { position: fixed; inset: 0; z-index: 4; pointer-events: none; font-family: var(--font-body); }
-#trainUI .tbar { position: absolute; left: 50%; top: 150px; transform: translateX(-50%); display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; pointer-events: auto; background: rgba(8,4,16,0.78); border: 2px solid #ffd23a; border-radius: 10px; padding: 6px 10px; max-width: calc(100vw - 32px); }
-#trainUI .tlab { font-family: var(--font-display); color: #ffd23a; font-size: 18px; letter-spacing: 0.06em; margin-right: 2px; }
+#trainUI .tbar { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; align-items: center; pointer-events: auto; background: rgba(8,4,16,0.62); border: 1px solid rgba(255,210,58,0.55); border-radius: 8px; padding: 4px 6px; max-width: calc(100vw - 32px); opacity: 0.55; transition: opacity 0.2s; }
+#trainUI .tbar:hover, #trainUI .tbar:focus-within { opacity: 1; }
+#trainUI .tbar.min > :not(.tlab):not(#tHide) { display: none; }
+#trainUI .tbar button { font-size: 12px; padding: 2px 7px; }
+#trainUI .tlab { font-family: var(--font-display); color: #ffd23a; font-size: 14px; letter-spacing: 0.06em; margin-right: 2px; }
 #trainUI button { border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); color: #e8e0f0; border-radius: 6px; padding: 3px 9px; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; }
 #trainUI button[aria-pressed="true"] { background: #7aff8a; color: #08200a; border-color: #7aff8a; }
 #trainUI button.fat { border-color: #ff3b4a; color: #ffb0b8; }
@@ -137,7 +140,7 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #trainUI .tpanel.min .tbody { display: none; }
 #trainUI .tbody { padding: 6px 10px 10px; font-size: 14px; line-height: 1.45; }
 #trainUI .tbody div { display: flex; gap: 10px; } #trainUI .tbody kbd { min-width: 64px; color: #ffd23a; font-family: var(--font-body); font-weight: 700; }
-@media (max-width: 900px) { #trainUI .tpanel { top: auto; bottom: 120px; width: 240px; } #trainUI .tbar { top: 110px; } }
+@media (max-width: 900px) { #trainUI .tpanel { top: auto; bottom: 120px; width: 240px; } #trainUI .tbar { bottom: 6px; } }
 #menu .screen-head .step, #stagesel .screen-head .step { visibility: hidden; }
 #touch {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 4; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px;
@@ -489,6 +492,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <button type="button" id="tMeter">Free meters: on</button>
     <button type="button" id="tFat0" class="fat">P1 fatality</button><button type="button" id="tFat1" class="fat">P2 fatality</button>
     <button type="button" id="tShow">Show moves</button>
+    <button type="button" id="tHide" aria-label="Collapse dummy menu">▾</button>
   </div>
   <section class="tpanel" id="tp0"><header><b class="tname"></b><span><button type="button" class="tmin" aria-label="Minimize">—</button><button type="button" class="tclose" aria-label="Close">×</button></span></header><div class="tbody"></div></section>
   <section class="tpanel right" id="tp1"><header><b class="tname"></b><span><button type="button" class="tmin" aria-label="Minimize">—</button><button type="button" class="tclose" aria-label="Close">×</button></span></header><div class="tbody"></div></section>
@@ -8012,6 +8016,7 @@ trainUI.querySelectorAll('[data-dm]').forEach(b => b.addEventListener('click', e
 document.getElementById('tMeter').addEventListener('click', e => { train.meter = !train.meter; refreshTrainUI(); e.currentTarget.blur(); });
 document.getElementById('tFat0').addEventListener('click', e => { trainFatality(0); e.currentTarget.blur(); });
 document.getElementById('tFat1').addEventListener('click', e => { trainFatality(1); e.currentTarget.blur(); });
+document.getElementById('tHide').addEventListener('click', e => { const bar = e.currentTarget.parentElement, m = bar.classList.toggle('min'); e.currentTarget.textContent = m ? '▸' : '▾'; e.currentTarget.setAttribute('aria-label', m ? 'Expand dummy menu' : 'Collapse dummy menu'); e.currentTarget.blur(); });
 document.getElementById('tShow').addEventListener('click', e => { train.closed1 = false; for (const p of [0, 1]) { const el = document.getElementById('tp' + p); el.hidden = p === 1 && train.dummy !== 3; el.classList.remove('min'); } e.currentTarget.blur(); });
 for (const p of [0, 1]) { const el = document.getElementById('tp' + p); el.querySelector('.tmin').addEventListener('click', e => { el.classList.toggle('min'); e.currentTarget.blur(); }); el.querySelector('.tclose').addEventListener('click', e => { el.hidden = true; if (p === 1) train.closed1 = true; e.currentTarget.blur(); }); }
 function beginTraining() {
@@ -8021,7 +8026,7 @@ function beginTraining() {
 }
 function drawTrainPanel(ctx) {
   ctx.save(); ctx.textAlign = 'center'; ctx.font = '700 16px "Barlow Condensed", sans-serif'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.fillStyle = '#ffffff';
-  const t = `COMBO ${train.combo.toFixed(1)}  ·  LAST ${train.last.toFixed(1)}  ·  BEST ${train.best.toFixed(1)}`; ctx.strokeText(t, W / 2, 240); ctx.fillText(t, W / 2, 240);
+  const t = `COMBO ${train.combo.toFixed(1)}  ·  LAST ${train.last.toFixed(1)}  ·  BEST ${train.best.toFixed(1)}`; ctx.strokeText(t, W / 2, 172); ctx.fillText(t, W / 2, 172);
   ctx.restore();
 }
 function beginFight() { Sfx.init(); game.mode = 'versus'; p2cpu = savedCpu; hideScreens(); game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[cpuLevel]; startMatch(); }
