@@ -535,14 +535,15 @@ const ELEMENTS = {
   axe:       { label: 'Axe',       move: 'Axe Storm',         color: '#ff8a3a', desc: 'Fifty spinning axes fly across the ring for two seconds. <strong>Block to weather the storm.</strong>' },
   bubble:    { label: 'Bubble',    move: 'Bubble Prison',     color: '#8ae8ff', desc: 'A giant bubble swallows the opponent, floats them helplessly into the air for a second, then pops. <strong>Block to burst it early.</strong>' },
   sumo:      { label: 'Sumo',      move: 'Hip Drop Press',    color: '#f4f0ff', desc: 'Leaps off the top of the screen and lands bottom-first, squashing the opponent flat for a second. <strong>Move out of the shadow.</strong>' },
+  spider:    { label: 'Spider',    move: 'Brood Swarm',       color: '#a05aff', desc: 'Hundreds of tiny spiders pour over the opponent and bite for two seconds, then the big one sinks its fangs in. <strong>Block to brush most of them off.</strong>' },
   god:       { label: 'Divine',    move: 'Heaven Stomp',      color: '#ffd23a', desc: 'The final boss. One stomp shakes the whole mountain.' },
   boss:      { label: 'Primal',    move: 'Extinction Roar',   color: '#ffae1a', desc: 'A roar that freezes the opponent in terror, then a lunging bite. <strong>The tournament boss.</strong>' },
 };
 
 const ROSTER = [
-  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.85, power: 1.52, jiggle: 12, element: 'earth',
+  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.85, power: 1.42, jiggle: 12, element: 'earth',
     skin: '#f4b48a', skinDark: '#cc8256', belt: '#2846c8', hair: '#14100c', hairStyle: 'knot', fluid: '#d1121e', fluidName: 'Blood' },
-  { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.22, power: 0.95, jiggle: 19, element: 'teleport',
+  { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.22, power: 1.06, jiggle: 19, element: 'teleport',
     skin: '#ffe2d2', skinDark: '#eaa98c', belt: '#ff3d8b', hair: '#2a1a12', hairStyle: 'knot', fluid: '#7dff2a', fluidName: 'Neon goo' },
   { id: 'rex',     name: 'Chonkasaurus',    mass: 148, size: 70, speed: 0.98, power: 0.94, jiggle: 15, element: 'fire',
     skin: '#8fd14f', skinDark: '#56903a', belt: '#ffb21a', hair: null, hairStyle: 'none', fluid: '#a24bff', fluidName: 'Purple goo', tail: true },
@@ -554,17 +555,17 @@ const ROSTER = [
     skin: '#ffcf96', skinDark: '#dc9a64', belt: '#18181c', hair: '#ffe23a', hairStyle: 'spiky', fluid: '#22e8ff', fluidName: 'Plasma goo' },
   { id: 'taro',    name: 'Typhoon Taro',    mass: 108, size: 60, speed: 1.18, power: 1.12, jiggle: 17, element: 'wind',
     skin: '#e8b490', skinDark: '#bf8662', belt: '#0fa89a', hair: '#10201e', hairStyle: 'band', fluid: '#e0141e', fluidName: 'Blood' },
-  { id: 'kuro',    name: 'Cosmo Kuro',      mass: 156, size: 72, speed: 1.08, power: 1.28, jiggle: 13, element: 'gravity',
+  { id: 'kuro',    name: 'Cosmo Kuro',      mass: 156, size: 72, speed: 1.08, power: 1.35, jiggle: 13, element: 'gravity',
     skin: '#6d5ce0', skinDark: '#3e2f9a', belt: '#ff4fd8', hair: '#0a0620', hairStyle: 'knot', fluid: '#ff4fd8', fluidName: 'Stardust', stars: true },
   { id: 'mecha',   name: 'Mecha-Zeki',      mass: 190, size: 76, speed: 0.78, power: 1.15, jiggle: 26, element: 'machine',
     skin: '#a8b8c8', skinDark: '#5a6a7a', belt: '#ff8a1a', hair: null, hairStyle: 'none', fluid: '#16120e', fluidName: 'Engine oil', look: 'robot', traits: { armor: 0.85 } },
-  { id: 'ghost',   name: 'Boo-Zeki',        mass: 110, size: 64, speed: 1.10, power: 0.95, jiggle: 14, element: 'ghost',
+  { id: 'ghost',   name: 'Boo-Zeki',        mass: 110, size: 64, speed: 1.10, power: 1.0, jiggle: 14, element: 'ghost',
     skin: '#e4fff8', skinDark: '#8adcc8', belt: '#3a2a5a', hair: null, hairStyle: 'none', fluid: '#8affe8', fluidName: 'Ectoplasm', look: 'ghost', traits: { phase: 0.2, float: 0.6 } },
   { id: 'stitches', name: 'Stitches',       mass: 158, size: 72, speed: 0.92, power: 1.08, jiggle: 11, element: 'horror',
     skin: '#b8c0a8', skinDark: '#6a7460', belt: '#2a0a0e', hair: '#1a1a1a', hairStyle: 'none', fluid: '#3a0006', fluidName: 'Black blood', look: 'horror', traits: { leech: 0.25 } },
-  { id: 'kiki',    name: 'Kiki Puff',       mass: 84,  size: 54, speed: 1.34, power: 0.98, jiggle: 21, element: 'heart',
+  { id: 'kiki',    name: 'Kiki Puff',       mass: 84,  size: 54, speed: 1.34, power: 1.06, jiggle: 21, element: 'heart',
     skin: '#ffffff', skinDark: '#ffd0e4', belt: '#ff4fa0', hair: null, hairStyle: 'none', bow: '#ff2f6a', fluid: '#ff7ad0', fluidName: 'Glitter', look: 'cat', traits: { bounce: 1, wings: 'angel' } },
-  { id: 'momo',    name: 'Momo Nyan',       mass: 88,  size: 55, speed: 1.30, power: 0.9, jiggle: 20, element: 'kitten',
+  { id: 'momo',    name: 'Momo Nyan',       mass: 88,  size: 55, speed: 1.30, power: 0.98, jiggle: 20, element: 'kitten',
     skin: '#fff4e0', skinDark: '#f0c890', belt: '#3aa8ff', hair: null, hairStyle: 'none', bow: '#3a7aff', fluid: '#7ad7ff', fluidName: 'Sprinkles', look: 'cat', headCol: '#1c1a22', traits: { feet: 0.5 } },
   { id: 'goro',    name: 'Ikari Goro',      mass: 150, size: 70, speed: 0.97, power: 0.74, jiggle: 13, element: 'rage',
     skin: '#ff9a7a', skinDark: '#c85a40', belt: '#1a1a1a', hair: '#1a0a06', hairStyle: 'knot', fluid: '#e0141e', fluidName: 'Blood', look: 'angry', traits: { rage: 0.22 } },
@@ -574,11 +575,11 @@ const ROSTER = [
     skin: '#5a9a3a', skinDark: '#24481a', belt: '#e0a020', hair: null, hairStyle: 'none', fluid: '#c8ff3a', fluidName: 'Green ichor', look: 'bug', traits: { armor: 0.9, grip: true }, voice: { p: 820, t: 'bug' } },
   { id: 'talon',   name: 'Talon Tengu',     mass: 96,  size: 58, speed: 1.26, power: 1.2, jiggle: 18, element: 'sky',
     skin: '#f4f0e4', skinDark: '#b8ae98', belt: '#d02a2a', hair: null, hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'bird', traits: { float: 0.72, glide: true }, voice: { p: 680, t: 'bird' } },
-  { id: 'mitsu',   name: 'Mitsume',         mass: 172, size: 78, speed: 0.86, power: 1.38, jiggle: 11, element: 'eye',
+  { id: 'mitsu',   name: 'Mitsume',         mass: 172, size: 78, speed: 0.86, power: 1.3, jiggle: 11, element: 'eye',
     skin: '#8a6ad8', skinDark: '#45348a', belt: '#ffd23a', hair: null, hairStyle: 'none', fluid: '#3ad0ff', fluidName: 'Blue blood', look: 'cyclops', traits: { foresight: 0.15 }, voice: { p: 82, t: 'deep' } },
   { id: 'hexa',    name: 'Madam Hexa',      mass: 104, size: 60, speed: 1.08, power: 0.8, jiggle: 17, element: 'hex',
     skin: '#9ad07a', skinDark: '#548a44', belt: '#3a0a5a', hair: '#2a1a3a', hairStyle: 'none', fluid: '#7aff3a', fluidName: 'Bog water', look: 'witch', traits: { float: 0.78 }, voice: { p: 330, t: 'witch' } },
-  { id: 'ashura',  name: 'Ashura Kong',     mass: 225, size: 86, speed: 0.76, power: 0.9, jiggle: 10, element: 'titan', arms: 4,
+  { id: 'ashura',  name: 'Ashura Kong',     mass: 225, size: 86, speed: 0.76, power: 0.85, jiggle: 10, element: 'titan', arms: 4,
     skin: '#5ab04a', skinDark: '#2a6a2a', belt: '#7a2aa8', hair: '#14200f', hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'hulk', traits: { armor: 0.92 }, voice: { p: 64, t: 'monster' } },
   { id: 'pom',     name: 'Pudding Pom',     mass: 112, size: 60, speed: 1.26, power: 1.55, jiggle: 7, element: 'jelly',
     skin: '#ffe28a', skinDark: '#e0a040', belt: '#ff6ab0', hair: null, hairStyle: 'none', fluid: '#ff7ab8', fluidName: 'Strawberry syrup', look: 'pudding', traits: { kbResist: 0.7 }, voice: { p: 430, t: 'jelly' } },
@@ -588,11 +589,11 @@ const ROSTER = [
     skin: '#8a5aa8', skinDark: '#45285e', belt: '#ff3a6a', hair: null, hairStyle: 'none', fluid: '#ff6af0', fluidName: 'Ichor', look: 'eyes', traits: { allSeeing: true }, voice: { p: 118, t: 'monster' } },
   { id: 'namazu',  name: 'Namazu',          mass: 146, size: 70, speed: 1.00, power: 1.1, jiggle: 12, element: 'water',
     skin: '#5a8ab0', skinDark: '#2a4a6a', belt: '#ffd23a', hair: null, hairStyle: 'none', fluid: '#bff4ff', fluidName: 'Fish juice', look: 'fish', traits: { slick: 0.5 }, voice: { p: 170, t: 'jelly' } },
-  { id: 'shiba',   name: 'Shiba-Zeki',      mass: 104,  size: 58, speed: 1.30, power: 1.0, jiggle: 18, element: 'dog',
-    skin: '#e8a050', skinDark: '#b06a2a', belt: '#3a7aff', hair: null, hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'dog', traits: { zoom: true }, voice: { p: 470, t: 'dog' } },
+  { id: 'kumo',    name: 'Kumo-Zeki',       mass: 118, size: 62, speed: 1.2, power: 1.1, jiggle: 16, element: 'spider',
+    skin: '#3a2a4a', skinDark: '#1a1024', belt: '#c0141e', hair: null, hairStyle: 'none', fluid: '#7aff3a', fluidName: 'Green venom', look: 'spider', traits: { grip: true }, voice: { p: 420, t: 'bug' } },
   { id: 'morgana', name: 'Mother Morgana',  mass: 128, size: 62, speed: 1.12, power: 1.3, jiggle: 16, element: 'occult',
     skin: '#c8c0d8', skinDark: '#7a6a90', belt: '#8a0a1a', hair: '#0a0410', hairStyle: 'none', fluid: '#2a0006', fluidName: 'Black bile', look: 'occult', traits: { float: 0.82 }, voice: { p: 235, t: 'witch' } },
-  { id: 'barnacle', name: "Cap'n Barnacle", mass: 166, size: 74, speed: 0.92, power: 1.34, jiggle: 14, element: 'pirate',
+  { id: 'barnacle', name: "Cap'n Barnacle", mass: 166, size: 74, speed: 0.92, power: 1.42, jiggle: 14, element: 'pirate',
     skin: '#e8b48a', skinDark: '#b07a54', belt: '#1a1a1a', hair: '#c8501a', hairStyle: 'none', beard: true, fluid: '#c4102a', fluidName: 'Rum and blood', look: 'pirate', hook: true, traits: { grip: true }, voice: { p: 100, t: 'deep' } },
   { id: 'lardalot', name: 'Sir Lardalot',   mass: 176, size: 76, speed: 0.9, power: 0.88, jiggle: 12, element: 'knight',
     skin: '#f0c0a0', skinDark: '#c08a6a', belt: '#2a4ac8', hair: null, hairStyle: 'none', fluid: '#2a5aff', fluidName: 'Blue blood', look: 'knight', traits: { armor: 0.93 }, voice: { p: 125, t: 'human' } },
@@ -600,7 +601,7 @@ const ROSTER = [
     skin: '#e8a878', skinDark: '#b07448', belt: '#2a2a2a', hair: '#2a1a0e', hairStyle: 'none', beard: true, fluid: '#c4102a', fluidName: 'Blood', look: 'lumber', traits: { kbResist: 0.85 }, voice: { p: 95, t: 'deep' } },
   { id: 'bubba', name: 'Bubba Bubbles',    mass: 120, size: 66, speed: 1.1, power: 1.05, jiggle: 22, element: 'bubble',
     skin: '#bfe8ff', skinDark: '#6aaed8', belt: '#ff6ab0', hair: null, hairStyle: 'none', fluid: '#e0f8ff', fluidName: 'Soap suds', look: 'bubble', traits: { float: 0.85 }, voice: { p: 300, t: 'jelly' } },
-  { id: 'dosukoi', name: 'Ozeki Dosukoi',  mass: 235, size: 90, speed: 0.76, power: 0.95, jiggle: 11, element: 'sumo',
+  { id: 'dosukoi', name: 'Ozeki Dosukoi',  mass: 235, size: 90, speed: 0.76, power: 0.88, jiggle: 11, element: 'sumo',
     skin: '#f6c8a4', skinDark: '#c88a64', belt: '#5a2a8a', hair: '#120c08', hairStyle: 'knot', fluid: '#c4102a', fluidName: 'Blood', look: 'sumo', traits: { kbResist: 0.72 }, voice: { p: 80, t: 'deep' } },
   { id: 'kongo',   name: 'Kongō the Colossus', mass: 1800, size: 165, speed: 1.25, power: 0.72, jiggle: 8, element: 'god',
     skin: '#b8904a', skinDark: '#6a4a22', belt: '#ffffff', hair: '#2a1a0a', hairStyle: 'knot', fluid: '#ffd23a', fluidName: 'Molten gold', look: 'nio', hidden: true, giant: true, traits: { armor: 0.5 }, voice: { p: 42, t: 'monster' } },
@@ -613,7 +614,7 @@ for (const r of ROSTER) if (!r.voice) r.voice = VOICE_OF[r.id];
 const VOICE_X = { tonka: { v: ['o', 'u'], x: 'thud' }, mochi: { v: ['i', 'e'], x: 'squeak' }, rex: { x: 'growl' }, wobbles: { vib: 9, vibD: 0.14 }, tomo: { v: ['o', 'a'], x: 'burp' },
   sparky: { x: 'zap' }, taro: { breath: 0.7, x: 'wind' }, kuro: { x: 'echo' }, mecha: { x: 'clank' }, ghost: { x: 'whoosh' }, stitches: { x: 'growl', v: ['o', 'u'] }, kiki: { x: 'chime' },
   momo: { x: 'squeak' }, goro: { dist: 14, v: ['a', 'a'] }, rexzuna: { x: 'growl' }, buzz: { x: 'buzz' }, talon: { x: 'flap' }, mitsu: { v: ['o', 'u'], x: 'laser' }, hexa: { x: 'sparkle' },
-  ashura: { dist: 10, x: 'thud' }, pom: { x: 'boing' }, drac: { x: 'screech' }, hyakume: { x: 'gurgle' }, namazu: { x: 'splash' }, shiba: { x: 'squeak' }, kongo: { x: 'gong' },
+  ashura: { dist: 10, x: 'thud' }, pom: { x: 'boing' }, drac: { x: 'screech' }, hyakume: { x: 'gurgle' }, namazu: { x: 'splash' }, shiba: { x: 'squeak' }, kumo: { x: 'screech', vib: 18, vibD: 0.08 }, kongo: { x: 'gong' },
   morgana: { x: 'growl', dist: 6, v: ['a', 'o'] }, barnacle: { x: 'splash', v: ['a', 'o'], vib: 6, vibD: 0.08 }, lardalot: { x: 'clank', v: ['o', 'a'] },
   harada: { x: 'thud', v: ['o', 'a'], dist: 6 }, bubba: { x: 'boing', vib: 12, vibD: 0.16 }, dosukoi: { x: 'thud', v: ['o', 'u'], dist: 8 } };
 for (const r of ROSTER) r.voice = Object.assign({}, r.voice, VOICE_X[r.id] || {});
@@ -626,7 +627,7 @@ const TRAITS = {
   goro: 'Hits up to 22% harder as his health drops.', buzz: 'Exoskeleton: 10% less damage, and claws that grip the edge.', talon: 'Hollow bones: floaty jumps and a second flap in mid-air.',
   mitsu: 'Sees it coming: one in seven frontal slaps is blocked automatically.', hexa: 'Broomstick hops: floats on every jump.', ashura: 'Four arms: slaps rotate through all of them, and he has more to lose.',
   pom: 'Pure custard: shrugs off 30% of all knockback.', hyakume: 'All-seeing: blocks from behind as well as in front.', namazu: 'Slippery skin: half of all grabs slide right off.',
-  shiba: 'Zoomies: dashes with almost no cooldown.', morgana: 'Broom-light: floats on every jump, and her hexes burn.', barnacle: 'Hook hand: claws onto the ring edge when shoved.', lardalot: 'Plate armour: takes 7% less damage.', harada: 'Thick as an oak: shrugs off 15% of knockback.', bubba: 'Full of air: floaty jumps and an extra-wobbly belly.', dosukoi: 'A true ozeki: shrugs off 28% of knockback.', kongo: 'A temple guardian the size of a house. Cannot be grabbed, shrugs off hit-stun and takes half damage.', drac: 'Drinks from every hit (heals 8%), and bat wings glide for 2.5 seconds (hold jump while falling).', rexzuna: 'Armoured hide: 20% less damage. Unlocked by winning the tournament.',
+  shiba: 'Zoomies: dashes with almost no cooldown.', kumo: 'Eight sticky legs: claws onto the ring edge when shoved.', morgana: 'Broom-light: floats on every jump, and her hexes burn.', barnacle: 'Hook hand: claws onto the ring edge when shoved.', lardalot: 'Plate armour: takes 7% less damage.', harada: 'Thick as an oak: shrugs off 15% of knockback.', bubba: 'Full of air: floaty jumps and an extra-wobbly belly.', dosukoi: 'A true ozeki: shrugs off 28% of knockback.', kongo: 'A temple guardian the size of a house. Cannot be grabbed, shrugs off hit-stun and takes half damage.', drac: 'Drinks from every hit (heals 8%), and bat wings glide for 2.5 seconds (hold jump while falling).', rexzuna: 'Armoured hide: 20% less damage. Unlocked by winning the tournament.',
 };
 
 // belt: null uses the fighter's signature color. alt is the pattern's second color.
@@ -1129,7 +1130,7 @@ for (const id in STAGE_SONGS) SONGS['st_' + id] = makeSong(STAGE_SONGS[id]);
 // velocity-controlled hands. Every move steers velocity toward a target
 // through an acceleration limit instead of teleporting positions.
 // ---------------------------------------------------------------------------
-const CUSTOM_HEADS = new Set(['robot', 'cat', 'ghost', 'horror', 'bug', 'bird', 'cyclops', 'witch', 'hulk', 'pudding', 'vampire', 'eyes', 'fish', 'dog', 'nio', 'knight']);
+const CUSTOM_HEADS = new Set(['robot', 'cat', 'ghost', 'horror', 'bug', 'bird', 'cyclops', 'witch', 'hulk', 'pudding', 'vampire', 'eyes', 'fish', 'dog', 'nio', 'knight', 'spider']);
 class Fighter {
   constructor(def, idx, costume) {
     this.def = def; this.idx = idx; this.mass = def.mass; this.r = def.size; this.costume = costume || COSTUMES[0];
@@ -1215,7 +1216,8 @@ class Fighter {
     if (it.grab && !this.holding) this.grabBuf = 0.2;
     for (const k of ['shoveBuf', 'upperBuf', 'sweepBuf', 'miniBuf']) this[k] = Math.max(0, this[k] - dt);
     if (it.shove) this.shoveBuf = 0.2; if (it.upper) this.upperBuf = 0.2; if (it.sweep) this.sweepBuf = 0.2; if (it.mini) this.miniBuf = 0.2;
-    this.miniCD = Math.max(0, this.miniCD - dt); this.chainT = Math.max(0, this.chainT - dt); if (this.chainT <= 0) this.slapChain = 0;
+    this.nrT = Math.max(0, (this.nrT || 0) - dt); if (it.mini && this.miniCD > 0 && fighting && this.nrT <= 0 && !(this.idx === 1 && p2cpu)) { this.nrT = 0.8; addText('MINI NOT READY: LAND OR TAKE HITS', this.x, this.y - r * 2, '#7ad88a', 20); Sfx.play('clang', 0.15); }
+    this.chainT = Math.max(0, this.chainT - dt); if (this.chainT <= 0) this.slapChain = 0;
     this.parryT = Math.max(0, this.parryT - dt); if (it.braceTap) this.parryT = 0.22;
     this.counterT = Math.max(0, (this.counterT || 0) - dt);
     this.shieldFlash = Math.max(0, this.shieldFlash - dt * 3); this.dashCD -= dt; this.dashT = Math.max(0, this.dashT - dt); this.launchT = Math.max(0, this.launchT - dt); this.spinT = Math.max(0, this.spinT - dt);
@@ -1238,7 +1240,7 @@ class Fighter {
     if (this.hasteT > 0) this.hasteT -= dt;
     if (this.sizeT > 0) { this.sizeT -= dt; if (this.sizeT <= 0) { this.setSize(1); puff(this.x, this.y, '200,160,255'); Sfx.play('boing', 1); } }
     if (fighting && !this.ko) {
-      addMeter(this, 1.3 * dt); this.aliveT += dt; this.sinceHit += dt;
+      this.aliveT += dt; this.sinceHit += dt;
       // the longer you survive, the faster (still slow) you heal once you stop taking hits
       if (this.sinceHit > 3 && this.burnT <= 0 && this.hp < 100) this.hp = Math.min(100, this.hp + (0.15 + 0.6 * Math.min(1, this.aliveT / 60)) * dt);
     }
@@ -1373,7 +1375,7 @@ class Fighter {
     if (this.onGround) this.dbl = false;
     else if (free && it.jump && d.traits && d.traits.glide && !this.dbl && !this.sp) { this.dbl = true; this.vy = -720; this.flapT = 0.4; Sfx.play('flap', 1); for (let k = 0; k < 8; k++) game.particles.push({ k: 'feather', x: this.x + rand(-r, r), y: this.y, vx: rand(-120, 120), vy: rand(0, 120), rot: rand(0, 6), life: 1.2, c: d.skin }); }
     if (free && it.jump && this.onGround && !this.punch && !this.grab && !this.holding && !this.sp) {
-      const jh = 150 * Math.pow(100 / m, 0.9) * (legs === 2 ? 1 : legs === 1 ? 0.7 : 0.4) * (d.traits && d.traits.bounce ? 1.35 : 1);
+      const jh = 175 * Math.pow(100 / m, 0.9) * (legs === 2 ? 1 : legs === 1 ? 0.7 : 0.4) * (d.traits && d.traits.bounce ? 1.35 : 1);
       this.vy = -Math.sqrt(2 * this.g * jh); this.onGround = false; this.squash = -0.3; Sfx.play('boing', 0.8 * Math.sqrt(100 / m) + 0.2);
     }
 
@@ -1631,6 +1633,7 @@ class Fighter {
     else if (d.traits && d.traits.wings) this.drawGlideWings(ctx, d.traits.wings);
     if (d.look === 'vampire') this.drawCape(ctx);
     if (d.look === 'bug') this.drawBugLegs(ctx);
+    if (d.look === 'spider') this.drawSpiderLegs(ctx);
     if (d.look === 'nio') this.drawHalo(ctx);
     if (d.look === 'dog') this.drawDogTail(ctx);
     if (d.look === 'eyes') this.drawTentacles(ctx);
@@ -1670,6 +1673,9 @@ class Fighter {
         ctx.save(); ctx.globalCompositeOperation = 'lighter'; const pk = 0.45 + 0.3 * Math.sin(this.t * 3) + (this.sp || this.charging ? 0.35 : 0);
         ctx.strokeStyle = `rgba(255,40,60,${pk})`; ctx.lineWidth = 3; const pcx = f * r * 0.05, pcy = r * 0.15, pr = r * 0.42;
         ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, 7); ctx.stroke(); ctx.beginPath(); for (let k = 0; k <= 5; k++) { const a = -Math.PI / 2 + k * 4 * Math.PI / 5; ctx.lineTo(pcx + Math.cos(a) * pr, pcy + Math.sin(a) * pr); } ctx.stroke(); ctx.restore();
+      } else if (lk === 'spider') {
+        ctx.fillStyle = '#e0142a'; const hx = f * r * 0.05, hy = r * 0.15; ctx.beginPath(); ctx.moveTo(hx - r * 0.22, hy - r * 0.32); ctx.lineTo(hx + r * 0.22, hy - r * 0.32); ctx.lineTo(hx, hy); ctx.lineTo(hx + r * 0.22, hy + r * 0.32); ctx.lineTo(hx - r * 0.22, hy + r * 0.32); ctx.lineTo(hx, hy); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = 'rgba(200,180,220,0.25)'; ctx.lineWidth = 1.5; for (let k = 0; k < 30; k++) { const a = k * 2.4, rr = r * (0.3 + (k % 5) * 0.14); ctx.beginPath(); ctx.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); ctx.lineTo(Math.cos(a) * (rr + 6), Math.sin(a) * (rr + 6)); ctx.stroke(); }
       } else if (lk === 'lumber') {
         ctx.save(); ctx.beginPath(); ctx.ellipse(0, -r * 0.42, r * 1.05, r * 0.6, 0, 0, 7); ctx.clip();
         ctx.fillStyle = '#b0141e'; ctx.fillRect(-r * 1.2, -r * 1.1, r * 2.4, r * 1.4);
@@ -1772,6 +1778,7 @@ class Fighter {
     ctx.restore();
   }
   drawStatus(ctx) {
+    if (this.rootT > 0 && this.webbed > 0) { ctx.save(); ctx.strokeStyle = `rgba(255,255,255,${0.8 * Math.min(1, this.rootT * 2)})`; ctx.lineWidth = 2; for (let k = 0; k < 7; k++) { ctx.beginPath(); ctx.ellipse(0, -this.r * 0.1, this.r * 1.1, this.r * 0.3, (k - 3) * 0.3, 0, 7); ctx.stroke(); } ctx.restore(); }
     const r = this.r;
     if (this.rootT > 0) { ctx.strokeStyle = 'rgba(245,245,245,0.85)'; ctx.lineWidth = 1.5; for (let k = 0; k < 9; k++) { const a = k / 9 * Math.PI; ctx.beginPath(); ctx.moveTo(0, this.base); ctx.lineTo(Math.cos(a) * r * 1.2, this.base - Math.sin(a) * r * 0.9); ctx.stroke(); } for (const s of [0.4, 0.75]) { ctx.beginPath(); ctx.ellipse(0, this.base, r * 1.2 * s, r * 0.9 * s, 0, Math.PI, 0); ctx.stroke(); } }
     if (this.hasteT > 0) { ctx.strokeStyle = 'rgba(255,240,150,0.7)'; ctx.lineWidth = 3; for (let k = -1; k <= 1; k++) { ctx.beginPath(); ctx.moveTo(-this.facing * r * 1.1, k * r * 0.4); ctx.lineTo(-this.facing * r * 1.7, k * r * 0.4); ctx.stroke(); } }
@@ -2204,6 +2211,20 @@ class Fighter {
       ctx.fillStyle = '#1a2028'; for (let k = 0; k < 6; k++) { ctx.beginPath(); ctx.arc(vx0 + f * hr * (0.15 + (k % 3) * 0.18), hr * (0.25 + (k / 3 | 0) * 0.18), 2.2, 0, 7); ctx.fill(); }
       if (hurt) { ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-f * hr * 0.6, -hr * 0.8); ctx.lineTo(-f * hr * 0.4, -hr * 0.55); ctx.lineTo(-f * hr * 0.55, -hr * 0.4); ctx.stroke(); }
       ctx.strokeStyle = INK; this.drawHat(ctx, hr * 1.08);
+    } else if (look === 'spider') {
+      ctx.beginPath(); ctx.arc(0, 0, hr * 1.02, 0, 7); const sg = ctx.createRadialGradient(-hr * 0.3, -hr * 0.4, 2, 0, 0, hr * 1.1); sg.addColorStop(0, '#5a4a6a'); sg.addColorStop(1, col.skinD); ctx.fillStyle = sg; ctx.fill(); ctx.lineWidth = 3.5; ctx.stroke();
+      ctx.strokeStyle = 'rgba(200,180,220,0.4)'; ctx.lineWidth = 1.5; for (let k = 0; k < 12; k++) { const a = -Math.PI * 0.9 + k * 0.15; ctx.beginPath(); ctx.moveTo(Math.cos(a) * hr, Math.sin(a) * hr); ctx.lineTo(Math.cos(a) * hr * 1.15, Math.sin(a) * hr * 1.15); ctx.stroke(); } ctx.strokeStyle = INK;
+      const glow = this.sp || this.charging, ex0 = f * hr * 0.25;
+      for (const [ex, ey, er] of [[-0.25, -0.15, 0.2], [0.25, -0.15, 0.2], [-0.55, -0.4, 0.11], [0.55, -0.4, 0.11], [-0.2, -0.5, 0.09], [0.2, -0.5, 0.09], [-0.7, -0.05, 0.08], [0.7, -0.05, 0.08]]) {
+        const x = ex0 + ex * hr, y = ey * hr;
+        if (ko) { ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 3, y - 3); ctx.lineTo(x + 3, y + 3); ctx.moveTo(x + 3, y - 3); ctx.lineTo(x - 3, y + 3); ctx.stroke(); continue; }
+        ctx.save(); ctx.shadowColor = '#ff2a3a'; ctx.shadowBlur = glow ? 14 : 6; ctx.fillStyle = hurt ? '#ffffff' : '#e0142a'; ctx.beginPath(); ctx.arc(x + p0.x * 0.15, y + p0.y * 0.15, er * hr, 0, 7); ctx.fill(); ctx.restore();
+        ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.beginPath(); ctx.arc(x - er * hr * 0.3, y - er * hr * 0.3, er * hr * 0.3, 0, 7); ctx.fill();
+      }
+      const open = (this.sp || hurt || this.punch) ? 0.5 : 0.15;
+      for (const s of [-1, 1]) { ctx.save(); ctx.translate(ex0 + s * hr * 0.2, hr * 0.45); ctx.rotate(s * open); ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(s * hr * 0.2, hr * 0.3, -s * hr * 0.05, hr * 0.5); ctx.lineTo(s * hr * 0.08, hr * 0.25); ctx.closePath(); ctx.fillStyle = '#1a0a14'; ctx.fill(); ctx.lineWidth = 2; ctx.stroke(); ctx.fillStyle = '#e8e0d0'; ctx.beginPath(); ctx.arc(-s * hr * 0.04, hr * 0.48, 3, 0, 7); ctx.fill(); ctx.restore(); }
+      if (this.sp || this.charging) { ctx.fillStyle = '#7aff3a'; ctx.beginPath(); ctx.arc(ex0, hr * 0.98 + Math.sin(t * 8) * 3, 3, 0, 7); ctx.fill(); }
+      this.drawHat(ctx, hr);
     } else if (look === 'nio') {
       const glow = this.sp || this.charging;
       ctx.fillStyle = col.skinD; for (const s of [-1, 1]) { ctx.beginPath(); ctx.ellipse(s * hr * 1.0, hr * 0.25, hr * 0.18, hr * 0.42, 0, 0, 7); ctx.fill(); ctx.lineWidth = 3; ctx.stroke(); }
@@ -2320,6 +2341,12 @@ class Fighter {
     for (const s of [-1, 1]) for (let k = 0; k < 2; k++) { const y = -r * 0.1 + k * r * 0.35, w = Math.sin(t * 9 + k * 2 + s) * r * 0.12; ctx.beginPath(); ctx.moveTo(s * r * 0.8, y); ctx.lineTo(s * r * 1.25, y - r * 0.2 + w); ctx.lineTo(s * r * 1.35, y + r * 0.15 + w); ctx.stroke(); }
     ctx.strokeStyle = this.col.skinD; ctx.lineWidth = 2.5;
     for (const s of [-1, 1]) for (let k = 0; k < 2; k++) { const y = -r * 0.1 + k * r * 0.35, w = Math.sin(t * 9 + k * 2 + s) * r * 0.12; ctx.beginPath(); ctx.moveTo(s * r * 0.8, y); ctx.lineTo(s * r * 1.25, y - r * 0.2 + w); ctx.lineTo(s * r * 1.35, y + r * 0.15 + w); ctx.stroke(); }
+  }
+  drawSpiderLegs(ctx) {
+    const r = this.r, t = this.t, run = Math.min(1, Math.abs(this.vx) / 200);
+    for (const pass of [0, 1]) { ctx.strokeStyle = pass ? this.col.skin : INK; ctx.lineWidth = pass ? 3.5 : 7; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (const s of [-1, 1]) for (let k = 0; k < 4; k++) { const y = -r * 0.35 + k * r * 0.3, w = Math.sin(t * (6 + run * 10) + k * 1.7 + s) * r * (0.08 + run * 0.1), kx = s * r * (1.25 + k * 0.05), ky = y - r * (0.45 - k * 0.12) + w;
+        ctx.beginPath(); ctx.moveTo(s * r * 0.8, y); ctx.lineTo(kx, ky); ctx.lineTo(s * r * (1.5 + k * 0.08), y + r * (0.35 + k * 0.1) - w); ctx.stroke(); } }
   }
   drawToad(ctx) {
     const r = this.r * 0.62, f = this.facing, t = this.t;
@@ -2543,7 +2570,7 @@ class Fighter {
 function other(f) { return game.fighters[0] === f ? game.fighters[1] : game.fighters[0]; }
 function addMeter(f, v) {
   if (f.ko || f.sp) return;
-  const before = f.meter; f.meter = Math.min(100, f.meter + v);
+  const before = f.meter; f.meter = Math.min(100, f.meter + v); f.miniCD = Math.max(0, f.miniCD - v * 0.16);   // the mini recharges from the same fighting spirit
   if (before < 100 && f.meter >= 100 && game.state === 'fight') { Sfx.play('ready', 0.6); addText('SPECIAL READY', f.x, f.y - f.r * 2, ELEMENTS[f.def.element].color, 26); }
 }
 const RINGOUT_HP = 35;
@@ -2635,7 +2662,7 @@ function decapitate(o, a) {
 }
 function release(h, o) { h.holding = null; o.heldBy = null; h.holdT = 0; o.escape = 0; cpu.holdPlan = null; }
 
-const SEVER_TEXT = { axe: 'CHOPPED OFF!', bubble: 'POPPED OFF!', sumo: 'SQUASHED OFF!', occult: 'HELLBURNED OFF!', pirate: 'BLOWN OFF!', knight: 'LANCED OFF!', warp: 'WARPED OFF!', water: 'BLASTED OFF!', dog: 'CHEWED OFF!', god: 'SMITED!',  machine: 'TORN OFF!', ghost: 'SOUL-RIPPED!', horror: 'DEVOURED!', heart: 'HEARTBROKEN OFF!', kitten: 'SHREDDED!', rage: 'RIPPED OFF!', boss: 'BITTEN OFF!', fatal: 'GONE!', fire: 'BURNED OFF!', shatter: 'SHATTERED!', acid: 'MELTED OFF!', lightning: 'BLOWN OFF!', earth: 'IMPALED!', wind: 'SLICED OFF!', gravity: 'RIPPED OFF!', teleport: 'SNAPPED OFF!', croc: 'CHOMPED!' };
+const SEVER_TEXT = { spider: 'BITTEN OFF!', axe: 'CHOPPED OFF!', bubble: 'POPPED OFF!', sumo: 'SQUASHED OFF!', occult: 'HELLBURNED OFF!', pirate: 'BLOWN OFF!', knight: 'LANCED OFF!', warp: 'WARPED OFF!', water: 'BLASTED OFF!', dog: 'CHEWED OFF!', god: 'SMITED!',  machine: 'TORN OFF!', ghost: 'SOUL-RIPPED!', horror: 'DEVOURED!', heart: 'HEARTBROKEN OFF!', kitten: 'SHREDDED!', rage: 'RIPPED OFF!', boss: 'BITTEN OFF!', fatal: 'GONE!', fire: 'BURNED OFF!', shatter: 'SHATTERED!', acid: 'MELTED OFF!', lightning: 'BLOWN OFF!', earth: 'IMPALED!', wind: 'SLICED OFF!', gravity: 'RIPPED OFF!', teleport: 'SNAPPED OFF!', croc: 'CHOMPED!' };
 function addLens(col, n, big) {
   if (REDUCED || game.mode === 'demo') return; game.lens = game.lens || [];
   for (let i = 0; i < n; i++) { const edge = Math.random() < 0.7; game.lens.push({ x: edge ? pick([rand(20, 260), rand(W - 260, W - 20)]) : rand(200, W - 200), y: rand(60, H - 80), r: rand(18, 46) * (big || 1), col, life: rand(2.2, 3.2), max: 3.2, drips: Array.from({ length: 3 + (Math.random() * 4 | 0) }, () => ({ a: rand(-1.2, 1.2), l: rand(10, 70), w: rand(3, 8) })), blobs: Array.from({ length: 6 }, () => ({ a: rand(0, 6.283), d: rand(0.6, 1.5), s: rand(0.15, 0.4) })) }); }
@@ -2731,7 +2758,7 @@ function checkPunch(a, o, p) {
 
 const HIT_SFX = { tonka: 'flop', mochi: 'tele', rex: 'growl', wobbles: 'freeze', tomo: 'glorp', sparky: 'zap', taro: 'wind', kuro: 'vortex', mecha: 'clang', ghost: 'whoosh',
   stitches: 'crunch', kiki: 'sparkle', momo: 'squeak', goro: 'crack', rexzuna: 'growl', buzz: 'buzz', talon: 'flap', mitsu: 'laser', hexa: 'potion', ashura: 'thud', pom: 'boing',
-  drac: 'screech', hyakume: 'squish', namazu: 'splash', shiba: 'dash', kongo: 'gong', morgana: 'sizzle', barnacle: 'explode', lardalot: 'bell', harada: 'kick', bubba: 'pop', dosukoi: 'taiko' };
+  drac: 'screech', hyakume: 'squish', namazu: 'splash', shiba: 'dash', kumo: 'screech', kongo: 'gong', morgana: 'sizzle', barnacle: 'explode', lardalot: 'bell', harada: 'kick', bubba: 'pop', dosukoi: 'taiko' };
 function hit(a, o, info) {
   const facingAttacker = o.facing === sign(a.x - o.x) || !!(o.def.traits && o.def.traits.allSeeing), M = MOVES[info.kind || 'slap'], hpBefore = o.hp;
   if (o.bracing && facingAttacker && o.parryT > 0 && !info.power && !M.low) { parry(a, o); return; }
@@ -2739,6 +2766,7 @@ function hit(a, o, info) {
   if (!blocked && facingAttacker && !M.low && !info.power && o.def.traits && o.def.traits.foresight && o.stun <= 0 && !o.ko && o.guardBroken <= 0 && Math.random() < o.def.traits.foresight) { blocked = true; o.shieldFlash = 1.2; addText('FORESEEN!', o.x, o.y - o.r * 2.2, '#ff4a6a', 30); }
   const spd = clamp(info.relV / 1150, 0.55, 1.35), T = a.def.traits || {};
   let dmg = 6.2 * a.def.power * Math.pow(Math.min(a.mass, 300) / 120, 0.45) * spd * (info.head ? 1.35 : 1) * M.dmg;
+  if (game.mode !== 'demo' && a.idx === 1 && p2cpu) dmg *= CPU_DMG[cpuLevel];   // easier CPUs hit softer
   if (a.counterT > 0) { a.counterT = 0; dmg *= 1.6; info.counter = true; addText('COUNTER!', info.x, info.y - 70, '#8affff', 46); Sfx.play('parry', 0.8); }
   if (o.down > 0) dmg *= 0.6;
   if (info.kind === 'upper' && !o.onGround) dmg *= 1.25;
@@ -2817,7 +2845,7 @@ function hit(a, o, info) {
 function strike(a, o, opt) {
   if (o.invisible || o.inTar) return false;
   let blocked = o.bracing && o.guardBroken <= 0 && (opt.anyDir || o.facing === sign((opt.from != null ? opt.from : a.x) - o.x) || !!(o.def.traits && o.def.traits.allSeeing));   // every attack can be blocked; strikes from above or below block in any direction
-  let dmg = opt.dmg, kb = opt.kb || 0;
+  let dmg = opt.dmg * (game.mode !== 'demo' && a.idx === 1 && p2cpu ? CPU_DMG[cpuLevel] : 1), kb = opt.kb || 0;
   if (blocked) { o.guard -= dmg * 1.3; o.guardT = 0.6; o.shieldFlash = 1; if (o.guard <= 0) { guardBreak(o); blocked = false; } }
   if (blocked) { dmg *= 0.08; kb = 0; footDust(o, 1); Sfx.play('clang', 1); } else Sfx.voice(o, dmg > 10 ? 'big' : 'hit', 1);
   if (o.frozenT > 0) { shatter(o); dmg += 9; }
@@ -3013,7 +3041,7 @@ const SIG = {
   hexa: { name: 'Broom Bash', style: 'spin', n: 5, fx: 'magic' }, ashura: { name: 'Four-Fist Fury', style: 'flurry', n: 10, fx: 'rock' },
   pom: { name: 'Jiggle Jam', style: 'bounce', n: 5, fx: 'jelly' }, drac: { name: 'Crimson Waltz', style: 'dash', n: 5, fx: 'bat' },
   hyakume: { name: 'Gaze Barrage', style: 'flurry', n: 6, fx: 'magic' }, namazu: { name: 'Riptide Rush', style: 'spin', n: 6, fx: 'water' },
-  shiba: { name: 'Zoomie Combo', style: 'dash', n: 7, fx: 'dog' }, morgana: { name: 'Witching Hour', style: 'spin', n: 6, fx: 'blood' },
+  shiba: { name: 'Zoomie Combo', style: 'dash', n: 7, fx: 'dog' }, kumo: { name: 'Eight-Leg Flurry', style: 'flurry', n: 8, fx: 'bug' }, morgana: { name: 'Witching Hour', style: 'spin', n: 6, fx: 'blood' },
   barnacle: { name: 'Cutlass Flurry', style: 'flurry', n: 7, fx: 'metal' }, harada: { name: 'Lumber Mill', style: 'spin', n: 6, fx: 'metal' },
   bubba: { name: 'Fizz Frenzy', style: 'bounce', n: 6, fx: 'water' }, dosukoi: { name: 'Hundred Hand Harite', style: 'flurry', n: 10, fx: 'rock' }, lardalot: { name: 'Round Table Rush', style: 'dash', n: 6, fx: 'metal' }, kongo: { name: 'Heavenly Palms', style: 'flurry', n: 5, fx: 'quake' },
 };
@@ -3023,7 +3051,7 @@ const FINISH = {
   sparky: ['Thunder Dunk', 'zap'], taro: ['Tornado Toss', 'spin'], kuro: ['Supernova', 'blast'], mecha: ['Rocket Uppercut', 'launch'], ghost: ['Possession', 'curse'],
   stitches: ['Gut Ripper', 'bite'], kiki: ['Love Bomb', 'charm'], momo: ['Catapult Pounce', 'spin'], goro: ['Volcano Fist', 'burn'], rexzuna: ['Apex Bite', 'bite'],
   buzz: ['Stinger', 'poison'], talon: ['Sky Spike', 'slam'], mitsu: ['Eye Beam Finale', 'zap'], hexa: ['Frog Blast', 'curse'], ashura: ['Four-Fist Hammer', 'slam'],
-  pom: ['Jelly Splat', 'slam'], drac: ['Blood Drain', 'drain'], hyakume: ['Mind Shatter', 'curse'], namazu: ['Tsunami Smash', 'blast'], shiba: ['Good Boy Chomp', 'bite'],
+  pom: ['Jelly Splat', 'slam'], drac: ['Blood Drain', 'drain'], hyakume: ['Mind Shatter', 'curse'], namazu: ['Tsunami Smash', 'blast'], shiba: ['Good Boy Chomp', 'bite'], kumo: ['Venom Fang', 'poison'],
   kongo: ['Heavenly Palm', 'quake'], morgana: ['Hellfire Hex', 'burn'], barnacle: ['Point-Blank Cannon', 'blast'], lardalot: ['Royal Lance', 'launch'],
   harada: ['Splitting Maul', 'slam'], bubba: ['Bubble Bounce', 'launch'], dosukoi: ['Uwatenage Throw', 'spin'],
 };
@@ -3053,7 +3081,7 @@ const EMOTES = { tonka: ['shiko', 'THE MOUNTAIN STANDS!'], mochi: ['spin', 'TOO 
   sparky: ['hop', 'ELECTRIFYING!'], taro: ['spin', 'GONE WITH THE WIND!'], kuro: ['float', 'SEE YOU, SPACE SUMO'], mecha: ['drum', 'VICTORY.EXE'], ghost: ['float', 'BOOOO-YAH!'],
   stitches: ['roar', 'MORE... MEAT...'], kiki: ['hop', 'KAWAII DESU!'], momo: ['wiggle', 'NYA HA HA!'], goro: ['roar', "WHO'S NEXT?!"], rexzuna: ['roar', 'EXTINCTION!'],
   buzz: ['wiggle', 'BZZZ-ZING!'], talon: ['spin', 'THE SKY IS MINE!'], mitsu: ['drum', 'I SAW IT COMING'], hexa: ['float', 'HEE HEE HEE!'], ashura: ['drum', 'FOUR FISTS OF FURY!'],
-  pom: ['hop', 'JIGGLE JIGGLE!'], drac: ['bow', 'BLEH BLEH BLEH!'], hyakume: ['float', 'WE SEE ALL'], namazu: ['wiggle', 'FISHY FINISH!'], shiba: ['spin', 'GOOD BOY!'],
+  pom: ['hop', 'JIGGLE JIGGLE!'], drac: ['bow', 'BLEH BLEH BLEH!'], hyakume: ['float', 'WE SEE ALL'], namazu: ['wiggle', 'FISHY FINISH!'], shiba: ['spin', 'GOOD BOY!'], kumo: ['wiggle', 'CAUGHT IN MY WEB!'],
   kongo: ['roar', 'KNEEL.'], morgana: ['float', 'THE BEAST IS FED'], barnacle: ['drum', 'YO HO HO!'], lardalot: ['bow', 'FOR THE KING!'], harada: ['shiko', 'TIMBERRR!'],
   bubba: ['hop', 'BLUB BLUB!'], dosukoi: ['salt', 'DOSUKOI!'] };
 function emote(f, dt) {
@@ -3164,6 +3192,7 @@ const MINI = {
   axe:       { name: 'Colossal Cleaver', cd: 6.5, range: [100, 800], fire(f, o) { shoot(f, o, { look: 'bigaxe', vs: 1.1, vx: 540, vy: -200, grav: 300, spin: 16, r: 44, life: 2.4, dmg: 8, kb: 560, stun: 0.6, sever: 'axe', text: 'CLEAVED!', col: '#e8eef8' }); Sfx.play('whoosh', 1.8); Sfx.voice(f, 'big', 1); } },
   bubble:    { name: 'Bubble Blast', cd: 5.5, range: [60, 700], fire(f, o) { for (let k = 0; k < 4; k++) shoot(f, o, { look: 'bubble', vx: rand(380, 560), vy: rand(-140, 60), grav: -80, r: 15, life: rand(1.0, 1.5), dmg: 2.5, kb: 160, stun: 0.25, text: k ? null : 'POP POP POP!', col: '#8ae8ff', boom: true, popEnd: true }); Sfx.play('bubble', 1.4); Sfx.play('boing', 0.8); } },
   sumo:      { name: 'Shiko Tremor', cd: 6.5, range: [0, 700], fire(f, o) { f.squash = 0.6; f.shikoLift = 0; game.props.push({ type: 'quake', owner: f, t: 0, dur: 1.0 }); game.props.push({ type: 'ring', x: f.x, y: GROUND, t: 0, dur: 0.7, col: '255,255,255', flat: true }); game.shake += 30; Sfx.play('flop', 1.6); Sfx.play('boom', 1.2); Sfx.play('taiko', 1.4); crackDecal(f.x, 160); dust(f.x, GROUND, 30, 2); } },
+  spider:    { name: 'Web Squirt', cd: 6, range: [40, 650], fire(f, o) { game.props.push({ type: 'webstream', owner: f, target: o, t: 0, dur: 3, tick: 0 }); Sfx.play('glorp', 1.4); Sfx.play('screech', 0.6); } },
   god:       { name: 'Thunder Clap', cd: 5, range: [0, 440], fire(f, o) { Sfx.play('gong', 1.4); Sfx.play('thunder', 1); game.shake += 18; game.props.push({ type: 'ring', x: f.x, y: f.y - f.r * 0.6, t: 0, dur: 0.6, col: '255,210,60' }); if (!o.inPit && Math.abs(o.x - f.x) - o.r - f.r < 440) strike(f, o, { dmg: 5, kb: 300, lift: 300, stun: 0.6, text: 'THUNDER CLAP!', color: '#ffd23a' }); } },
   boss:      { name: 'Tail Whip', cd: 5, range: [0, 120], fire(f, o) { f.spinT = 0.35; Sfx.play('whoosh', 1.8); if (Math.abs(o.x - f.x) < f.r + o.r + 100 && !o.inPit) strike(f, o, { dmg: 8, kb: 620, lift: 220, stun: 0.6, text: 'TAIL WHIP!', color: '#ffae1a' }); } },
 };
@@ -3173,6 +3202,81 @@ function shoot(f, o, opt) {
   const m = Object.assign({ x: from.x, y: from.y, vy: 0, r: 14, grav: 0, life: 2.4, t: 0, owner: f, target: o, rot: 0, bounces: 0 }, opt);
   m.r *= 1.2; m.trail = [];
   m.vx = f.facing * (opt.vx || 700); m.dir = f.facing; game.minis.push(m); return m;
+}
+// Every mini leaves a three-second storm in its element around the opponent: visible, loud, chip damage and a light status
+const STORMS = {
+  earth: { shape: 'rock', mode: 'rain', n: 55, col: '#9a7a52', snd: 'thud', fx(f, o) { o.stun = Math.max(o.stun, 0.12); } },
+  teleport: { shape: 'clone', mode: 'orbit', n: 11, dim: true, col: '#c27bff', snd: 'tele' },
+  fire: { shape: 'flame', mode: 'field', n: 60, col: '#ff7a1a', snd: 'sizzle', fx(f, o) { o.burnT = Math.max(o.burnT, 0.5); } },
+  ice: { shape: 'flake', mode: 'swarm', n: 90, col: '#bfefff', snd: 'freeze', dim: true, fx(f, o) { o.freeze = Math.min(0.95, o.freeze + 0.07); } },
+  acid: { shape: 'drop', mode: 'rain', n: 70, col: '#b6ff2a', snd: 'glorp', fx(f, o) { o.poisonT = Math.max(o.poisonT, 0.5); } },
+  lightning: { shape: 'bolt', mode: 'rain', n: 16, dim: true, col: '#ffe23a', snd: 'zap', fx(f, o) { o.skeleT = 0.12; } },
+  wind: { shape: 'swirl', mode: 'orbit', n: 70, dim: true, col: '#7fffd4', snd: 'wind', fx(f, o) { o.kbx = sign(o.x - f.x) * 140; o.kbT = 0.1; } },
+  gravity: { shape: 'star', mode: 'orbit', n: 100, dim: true, col: '#e08aff', snd: 'vortex', fx(f, o) { o.kbx = sign(f.x - o.x) * 110; o.kbT = 0.1; } },
+  machine: { shape: 'gear', mode: 'swarm', n: 34, col: '#c8d4de', snd: 'clang', dim: true },
+  ghost: { shape: 'ghost', mode: 'swarm', n: 22, col: '#8affe8', snd: 'tele', dim: true, fx(f, o) { o.cursed = Math.max(o.cursed, 0.5); } },
+  horror: { shape: 'skull', mode: 'orbit', n: 18, col: '#e8d8c0', snd: 'growl' },
+  heart: { shape: 'heart', mode: 'rain', n: 90, col: '#ff7ad0', snd: 'boing', fx(f, o) { o.charmT = Math.max(o.charmT, 0.25); } },
+  kitten: { shape: 'paw', mode: 'swarm', n: 40, col: '#7ad7ff', snd: 'squeak', dim: true },
+  rage: { shape: 'debris', mode: 'rain', n: 50, col: '#a8703a', snd: 'thud' },
+  bug: { shape: 'bug', mode: 'swarm', n: 110, col: '#9aff3a', snd: 'buzz', dim: true, fx(f, o) { o.rootT = Math.max(o.rootT, 0.2); } },
+  sky: { shape: 'feather', mode: 'swarm', n: 80, col: '#f4f0e4', snd: 'flap', dim: true },
+  eye: { shape: 'eye', mode: 'orbit', n: 18, col: '#ff4a6a', snd: 'laser' },
+  hex: { shape: 'bubble', mode: 'field', n: 50, col: '#7aff3a', snd: 'potion', fx(f, o) { o.poisonT = Math.max(o.poisonT, 0.5); } },
+  titan: { shape: 'rock', mode: 'rain', n: 60, col: '#6a7a5a', snd: 'thud', fx(f, o) { o.stun = Math.max(o.stun, 0.12); } },
+  jelly: { shape: 'gum', mode: 'rain', n: 46, col: '#ff9ad8', snd: 'boing', fx(f, o) { o.gooT = Math.max(o.gooT, 0.5); } },
+  warp: { shape: 'eye', mode: 'swarm', n: 36, col: '#d04aff', snd: 'vortex', dim: true, fx() { game.warpT = Math.max(game.warpT, 0.25); } },
+  water: { shape: 'drop', mode: 'rain', n: 90, col: '#6ad8ff', snd: 'splash' },
+  god: { shape: 'bolt', mode: 'rain', n: 12, col: '#ffd23a', snd: 'zap' },
+  boss: { shape: 'rock', mode: 'rain', n: 50, col: '#8a7a5a', snd: 'thud' },
+  occult: { shape: 'skull', mode: 'orbit', n: 18, col: '#ff3a2a', snd: 'sizzle', fx(f, o) { o.burnT = Math.max(o.burnT, 0.4); } },
+  pirate: { shape: 'gull', mode: 'swarm', n: 40, dim: true, col: '#ffffff', snd: 'flap' },
+  knight: { shape: 'sword', mode: 'rain', n: 34, col: '#e8eef8', snd: 'clang' },
+  axe: { shape: 'axe', mode: 'orbit', n: 14, col: '#e8eef8', snd: 'whoosh' },
+  bubble: { shape: 'bubble', mode: 'swarm', n: 60, col: '#8ae8ff', snd: 'pop', dim: true },
+  sumo: { shape: 'dust', mode: 'field', n: 80, col: '#f0e0b8', snd: 'thud', fx(f, o) { if (o.onGround) o.stun = Math.max(o.stun, 0.12); } },
+  spiderSwarm: { shape: 'spider', mode: 'swarm', n: 120, col: '#1a0a14', snd: 'screech', dim: true, fx(f, o) { o.stun = Math.max(o.stun, 0.12); } },
+};
+function stormPart(p, i, init) {
+  const S = p.S, f = p.owner;
+  if (S.mode === 'swarm') return { x: f.x + rand(-50, 50), y: f.y - f.r * 0.4 + rand(-40, 40), vx: f.facing * rand(250, 600), vy: rand(-250, 250), ph: rand(0, 6), s: rand(0.6, 1.4), d: rand(0, 0.6), r: rand(0, 6) };
+  if (S.mode === 'rain') return { x: p.x + rand(-170, 170), y: init ? rand(-500, -20) : rand(-120, -20), vx: rand(-40, 40), vy: rand(450, 900), ph: rand(0, 6), s: rand(0.7, 1.4), d: init ? rand(0, 0.6) : 0, r: rand(0, 6) };
+  if (S.mode === 'orbit') return { a: i / S.n * 6.283, rad: rand(70, 150), sp: rand(2.5, 4.5) * (i % 2 ? 1 : -1), ph: rand(0, 6), s: rand(0.8, 1.3), d: i * 0.04, x: -999, y: -999, r: 0 };
+  return { x: p.x + rand(-150, 150), y: GROUND - rand(0, 30), vy: -rand(40, 170), life: rand(0.4, 1), ph: rand(0, 6), s: rand(0.7, 1.5), d: init ? rand(0, 0.5) : 0, r: 0 };
+}
+function makeStorm(f, o, el, opt) {
+  const S = Object.assign({ n: 50, mode: 'swarm', shape: 'spark', col: '#ffffff' }, STORMS[el], opt || {});
+  const p = { type: 'storm', owner: f, target: o, el, S, t: 0, dur: S.dur || 3, tick: 0.3, x: o.x, parts: [] };
+  for (let i = 0; i < S.n; i++) p.parts.push(stormPart(p, i, true));
+  return p;
+}
+function drawStormShape(ctx, sh, q, col, t) {
+  const s = q.s * 1.5; ctx.save(); ctx.translate(q.x, q.y);
+  if (sh === 'rock' || sh === 'debris') { ctx.rotate(q.r + t * 3); ctx.fillStyle = col; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); if (sh === 'rock') { ctx.moveTo(-10 * s, 5 * s); ctx.lineTo(-4 * s, -10 * s); ctx.lineTo(8 * s, -6 * s); ctx.lineTo(10 * s, 4 * s); ctx.lineTo(0, 10 * s); } else ctx.rect(-14 * s, -4 * s, 28 * s, 8 * s); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+  else if (sh === 'clone') { ctx.globalAlpha = 0.45 + 0.3 * Math.sin(q.ph); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(0, 0, 26 * s, 0, 7); ctx.fill(); ctx.beginPath(); ctx.arc(0, -30 * s, 12 * s, 0, 7); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.fillRect(-6 * s, -33 * s, 4, 4); ctx.fillRect(3 * s, -33 * s, 4, 4); }
+  else if (sh === 'flame') { ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(0, 0, 1, 0, 0, 18 * s); g.addColorStop(0, 'rgba(255,240,180,0.95)'); g.addColorStop(0.5, 'rgba(255,120,20,0.7)'); g.addColorStop(1, 'rgba(255,40,0,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0, -6 * s, 12 * s, 22 * s * (1 + Math.sin(q.ph) * 0.2), 0, 0, 7); ctx.fill(); }
+  else if (sh === 'flake') { ctx.rotate(q.ph * 0.3); ctx.strokeStyle = col; ctx.lineWidth = 2; for (let k = 0; k < 3; k++) { ctx.rotate(Math.PI / 3); ctx.beginPath(); ctx.moveTo(-8 * s, 0); ctx.lineTo(8 * s, 0); ctx.stroke(); } }
+  else if (sh === 'drop') { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(0, -9 * s); ctx.quadraticCurveTo(6 * s, 2 * s, 0, 6 * s); ctx.quadraticCurveTo(-6 * s, 2 * s, 0, -9 * s); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.fillRect(-2, -2, 2, 3); }
+  else if (sh === 'bolt') { if (Math.sin(q.ph * 3) > -0.2) { ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = col; ctx.lineWidth = 4; ctx.shadowColor = col; ctx.shadowBlur = 14; ctx.beginPath(); let y = -50; ctx.moveTo(0, y); while (y < 40) { y += 12; ctx.lineTo(rand(-12, 12), y); } ctx.stroke(); } }
+  else if (sh === 'swirl') { ctx.strokeStyle = col; ctx.globalAlpha = 0.9; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(0, 0, 14 * s, q.ph, q.ph + 3.5); ctx.stroke(); }
+  else if (sh === 'star') { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = col; ctx.rotate(q.ph * 0.4); ctx.beginPath(); for (let k = 0; k < 10; k++) { const a = k * Math.PI / 5, rr = k % 2 ? 3 * s : 8 * s; ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); } ctx.closePath(); ctx.fill(); }
+  else if (sh === 'gear') { ctx.rotate(q.ph); ctx.fillStyle = col; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); for (let k = 0; k < 16; k++) { const a = k / 16 * 6.283, rr = (k % 2 ? 8 : 11) * s; ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); } ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#3a4a5a'; ctx.beginPath(); ctx.arc(0, 0, 3 * s, 0, 7); ctx.fill(); }
+  else if (sh === 'ghost') { ctx.globalAlpha = 0.75; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(0, 0, 14 * s, Math.PI, 0); ctx.lineTo(14 * s, 14 * s); for (let k = 0; k < 4; k++) ctx.lineTo(14 * s - (k + 0.5) * 7 * s, (k % 2 ? 14 : 8) * s); ctx.lineTo(-14 * s, 14 * s); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#0a2a24'; ctx.beginPath(); ctx.ellipse(-5 * s, -2 * s, 3 * s, 5 * s, 0, 0, 7); ctx.ellipse(5 * s, -2 * s, 3 * s, 5 * s, 0, 0, 7); ctx.fill(); }
+  else if (sh === 'heart') { ctx.fillStyle = col; heartPath(ctx, 0, 0, 9 * s); ctx.fill(); }
+  else if (sh === 'paw') { ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(0, 3 * s, 7 * s, 6 * s, 0, 0, 7); ctx.fill(); for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.arc((k - 1.5) * 5 * s, -6 * s - (k % 3 ? 2 : 0), 2.8 * s, 0, 7); ctx.fill(); } }
+  else if (sh === 'bug') { ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(0, 0, 5 * s, 3.5 * s, 0, 0, 7); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.6)'; const w = Math.sin(q.ph * 4) * 4; ctx.beginPath(); ctx.ellipse(-2, -4 - w * 0.3, 4 * s, 2 * s, -0.5, 0, 7); ctx.ellipse(2, -4 - w * 0.3, 4 * s, 2 * s, 0.5, 0, 7); ctx.fill(); }
+  else if (sh === 'feather') { ctx.rotate(q.ph * 0.5); ctx.fillStyle = col; ctx.beginPath(); ctx.ellipse(0, 0, 12 * s, 4 * s, 0, 0, 7); ctx.fill(); ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(-12 * s, 0); ctx.lineTo(12 * s, 0); ctx.stroke(); }
+  else if (sh === 'eye') { ctx.fillStyle = '#fffdf6'; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, 10 * s, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(Math.cos(q.ph) * 3, 0, 5 * s, 0, 7); ctx.fill(); ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(Math.cos(q.ph) * 3, 0, 2 * s, 0, 7); ctx.fill(); }
+  else if (sh === 'bubble') { ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(0, 0, 9 * s, 0, 7); ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.beginPath(); ctx.arc(-3 * s, -3 * s, 2.5 * s, 0, 7); ctx.fill(); }
+  else if (sh === 'gum') { ctx.fillStyle = col; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(0, 0, 9 * s, 8 * s, 0, Math.PI, 0); ctx.lineTo(9 * s, 5 * s); ctx.lineTo(-9 * s, 5 * s); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+  else if (sh === 'skull') { ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = col; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, -2 * s, 10 * s, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillRect(-5 * s, 6 * s, 10 * s, 5 * s); ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(-4 * s, -2 * s, 3 * s, 0, 7); ctx.arc(4 * s, -2 * s, 3 * s, 0, 7); ctx.fill(); }
+  else if (sh === 'gull') { const w = Math.sin(q.ph * 2) * 8 * s; ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-14 * s, -w); ctx.quadraticCurveTo(-6 * s, -6 * s, 0, 0); ctx.quadraticCurveTo(6 * s, -6 * s, 14 * s, -w); ctx.stroke(); }
+  else if (sh === 'sword') { ctx.fillStyle = col; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, 26 * s); ctx.lineTo(-4 * s, -10 * s); ctx.lineTo(4 * s, -10 * s); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#c8a050'; ctx.fillRect(-10 * s, -14 * s, 20 * s, 4 * s); ctx.fillStyle = '#5a3a1a'; ctx.fillRect(-2 * s, -24 * s, 4 * s, 10 * s); }
+  else if (sh === 'axe') { ctx.rotate(t * 14 + q.a); ctx.fillStyle = '#6a4020'; ctx.fillRect(-2 * s, -18 * s, 4 * s, 36 * s); ctx.fillStyle = col; ctx.strokeStyle = INK; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(2 * s, -16 * s); ctx.quadraticCurveTo(18 * s, -16 * s, 16 * s, -2 * s); ctx.lineTo(2 * s, -6 * s); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+  else if (sh === 'spider') { ctx.strokeStyle = '#1a0a14'; ctx.lineWidth = 1.6; for (let k = 0; k < 4; k++) for (const sd of [-1, 1]) { const w = Math.sin(q.ph * 3 + k) * 2; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(sd * 6 * s, -3 * s + k * 2 * s + w); ctx.lineTo(sd * 9 * s, 2 * s + k * 2 * s); ctx.stroke(); } ctx.fillStyle = '#1a0a14'; ctx.beginPath(); ctx.ellipse(0, 0, 4.5 * s, 3.8 * s, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#e0142a'; ctx.beginPath(); ctx.arc(0, 0.5, 1.4 * s, 0, 7); ctx.fill(); }
+  else if (sh === 'dust') { ctx.globalAlpha = 0.75; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(0, 0, 16 * s, 0, 7); ctx.fill(); }
+  else { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = col; ctx.beginPath(); ctx.arc(0, 0, 4 * s, 0, 7); ctx.fill(); }
+  ctx.restore();
 }
 function startMini(f, o) {
   const M = MINI[f.def.element]; if (!M) return;
@@ -3185,6 +3289,7 @@ function startMini(f, o) {
   game.hitstop = Math.max(game.hitstop, 0.05); game.shake += 6; Sfx.play('stab', 0.45); Sfx.voice(f, 'attack', 0.9);
   if (!game.cutin) cutIn(f, M.name, col, 0.6);
   M.fire(f, o);
+  if (STORMS[f.def.element]) game.props.push(makeStorm(f, o, f.def.element));
 }
 function updateMinis(dt) {
   for (let i = game.minis.length - 1; i >= 0; i--) {
@@ -3800,6 +3905,16 @@ const SPECIALS = {
       return !(s.ph === 2 && s.t - s.end > 0.4) && s.t < 3;
     },
   },
+  spider: {
+    move: 0.3,
+    start(f, o, s) { s.st = makeStorm(f, o, 'spiderSwarm', { dur: 2.1, dmg: 1.2, tickDt: 0.25, special: true }); game.props.push(s.st); Sfx.play('screech', 1.4); Sfx.play('buzz', 1); addText('MY CHILDREN!', f.x, f.y - f.r * 2.5, '#a05aff', 46); },
+    update(f, dt, o, it, s) {
+      if (!s.bit && s.t > 2.0) { s.bit = true; if (Math.abs(o.x - f.x) < 700 && !o.inPit) { f.kbx = sign(o.x - f.x) * 900; f.kbT = 0.15; } }
+      if (s.bit && !s.fang && Math.abs(o.x - f.x) - o.r - f.r < 60) { s.fang = true; if (strike(f, o, { dmg: 6 * f.def.power, kb: 260, stun: 0.6, sever: 'spider', text: 'VENOM FANG!', color: '#7aff3a' })) o.poisonT = Math.max(o.poisonT, 2.5); Sfx.play('crunch', 1.3); }
+      return s.t < 2.5;
+    },
+    end(f, s) { if (s.st) s.st.dur = Math.min(s.st.dur, s.st.t + 0.3); },
+  },
   boss: {
     move: 0,
     start(f, o, s) { f.facing = sign(o.x - f.x); Sfx.play('roar', 1.3); game.props.push({ type: 'shock', x: f.x, y: f.y - f.r * 0.6, t: 0, dur: 0.7 }); game.shake += 20; },
@@ -3911,6 +4026,7 @@ const CHARGE = {
   axe(f, dt) { if (Math.random() < dt * 14) game.particles.push({ k: 'spark', x: f.x + f.facing * f.r + rand(-20, 20), y: f.y - f.r * 0.5 + rand(-20, 20), vx: rand(-150, 150), vy: -rand(60, 200), life: rand(0.15, 0.35) }); ringPulse(f, -90, dt, 8); },
   bubble(f, dt) { if (Math.random() < dt * 16) game.particles.push({ k: 'bubble', x: f.x + rand(-f.r, f.r), y: f.y + rand(-f.r, f.r * 0.5), vx: rand(-20, 20), vy: -rand(40, 120), r: rand(3, 8), life: 0.9, max: 0.9, c: '200,240,255' }); ringPulse(f, 140, dt, 5); },
   sumo(f, dt) { f.shikoLift = 0.4 * Math.abs(Math.sin(f.t * 3.5)); if (Math.random() < dt * 8) dust(f.x + rand(-f.r, f.r), GROUND, 1, 0.8); game.shake += dt * 6; },
+  spider(f, dt) { if (Math.random() < dt * 14) game.particles.push({ k: 'spark2', x: f.x + rand(-f.r * 1.4, f.r * 1.4), y: f.y + rand(-f.r * 1.2, f.r * 0.4), vx: 0, vy: rand(-20, 20), s: rand(1.5, 3), life: 0.6, max: 0.6, c: '230,230,255' }); ringPulse(f, 100, dt, 6); },
   boss(f, dt) {
     game.shake += dt * 10;
     if (Math.random() < dt * 14) dust(f.x + rand(-f.r, f.r), GROUND, 1, 0.8);
@@ -3971,12 +4087,40 @@ function updateProps(dt) {
       }
     }
     if (p.type === 'ship' && p.vx) p.x += p.vx * dt;
+    if (p.type === 'storm') {
+      const S = p.S, o = p.target, f = p.owner, e = p.t / p.dur, fol = S.mode === 'rain' || S.mode === 'field' ? 1.2 : 4;
+      p.x += (o.x - p.x) * Math.min(1, dt * fol);
+      for (const q of p.parts) {
+        if (p.t < q.d) continue; q.ph += dt * 10;
+        if (S.mode === 'swarm') { const dx = o.x - q.x, dy = (o.y - o.r * 0.3) - q.y; if (e < 0.82) { q.vx += dx * 3 * dt + rand(-520, 520) * dt; q.vy += dy * 3 * dt + rand(-520, 520) * dt; } else q.vy -= 1000 * dt; const sp = Math.hypot(q.vx, q.vy); if (sp > 620) { q.vx *= 620 / sp; q.vy *= 620 / sp; } q.x += q.vx * dt; q.y += q.vy * dt; }
+        else if (S.mode === 'rain') { q.x += q.vx * dt; q.y += q.vy * dt; if (q.y > GROUND - 6) { if (Math.random() < 0.3) game.particles.push({ k: 'spark2', x: q.x, y: GROUND - 4, vx: rand(-80, 80), vy: -rand(40, 160), s: 2, life: 0.3, max: 0.3, c: hexRgb(S.col) }); if (e < 0.85) Object.assign(q, stormPart(p, 0, false)); else q.y = 99999; } }
+        else if (S.mode === 'orbit') { q.a += q.sp * dt; const rr = q.rad * (e > 0.85 ? 1 + (e - 0.85) * 14 : Math.min(1, (p.t - q.d) * 3)); q.x = o.x + Math.cos(q.a) * rr; q.y = o.y - o.r * 0.3 + Math.sin(q.a) * rr * 0.6; }
+        else { q.y += q.vy * dt; q.life -= dt; if (q.life <= 0) { if (e < 0.85) Object.assign(q, stormPart(p, 0, false)); else q.y = 99999; } }
+      }
+      if (p.el === 'sumo') game.shake = Math.max(game.shake, 8 * (1 - e));
+      p.tick -= dt;
+      if (p.tick <= 0 && e < 0.9 && !o.inPit && !o.invisible && !o.ko) {
+        p.tick = S.tickDt || 0.4;
+        if (Math.abs(o.x - p.x) < o.r + 150) {
+          const sk = soak(o, S.special ? 5 : 3); damage(o, (S.dmg || 0.35) * sk * (S.special ? f.def.power : 1)); addMeter(f, 0.6);
+          if (sk === 1) { o.hurtT = Math.max(o.hurtT, 0.18); o.jiggleHit(rand(-o.r, o.r), rand(-o.r, o.r), rand(-200, 200), -70); if (S.fx) S.fx(f, o); if (Math.random() < 0.5) spray(o.x + rand(-o.r, o.r), o.y - o.r * 0.3, pick([-1, 1]), o.def.fluid, 3, 0.5); }
+          if (S.snd && Math.random() < 0.55) Sfx.play(S.snd, 0.45);
+        }
+      }
+    }
+    if (p.type === 'webstream') {
+      const f = p.owner, o = p.target, mw = f.mouthWorld(); p.mx = mw.x; p.my = mw.y; p.tx = o.x; p.ty = o.y - o.r * 0.2;
+      p.on = p.t < p.dur && !f.ko && !(f.stun > 0.3) && !o.inPit && !o.invisible && (p.fatal || (sign(o.x - f.x) === f.facing && Math.abs(o.x - f.x) < 760));
+      if (p.on && !p.fatal) { if (Math.random() < 0.3) Sfx.play('glorp', 0.3); p.tick -= dt; if (p.tick <= 0) { p.tick = 0.3; const sk = soak(o, 5); if (sk === 1) { o.rootT = Math.max(o.rootT, 0.45); o.vx *= 0.3; damage(o, 0.35); p.stick = (p.stick || 0) + 0.3; o.webbed = Math.min(1, (o.webbed || 0) + 0.12); } } }
+      if (p.t >= p.dur && !p.done && !p.fatal) { p.done = 1; if ((p.stick || 0) > 0.9) { o.rootT = Math.max(o.rootT, 1.2); addText('STUCK IN THE WEB!', o.x, o.y - o.r * 2, '#ffffff', 40); } }
+    }
     if (p.type === 'batswarm') {
       const o = p.target, e = p.t / p.dur;
       for (const b of p.bats) { if (p.t < b.d) continue; b.ph += dt * 14; const dx = o.x - b.x, dy = (o.y - o.r * 0.3) - b.y; if (e < 0.75) { b.vx += dx * 3 * dt + rand(-500, 500) * dt; b.vy += dy * 3 * dt + rand(-500, 500) * dt; } else b.vy -= 900 * dt; const sp = Math.hypot(b.vx, b.vy), mx = 640; if (sp > mx) { b.vx *= mx / sp; b.vy *= mx / sp; } b.x += b.vx * dt; b.y += b.vy * dt; }
       p.tick -= dt; if (p.tick <= 0 && e < 0.8) { p.tick = 0.3; if (!o.inPit && !o.invisible && o.hp > 0) { const blk = o.bracing; damage(o, blk ? 0.08 : 0.4); if (!blk) { o.hurtT = 0.2; o.jiggleHit(rand(-o.r, o.r), rand(-o.r, o.r), rand(-200, 200), -80); spray(o.x + rand(-o.r, o.r), o.y - o.r * 0.3, sign(rand(-1, 1)), o.def.fluid, 4, 0.6); p.owner.hp = Math.min(100, p.owner.hp + 0.2); } if (Math.random() < 0.5) Sfx.play('flap', 0.6); if (Math.random() < 0.25) Sfx.play('screech', 0.5); } }
     }
     if (p.type === 'quake') {
+      if (p.t === dt) p.dur = 1.0;
       const e = p.t / p.dur, o = other(p.owner); game.shake = Math.max(game.shake, 18 * (1 - e)); if (Math.random() < 0.5) dust(rand(EDGE_L, EDGE_R), GROUND, 1, 1.2);
       if (!p.hit && p.t > 0.05) { p.hit = true; if (o && !o.inPit && !o.invisible && o.y + o.base > GROUND - 24) { strike(p.owner, o, { dmg: 3 * p.owner.def.power, kb: 0, stun: 0.55, anyDir: true, text: 'TREMOR!', color: '#ffffff', x: o.x, y: GROUND - 20 }); o.vy = -300; o.onGround = false; } else if (o) addText('JUMPED IT!', o.x, o.y - o.r * 2, '#a9b5a4', 30); }
     }
@@ -4120,6 +4264,15 @@ function drawProps(ctx) {
       ctx.translate(p.x, GROUND + 40 - rise); drawJaw(ctx, open, big); ctx.restore();
     } else if (p.type === 'bigrex' || p.type === 'demon') {
       ctx.save(); ctx.translate(p.hx, p.hy); ctx.scale(-p.side, 1); ctx.rotate(p.shakeA || 0); if (p.type === 'demon') drawDemon(ctx, p.jaw || 0, p.t); else drawBigRex(ctx, p.jaw || 0, p.t); ctx.restore();
+    } else if (p.type === 'storm') {
+      const k = clamp(Math.min(p.t / 0.3, (p.dur - p.t) / 0.5), 0, 1);
+      if (p.S.dim) { ctx.save(); ctx.fillStyle = `rgba(10,0,20,${0.16 * k})`; ctx.fillRect(-200, -100, W + 400, H + 200); ctx.restore(); }
+      ctx.save(); ctx.globalAlpha = k; for (const q of p.parts) if (p.t >= q.d && q.y < 9000) drawStormShape(ctx, p.S.shape, q, p.S.col, p.t); ctx.restore();
+    } else if (p.type === 'webstream') {
+      if (p.on || p.fatal) { ctx.save(); ctx.strokeStyle = 'rgba(250,250,255,0.9)'; ctx.lineCap = 'round'; for (let k = 0; k < 5; k++) { ctx.lineWidth = k ? 1.5 : 3; ctx.beginPath(); ctx.moveTo(p.mx, p.my); const mx = (p.mx + p.tx) / 2, my = (p.my + p.ty) / 2 + Math.sin(p.t * 20 + k * 1.3) * (10 + k * 6); ctx.quadraticCurveTo(mx, my, p.tx + rand(-20, 20), p.ty + rand(-30, 30)); ctx.stroke(); }
+        ctx.fillStyle = 'rgba(255,255,255,0.85)'; for (let k = 0; k < 6; k++) { const u = ((p.t * 2.5 + k / 6) % 1); ctx.beginPath(); ctx.arc(p.mx + (p.tx - p.mx) * u, p.my + (p.ty - p.my) * u + Math.sin(u * 9) * 8, 4, 0, 7); ctx.fill(); } ctx.restore(); }
+    } else if (p.type === 'cocoon') {
+      const l = p.f, kk = p.k; if (kk > 0 && !l.fx.hidden) { ctx.save(); ctx.globalAlpha = Math.min(1, kk * 1.2); ctx.fillStyle = '#f0ece4'; ctx.beginPath(); ctx.ellipse(l.x, l.y - l.r * 0.2, l.r * 1.15 * (0.4 + 0.6 * kk), l.r * 1.6 * (0.4 + 0.6 * kk), 0, 0, 7); ctx.fill(); ctx.strokeStyle = 'rgba(160,150,140,0.8)'; ctx.lineWidth = 2; for (let k = 0; k < 12; k++) { ctx.beginPath(); ctx.ellipse(l.x, l.y - l.r * 0.2, l.r * 1.15, l.r * 0.3, (k - 6) * 0.25, 0, 7); ctx.stroke(); } if (p.thread) { ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(l.x, l.y - l.r * 1.8); ctx.lineTo(l.x, -20); ctx.stroke(); } ctx.restore(); }
     } else if (p.type === 'batswarm') {
       const k = clamp(Math.min(p.t / 0.3, (p.dur - p.t) / 0.5), 0, 1);
       ctx.save(); ctx.fillStyle = `rgba(30,0,10,${0.32 * k})`; ctx.fillRect(-200, -100, W + 400, H + 200); ctx.restore();
@@ -4292,8 +4445,9 @@ function crackDecal(x, size) {
   if (size >= 100) smashRing(x, size);
   crackLines(x, size);
 }
+const SMASH_STAGES = new Set(['pit', 'caldera', 'shrine', 'foundry', 'sushi', 'moon', 'kaiju', 'summit', 'jigoku', 'abattoir']);
 function smashRing(x, size) {
-  if (x < EDGE_L || x > EDGE_R) return;
+  if (x < EDGE_L || x > EDGE_R || !SMASH_STAGES.has(stage.id)) return;
   const k = Math.min(1.6, size / 140), cg = dctx.createRadialGradient(x, GROUND + 4, 2, x, GROUND + 4, 60 * k);
   cg.addColorStop(0, 'rgba(0,0,0,0.55)'); cg.addColorStop(1, 'rgba(0,0,0,0)'); dctx.fillStyle = cg; dctx.beginPath(); dctx.ellipse(x, GROUND + 4, 70 * k, 12 * k, 0, 0, 7); dctx.fill();
   for (let i = 0; i < 18 * k; i++) game.particles.push({ k: 'gib', x: x + rand(-40, 40) * k, y: GROUND - 4, vx: rand(-420, 420) * k, vy: -rand(300, 900) * k, r: rand(4, 10), rot: 0, vr: rand(-14, 14), life: 3, c: stage.rock, landY: GROUND + rand(-12, 13) });
@@ -6458,6 +6612,9 @@ const cpu = {
     if (game.state !== 'fight' || me.ko || me.inPit || me.frozenT > 0) return it;
     if (me.heldBy) { if (me.def.element === 'teleport' && me.meter >= 100) it.specialUp = true; else it.mash = Math.random() < 0.12 * this.skill; return it; }
     if (me.sc || me.down > 0) return it;
+    this.lazyT = (this.lazyT || 0) - dt;   // weaker CPUs take breathers instead of pressing every advantage
+    if (this.lazyT <= 0 && Math.random() < dt * (1.15 - this.skill) * 2.2) this.lazyT = rand(0.4, 1.0) * (1.25 - this.skill);
+    if (this.lazyT > 0 && !me.sp && !o.sp && game.mode !== 'demo') { it.x = Math.random() < 0.4 ? 0 : sign(o.x - me.x) * 0.35; return it; }
     if (me.sp) { if (me.sp.kind === 'fire') { const dy = o.y - me.y; it.up = dy < -40; it.brace = dy > 40; } return it; }
     if (me.holding) {
       if (!this.holdPlan) this.holdPlan = { at: rand(0.35, 0.95), dir: o.x < W / 2 ? -1 : 1, butt: Math.random() < 0.45 };
@@ -6483,7 +6640,7 @@ const cpu = {
       const use = el === 'fire' ? gap < 260 : el === 'ice' ? gap > 120 && gap < 650 : el === 'acid' ? gap > 30 && gap < 300 :
         el === 'teleport' ? (Math.random() < 0.5 || myEdge < 100) : el === 'lightning' ? true : el === 'earth' ? o.onGround && gap < 520 :
         el === 'wind' ? gap < 480 : el === 'gravity' ? gap > 20 && gap < 420 : el === 'machine' ? gap > 60 && gap < 700 : el === 'ghost' ? gap < 500 : el === 'horror' ? true :
-        el === 'heart' ? gap < 600 : el === 'kitten' ? gap < 700 : el === 'rage' ? gap < 260 : el === 'boss' ? gap < 480 : el === 'bug' ? gap < 600 : el === 'sky' ? true : el === 'eye' ? gap < 800 : el === 'hex' ? gap < 700 : el === 'titan' ? gap < 110 : el === 'jelly' ? gap < 520 : el === 'blood' ? gap < 800 : el === 'warp' ? gap < 700 : el === 'water' ? gap < 650 && sign(o.x - me.x) === me.facing : el === 'dog' ? gap < 520 : el === 'occult' ? gap < 800 : el === 'pirate' ? true : el === 'knight' ? gap > 40 && gap < 900 : el === 'axe' ? gap < 900 : el === 'bubble' ? gap < 650 : el === 'sumo' ? gap < 500 : el === 'god' ? gap < 600 : false;
+        el === 'heart' ? gap < 600 : el === 'kitten' ? gap < 700 : el === 'rage' ? gap < 260 : el === 'boss' ? gap < 480 : el === 'bug' ? gap < 600 : el === 'sky' ? true : el === 'eye' ? gap < 800 : el === 'hex' ? gap < 700 : el === 'titan' ? gap < 110 : el === 'jelly' ? gap < 520 : el === 'blood' ? gap < 800 : el === 'warp' ? gap < 700 : el === 'water' ? gap < 650 && sign(o.x - me.x) === me.facing : el === 'dog' ? gap < 520 : el === 'spider' ? gap < 650 : el === 'occult' ? gap < 800 : el === 'pirate' ? true : el === 'knight' ? gap > 40 && gap < 900 : el === 'axe' ? gap < 900 : el === 'bubble' ? gap < 650 : el === 'sumo' ? gap < 500 : el === 'god' ? gap < 600 : false;
       if (use) { it.specialUp = true; return it; }
     }
     if (me.meter < 100 && gap > 230 && !o.sp && this.chargeT <= 0 && Math.random() < dt * 0.7) this.chargeT = rand(0.8, 2.4);
@@ -6495,7 +6652,7 @@ const cpu = {
     this.spamT = Math.max(0, (this.spamT || 0) - dt);
     if (this.spamT > 0 && o.punch && (o.punch.kind || 'slap') === this.spamK && o.punch.phase !== 'recover' && gap < 120 && !o.punch.spamSeen) {
       o.punch.spamSeen = true;
-      if (Math.random() < 0.5 + 0.45 * this.skill) {
+      if (Math.random() < 0.1 + 0.8 * this.skill) {
         if (game.mode !== 'demo' && (!this.readMsg || amb.t - this.readMsg > 5)) { this.readMsg = amb.t; addText('READ YOU!', me.x, me.y - me.r * 2.3, '#ff4aa0', 36); }
         if (this.spamK === 'sweep') { it.jump = true; this.punishT = 0.6; return it; }
         it.brace = true; it.braceTap = true; this.braceT = 0.22; this.punishT = 0.5; return it;
@@ -6536,7 +6693,7 @@ const game = {
   wins: [0, 0], round: 1, hitstop: 0, shake: 0, slow: 1, cam: 0, acc: 0, banner: null, introT: 0, koT: 0, winner: -1, salted: false,
   beats: [], cerePress: [null, null], koIndex: 0, finT: 0, cpuFat: false,
 };
-const sel = [0, 2], cos = [0, 0], CPU_SKILL = [0.42, 0.72, 0.97];
+const sel = [0, 2], cos = [0, 0], CPU_SKILL = [0.22, 0.55, 0.88], CPU_DMG = [0.7, 0.85, 1];
 let cpuLevel = 1;
 let p2cpu = true, selStage = 0;
 try {
@@ -6580,6 +6737,30 @@ function startTourFight() {
   cpu.skill = boss ? 1 : clamp(0.3 + cpuLevel * 0.12 + tour.i * 0.07, 0.3, 1);
   game.fighters = []; game.state = 'ladder'; game.ladT = 0; game.banner = null; game.died = null; game.autoNext = 0; resetSun();
   Music.play('title'); Sfx.play('taiko', 1.3); setTimeout(() => Sfx.play('taiko', 1.1), 260);
+}
+function startEnding() {
+  game.died = null; game.banner = null; game.fighters = []; game.state = 'ending'; game.endT = 0; resetSun(); game.props = []; game.particles = [];
+  Music.stop(); Music.playSting('victory'); Sfx.play('gong', 1.2); setTimeout(() => { if (game.state === 'ending') Music.play('st_bamboo'); }, 2500);
+}
+function drawEnding(ctx) {
+  const t = game.endT, champ = ROSTER[sel[0]], k = clamp(t / 10, 0, 1), pan = -t * 14;
+  const sky = ctx.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, mix('#2a1a4a', '#6ac8ff', k)); sky.addColorStop(0.55, mix('#ff7a5a', '#ffe8b0', k)); sky.addColorStop(1, '#ffd8a0'); ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
+  const sy = 470 - 230 * Math.min(1, t / 8); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const sg = ctx.createRadialGradient(900, sy, 10, 900, sy, 260); sg.addColorStop(0, 'rgba(255,250,220,0.95)'); sg.addColorStop(0.3, 'rgba(255,220,140,0.6)'); sg.addColorStop(1, 'rgba(255,200,120,0)'); ctx.fillStyle = sg; ctx.fillRect(600, sy - 300, 600, 600); ctx.restore();
+  ctx.fillStyle = '#fff6dc'; ctx.beginPath(); ctx.arc(900, sy, 60, 0, 7); ctx.fill();
+  const hills = [['#8ab8a0', 300, 0.2, 140], ['#5a9a6a', 380, 0.4, 110], ['#3a7a4a', 450, 0.7, 80], ['#2a6a3a', 520, 1, 60]];
+  for (const [c, y0, par, amp] of hills) { ctx.fillStyle = c; ctx.beginPath(); ctx.moveTo(0, H); for (let x = 0; x <= W; x += 20) ctx.lineTo(x, y0 - Math.abs(Math.sin((x - pan * par) * 0.004 + y0)) * amp); ctx.lineTo(W, H); ctx.fill(); }
+  ctx.strokeStyle = 'rgba(200,240,255,0.85)'; ctx.lineWidth = 26; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(-40, 700); ctx.bezierCurveTo(300, 560, 520, 640, 760, 560); ctx.bezierCurveTo(900, 520, 1100, 560, 1320, 520); ctx.stroke(); ctx.strokeStyle = 'rgba(255,255,255,0.6)'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.fillStyle = '#c0141e'; const tx = 1060 + pan * 0.7; ctx.fillRect(tx - 60, 430, 120, 12); ctx.fillRect(tx - 70, 418, 140, 10); ctx.fillRect(tx - 48, 430, 10, 90); ctx.fillRect(tx + 38, 430, 10, 90);
+  for (const [x, y, s] of [[150, 520, 1.2], [420, 560, 0.9], [1180, 540, 1]]) { const bx = x + pan * 0.9; ctx.fillStyle = '#5a3a2a'; ctx.fillRect(bx - 6 * s, y - 80 * s, 12 * s, 90 * s); ctx.fillStyle = '#ffb0d0'; for (let q = 0; q < 7; q++) { ctx.beginPath(); ctx.arc(bx + Math.cos(q * 0.9) * 50 * s, y - 100 * s + Math.sin(q * 1.3) * 30 * s, 34 * s, 0, 7); ctx.fill(); } }
+  ctx.fillStyle = '#ffc8e0'; for (let q = 0; q < 50; q++) { const px = ((q * 137 + t * (30 + q % 7 * 8)) % (W + 100)) - 50, py = ((q * 61 + t * (40 + q % 5 * 10)) % (H + 40)) - 20; ctx.beginPath(); ctx.ellipse(px, py, 5, 3, q + t, 0, 7); ctx.fill(); }
+  ctx.strokeStyle = '#2a2a2a'; ctx.lineWidth = 2; for (let q = 0; q < 5; q++) { const bx = ((q * 220 + t * 40) % (W + 200)) - 100, by = 140 + q * 22 + Math.sin(t + q) * 8, w = Math.sin(t * 6 + q) * 6; ctx.beginPath(); ctx.moveTo(bx - 10, by - w); ctx.quadraticCurveTo(bx - 4, by - 6, bx, by); ctx.quadraticCurveTo(bx + 4, by - 6, bx + 10, by - w); ctx.stroke(); }
+  const P = portraitOf(champ); if (P) { ctx.save(); ctx.translate(560, 470 + Math.sin(t * 1.2) * 3); ctx.drawImage(P, -110, -150, 220, 220); ctx.restore(); }
+  const line = (txt, t0, t1, y, size, col) => { if (t < t0 || t > t1) return; const a = clamp(Math.min((t - t0) / 0.8, (t1 - t) / 0.8), 0, 1); ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center'; ctx.font = `700 ${size}px Cinzel, "Times New Roman", serif`; ctx.fillStyle = col; ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 10; ctx.fillText(txt, W / 2, y); ctx.restore(); };
+  line('THE COLOSSUS HAS FALLEN', 0.5, 4.5, 120, 46, '#fff6dc');
+  line('PEACE RETURNS TO THE VALLEY', 4.2, 9, 120, 46, '#fff6dc');
+  line(champ.name.toUpperCase() + ' · GRAND CHAMPION', 8.5, 14, 110, 44, '#ffd23a');
+  line('YOKOZUNA OF THE JIGGLE PIT', 9.2, 14, 160, 26, '#fff6dc');
+  if (t > 12.5) { ctx.fillStyle = `rgba(0,0,0,${clamp((t - 12.5) / 1.5, 0, 1)})`; ctx.fillRect(0, 0, W, H); }
 }
 const RANKS = ['Jonokuchi', 'Jonidan', 'Sandanme', 'Makushita', 'Juryo', 'Maegashira', 'Komusubi', 'Ozeki', 'Yokozuna'];
 const RANK_KANJI = ['序ノ口', '序二段', '三段目', '幕下', '十両', '前頭', '小結', '大関', '横綱'];
@@ -6849,7 +7030,7 @@ function showMatchEnd() {
   let sub;
   if (game.mode === 'tour') {
     if (w === 0) {
-      if (tour.i >= tour.ladder.length - 1) { tour.done = true; bumpStat('tournaments'); sub = 'Champion of the Pit · Enter for the title screen'; hype(2); Sfx.play('cheer', 2); }
+      if (tour.i >= tour.ladder.length - 1) { tour.done = true; bumpStat('tournaments'); sub = 'Champion of the Pit · peace returns to the valley...'; hype(2); Sfx.play('cheer', 2); game.autoNext = amb.t + 4.5; }
       else { sub = `Bout ${tour.i + 1} of ${tour.ladder.length} won · climbing the banzuke...`; game.autoNext = amb.t + 3.6; }
     } else sub = 'Enter to retry this fight · Esc to quit';
   } else sub = touchMode ? 'Tap to rematch' : 'Enter to rematch · Esc for the main menu';
@@ -6861,7 +7042,7 @@ function showMatchEnd() {
 }
 function matchContinue() {
   game.died = null;
-  if (game.mode === 'tour') { if (tour.done) { showScreen('title'); return; } if (game.winner === 0) tour.i++; startTourFight(); }
+  if (game.mode === 'tour') { if (tour.done) { startEnding(); return; } if (game.winner === 0) tour.i++; startTourFight(); }
   else startMatch();
 }
 
@@ -6931,6 +7112,15 @@ const FATALITIES = {
       w.x = D.x - s.dir * 20; w.y = D.y - 75 - w.base * 0.5; w.vx = 0; w.vy = 0; w.onGround = false; w.facing = s.dir;
     }
     return s.ash != null && s.t - s.ash > 2.2;
+  } },
+  spider: { name: 'Cocooned', run(w, l, s, dt) {
+    if (!s.a) { s.a = 1; w.facing = sign(l.x - w.x) || 1; Sfx.play('screech', 1.6); addText('YOU ARE MY DINNER', w.x, w.y - w.r * 2.3, '#a05aff', 44); s.C = { type: 'cocoon', f: l, t: 0, dur: 99, k: 0 }; game.props.push(s.C); s.W = { type: 'webstream', owner: w, target: l, t: 0, dur: 1.6, tick: 99, fatal: true }; game.props.push(s.W); }
+    const C = s.C;
+    if (s.t < 1.6) { C.k = s.t / 1.6; l.hurtT = 1; if (Math.random() < 0.2) Sfx.play('glorp', 0.6); }
+    else if (s.t < 3.4) { C.k = 1; l.noGrav = true; l.vy = -110; l.vx = 0; l.y = Math.max(l.y, 220); C.thread = true; if (Math.random() < 0.15) Sfx.voice(l, 'hit', 0.8); l.jiggleHit(0, 0, rand(-260, 260), rand(-100, 100)); }
+    else if (!s.eat) { s.eat = 1; C.big = 1; Sfx.play('crunch', 2.2); Sfx.play('screech', 2); game.shake += 30; game.redFlash = 1; addText('DRAINED!', l.x, l.y - 80, '#7aff3a', 70); for (let k = 0; k < 6; k++) spray(l.x, l.y, pick([-1, 1]), '#7aff3a', 16, 1); }
+    if (s.eat && !s.pop && s.t > 4.3) { s.pop = 1; C.dur = 0; l.noGrav = false; obliterate(l); Sfx.play('splurt', 2.2); }
+    return s.pop && s.t > 5.6;
   } },
   axe: { name: 'Timber!', run(w, l, s, dt) {
     if (!s.a) { s.a = 1; w.facing = sign(l.x - w.x) || 1; Sfx.voice(w, 'big', 1.4); addText('TIMBERRRR!', w.x, w.y - w.r * 2.4, '#ff8a3a', 56); s.X = { type: 'giantaxe', x: l.x + 260, y: -400, rot: 0, t: 0, dur: 99 }; game.props.push(s.X); game.dark = 1.2; Sfx.play('whoosh', 2); }
@@ -7195,6 +7385,10 @@ function updateGame(rdt) {
     if (game.colT > 2.4) { game.colThud = 0; afterReplay('match'); }
   }
   if (game.state === 'fatality' && game.fat.done) { game.fat.endT += rdt; if (game.fat.el === 'god') { if (game.fat.endT > 0.6) { game.sunK = 0; game.sunFade = 0; tour.i = 0; tour.done = false; bumpStat('matches'); showScreen('title'); toast('The sun has fallen. Your tournament starts over.'); } } else if (game.fat.endT > 2.6) showMatchEnd(); }
+  if (game.state === 'ending') {
+    game.endT += rdt; if (game.endT > 14 || (game.endT > 3 && pressed.size)) { tour.done = false; tour.i = 0; showScreen('title'); }
+    pressed.clear(); released.clear(); return;
+  }
   if (game.state === 'ladder') {
     game.ladT += rdt; const t0 = game.ladT;
     if (tour.i > 0 && !game.ladSnd && t0 > 0.5) { game.ladSnd = 1; Sfx.play('cheer', 1); Sfx.play('taiko', 1.2); }
@@ -7235,6 +7429,7 @@ addEventListener('resize', resize);
 
 function render() {
   if (game.state === 'replay') { drawReplay(); return; }
+  if (game.state === 'ending') { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.setTransform(scale, 0, 0, scale, offX, offY); ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip(); drawEnding(ctx); ctx.restore(); return; }
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = '#030605'; ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.setTransform(scale, 0, 0, scale, offX, offY);
@@ -7442,7 +7637,7 @@ function drawHUD(ctx) {
       const mz = ready && Math.sin(amb.t * 10) > 0;
       drawLiquidBar(ctx, px, py, pw, ph, f.bars.mi, null, left, ready ? { hi: mz ? '#eaffea' : '#b4ffb0', mid: '#2ae85a', lo: '#065a1a', glow: '#3aff6a', glowK: 14 + (mz ? 10 : 0), foam: '#ffffff' } : { hi: '#a8f0b0', mid: '#1a9a3a', lo: '#053a12', glow: 'rgba(40,200,80,0.5)', glowK: 8 });
       if (ready) barSparks(px, py, pw, ph, 'rgba(190,255,200,0.85)');
-      hudLabel(MM.name.toUpperCase() + (ready ? '!' : ''), left ? px + pw + 12 : px - 12, py + 13, 18, ready ? (mz ? '#ffffff' : '#7aff8a') : '#7ad88a', left, ready ? '#3aff6a' : null, ready ? '' : Math.ceil(f.miniCD) + 's');
+      hudLabel(MM.name.toUpperCase() + (ready ? '!' : ''), left ? px + pw + 12 : px - 12, py + 13, 18, ready ? (mz ? '#ffffff' : '#7aff8a') : '#7ad88a', left, ready ? '#3aff6a' : null, ready ? '' : Math.floor(k * 100) + '%');
     }
     ctx.textAlign = left ? 'left' : 'right';
     if (f.combo >= 2 && f.comboT > 0) {
