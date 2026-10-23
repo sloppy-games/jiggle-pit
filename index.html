@@ -105,6 +105,7 @@ button:focus-visible { outline: 2px solid var(--hazard); outline-offset: 2px; }
 body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); left: auto; right: 16px; transform: none; }
 #touch[hidden] { display: none; }
 #sound, #music, #pickFor { display: none !important; }
+#menu .screen-head .step, #stagesel .screen-head .step { visibility: hidden; }
 #touch {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 4; display: flex; justify-content: space-between; align-items: flex-end; gap: 10px;
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
@@ -442,7 +443,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   <div class="pause-card">
     <h2>Paused</h2>
     <div class="pause-moves" id="pauseMoves"></div>
-    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pSound">Sound on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
+    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
   </div>
 </div>
 
@@ -520,7 +521,7 @@ const ELEMENTS = {
   bug:       { label: 'Bug',       move: 'Locust Plague',     color: '#9aff3a', desc: 'A buzzing cloud of locusts flies over and chews on the opponent for two seconds. <strong>Blocking only halves it.</strong>' },
   sky:       { label: 'Sky',       move: 'Dive Bomb',         color: '#4ad0ff', desc: 'Flies off the top of the screen, tracks the opponent, then dives straight down on them. <strong>Keep moving.</strong>' },
   eye:       { label: 'Eye',       move: 'Triclops Beam',     color: '#ff4a6a', desc: 'All three eyes fire lasers that char flesh and burn a limb off. <strong>Block to deflect.</strong>' },
-  hex:       { label: 'Hex',       move: 'Toad Curse',        color: '#b06aff', desc: 'A hex bolt turns the opponent into a toad for four seconds: no attacks, and every hit stings 40% more.' },
+  hex:       { label: 'Hex',       move: 'Toad Curse',        color: '#b06aff', desc: 'A hex bolt turns the opponent into a toad for three and a half seconds: no attacks, and every hit stings 40% more.' },
   titan:     { label: 'Titan',     move: 'Thousand Palm',     color: '#4aff6a', desc: 'Four arms, twenty slaps, then a double-fisted hammer that tears a limb loose.' },
   jelly:     { label: 'Kawaii',    move: 'Jelly Bounce',      color: '#ffb0e0', desc: 'Three huge bounces, each one landing on the opponent. The third is the heaviest.' },
   blood:     { label: 'Blood',     move: 'Blood Feast',       color: '#c4102a', desc: 'Bursts into bats, reforms behind the opponent and drinks their blood to heal. <strong>Heals from every hit.</strong>' },
@@ -538,9 +539,9 @@ const ELEMENTS = {
 };
 
 const ROSTER = [
-  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.85, power: 1.45, jiggle: 12, element: 'earth',
+  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.85, power: 1.52, jiggle: 12, element: 'earth',
     skin: '#f4b48a', skinDark: '#cc8256', belt: '#2846c8', hair: '#14100c', hairStyle: 'knot', fluid: '#d1121e', fluidName: 'Blood' },
-  { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.22, power: 0.77, jiggle: 19, element: 'teleport',
+  { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.22, power: 0.86, jiggle: 19, element: 'teleport',
     skin: '#ffe2d2', skinDark: '#eaa98c', belt: '#ff3d8b', hair: '#2a1a12', hairStyle: 'knot', fluid: '#7dff2a', fluidName: 'Neon goo' },
   { id: 'rex',     name: 'Chonkasaurus',    mass: 148, size: 70, speed: 0.98, power: 0.94, jiggle: 15, element: 'fire',
     skin: '#8fd14f', skinDark: '#56903a', belt: '#ffb21a', hair: null, hairStyle: 'none', fluid: '#a24bff', fluidName: 'Purple goo', tail: true },
@@ -550,9 +551,9 @@ const ROSTER = [
     skin: '#d6e48a', skinDark: '#9fb05a', belt: '#6a1fb0', hair: '#2f5a1a', hairStyle: 'knot', fluid: '#e8ff3a', fluidName: 'Bile' },
   { id: 'sparky',  name: 'Sparky Sato',     mass: 118, size: 63, speed: 1.12, power: 0.8, jiggle: 16, element: 'lightning',
     skin: '#ffcf96', skinDark: '#dc9a64', belt: '#18181c', hair: '#ffe23a', hairStyle: 'spiky', fluid: '#22e8ff', fluidName: 'Plasma goo' },
-  { id: 'taro',    name: 'Typhoon Taro',    mass: 108, size: 60, speed: 1.18, power: 1.05, jiggle: 17, element: 'wind',
+  { id: 'taro',    name: 'Typhoon Taro',    mass: 108, size: 60, speed: 1.18, power: 1.12, jiggle: 17, element: 'wind',
     skin: '#e8b490', skinDark: '#bf8662', belt: '#0fa89a', hair: '#10201e', hairStyle: 'band', fluid: '#e0141e', fluidName: 'Blood' },
-  { id: 'kuro',    name: 'Cosmo Kuro',      mass: 156, size: 72, speed: 1.08, power: 1.25, jiggle: 13, element: 'gravity',
+  { id: 'kuro',    name: 'Cosmo Kuro',      mass: 156, size: 72, speed: 1.08, power: 1.15, jiggle: 13, element: 'gravity',
     skin: '#6d5ce0', skinDark: '#3e2f9a', belt: '#ff4fd8', hair: '#0a0620', hairStyle: 'knot', fluid: '#ff4fd8', fluidName: 'Stardust', stars: true },
   { id: 'mecha',   name: 'Mecha-Zeki',      mass: 190, size: 76, speed: 0.78, power: 1.15, jiggle: 26, element: 'machine',
     skin: '#a8b8c8', skinDark: '#5a6a7a', belt: '#ff8a1a', hair: null, hairStyle: 'none', fluid: '#16120e', fluidName: 'Engine oil', look: 'robot', traits: { armor: 0.85 } },
@@ -560,45 +561,45 @@ const ROSTER = [
     skin: '#e4fff8', skinDark: '#8adcc8', belt: '#3a2a5a', hair: null, hairStyle: 'none', fluid: '#8affe8', fluidName: 'Ectoplasm', look: 'ghost', traits: { phase: 0.2, float: 0.6 } },
   { id: 'stitches', name: 'Stitches',       mass: 158, size: 72, speed: 0.92, power: 1.08, jiggle: 11, element: 'horror',
     skin: '#b8c0a8', skinDark: '#6a7460', belt: '#2a0a0e', hair: '#1a1a1a', hairStyle: 'none', fluid: '#3a0006', fluidName: 'Black blood', look: 'horror', traits: { leech: 0.25 } },
-  { id: 'kiki',    name: 'Kiki Puff',       mass: 84,  size: 54, speed: 1.34, power: 0.82, jiggle: 21, element: 'heart',
+  { id: 'kiki',    name: 'Kiki Puff',       mass: 84,  size: 54, speed: 1.34, power: 0.98, jiggle: 21, element: 'heart',
     skin: '#ffffff', skinDark: '#ffd0e4', belt: '#ff4fa0', hair: null, hairStyle: 'none', bow: '#ff2f6a', fluid: '#ff7ad0', fluidName: 'Glitter', look: 'cat', traits: { bounce: 1, wings: 'angel' } },
   { id: 'momo',    name: 'Momo Nyan',       mass: 88,  size: 55, speed: 1.30, power: 0.96, jiggle: 20, element: 'kitten',
-    skin: '#fff4e0', skinDark: '#f0c890', belt: '#3aa8ff', hair: null, hairStyle: 'none', bow: '#3a7aff', fluid: '#7ad7ff', fluidName: 'Sprinkles', look: 'cat', traits: { feet: 0.5 } },
-  { id: 'goro',    name: 'Ikari Goro',      mass: 150, size: 70, speed: 0.97, power: 0.79, jiggle: 13, element: 'rage',
-    skin: '#ff9a7a', skinDark: '#c85a40', belt: '#1a1a1a', hair: '#1a0a06', hairStyle: 'knot', fluid: '#e0141e', fluidName: 'Blood', look: 'angry', traits: { rage: 0.3 } },
+    skin: '#fff4e0', skinDark: '#f0c890', belt: '#3aa8ff', hair: null, hairStyle: 'none', bow: '#3a7aff', fluid: '#7ad7ff', fluidName: 'Sprinkles', look: 'cat', headCol: '#1c1a22', traits: { feet: 0.5 } },
+  { id: 'goro',    name: 'Ikari Goro',      mass: 150, size: 70, speed: 0.97, power: 0.74, jiggle: 13, element: 'rage',
+    skin: '#ff9a7a', skinDark: '#c85a40', belt: '#1a1a1a', hair: '#1a0a06', hairStyle: 'knot', fluid: '#e0141e', fluidName: 'Blood', look: 'angry', traits: { rage: 0.22 } },
   { id: 'rexzuna', name: 'Yokozuna Rex',    mass: 260, size: 92, speed: 0.78, power: 1.30, jiggle: 9, element: 'boss',
     skin: '#6a8a3a', skinDark: '#3a5a1a', belt: '#e6b422', hair: null, hairStyle: 'none', fluid: '#c4102a', fluidName: 'Blood', tail: true, look: 'rex', boss: true, lock: { tournaments: 1 }, traits: { armor: 0.8 } },
-  { id: 'buzz',    name: 'Buzz Kabuto',     mass: 120, size: 64, speed: 1.10, power: 1.02, jiggle: 15, element: 'bug',
+  { id: 'buzz',    name: 'Buzz Kabuto',     mass: 120, size: 64, speed: 1.10, power: 1.1, jiggle: 15, element: 'bug',
     skin: '#5a9a3a', skinDark: '#24481a', belt: '#e0a020', hair: null, hairStyle: 'none', fluid: '#c8ff3a', fluidName: 'Green ichor', look: 'bug', traits: { armor: 0.9, grip: true }, voice: { p: 820, t: 'bug' } },
-  { id: 'talon',   name: 'Talon Tengu',     mass: 96,  size: 58, speed: 1.26, power: 1.0, jiggle: 18, element: 'sky',
+  { id: 'talon',   name: 'Talon Tengu',     mass: 96,  size: 58, speed: 1.26, power: 1.2, jiggle: 18, element: 'sky',
     skin: '#f4f0e4', skinDark: '#b8ae98', belt: '#d02a2a', hair: null, hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'bird', traits: { float: 0.72, glide: true }, voice: { p: 680, t: 'bird' } },
-  { id: 'mitsu',   name: 'Mitsume',         mass: 172, size: 78, speed: 0.86, power: 1.3, jiggle: 11, element: 'eye',
+  { id: 'mitsu',   name: 'Mitsume',         mass: 172, size: 78, speed: 0.86, power: 1.38, jiggle: 11, element: 'eye',
     skin: '#8a6ad8', skinDark: '#45348a', belt: '#ffd23a', hair: null, hairStyle: 'none', fluid: '#3ad0ff', fluidName: 'Blue blood', look: 'cyclops', traits: { foresight: 0.15 }, voice: { p: 82, t: 'deep' } },
-  { id: 'hexa',    name: 'Madam Hexa',      mass: 104, size: 60, speed: 1.08, power: 0.86, jiggle: 17, element: 'hex',
+  { id: 'hexa',    name: 'Madam Hexa',      mass: 104, size: 60, speed: 1.08, power: 0.8, jiggle: 17, element: 'hex',
     skin: '#9ad07a', skinDark: '#548a44', belt: '#3a0a5a', hair: '#2a1a3a', hairStyle: 'none', fluid: '#7aff3a', fluidName: 'Bog water', look: 'witch', traits: { float: 0.78 }, voice: { p: 330, t: 'witch' } },
   { id: 'ashura',  name: 'Ashura Kong',     mass: 225, size: 86, speed: 0.76, power: 0.9, jiggle: 10, element: 'titan', arms: 4,
     skin: '#5ab04a', skinDark: '#2a6a2a', belt: '#7a2aa8', hair: '#14200f', hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'hulk', traits: { armor: 0.92 }, voice: { p: 64, t: 'monster' } },
-  { id: 'pom',     name: 'Pudding Pom',     mass: 112, size: 60, speed: 1.26, power: 1.38, jiggle: 7, element: 'jelly',
+  { id: 'pom',     name: 'Pudding Pom',     mass: 112, size: 60, speed: 1.26, power: 1.55, jiggle: 7, element: 'jelly',
     skin: '#ffe28a', skinDark: '#e0a040', belt: '#ff6ab0', hair: null, hairStyle: 'none', fluid: '#ff7ab8', fluidName: 'Strawberry syrup', look: 'pudding', traits: { kbResist: 0.7 }, voice: { p: 430, t: 'jelly' } },
   { id: 'drac',    name: 'Count Sumula',    mass: 140, size: 68, speed: 1.00, power: 1.28, jiggle: 13, element: 'blood',
     skin: '#e8e2f2', skinDark: '#a294b8', belt: '#1a0a14', hair: '#0e0a12', hairStyle: 'none', fluid: '#5a0010', fluidName: 'Old blood', look: 'vampire', traits: { leech: 0.08, wings: 'bat' }, voice: { p: 100, t: 'vamp' } },
-  { id: 'hyakume', name: 'Hyakume',         mass: 150, size: 72, speed: 0.90, power: 1.0, jiggle: 9, element: 'warp',
+  { id: 'hyakume', name: 'Hyakume',         mass: 150, size: 72, speed: 0.90, power: 1.07, jiggle: 9, element: 'warp',
     skin: '#8a5aa8', skinDark: '#45285e', belt: '#ff3a6a', hair: null, hairStyle: 'none', fluid: '#ff6af0', fluidName: 'Ichor', look: 'eyes', traits: { allSeeing: true }, voice: { p: 118, t: 'monster' } },
   { id: 'namazu',  name: 'Namazu',          mass: 146, size: 70, speed: 1.00, power: 1.1, jiggle: 12, element: 'water',
     skin: '#5a8ab0', skinDark: '#2a4a6a', belt: '#ffd23a', hair: null, hairStyle: 'none', fluid: '#bff4ff', fluidName: 'Fish juice', look: 'fish', traits: { slick: 0.5 }, voice: { p: 170, t: 'jelly' } },
   { id: 'shiba',   name: 'Shiba-Zeki',      mass: 104,  size: 58, speed: 1.30, power: 0.92, jiggle: 18, element: 'dog',
     skin: '#e8a050', skinDark: '#b06a2a', belt: '#3a7aff', hair: null, hairStyle: 'none', fluid: '#e0141e', fluidName: 'Blood', look: 'dog', traits: { zoom: true }, voice: { p: 470, t: 'dog' } },
-  { id: 'morgana', name: 'Mother Morgana',  mass: 128, size: 62, speed: 1.12, power: 1.24, jiggle: 16, element: 'occult',
+  { id: 'morgana', name: 'Mother Morgana',  mass: 128, size: 62, speed: 1.12, power: 1.3, jiggle: 16, element: 'occult',
     skin: '#c8c0d8', skinDark: '#7a6a90', belt: '#8a0a1a', hair: '#0a0410', hairStyle: 'none', fluid: '#2a0006', fluidName: 'Black bile', look: 'occult', traits: { float: 0.82 }, voice: { p: 235, t: 'witch' } },
-  { id: 'barnacle', name: "Cap'n Barnacle", mass: 166, size: 74, speed: 0.92, power: 1.26, jiggle: 14, element: 'pirate',
+  { id: 'barnacle', name: "Cap'n Barnacle", mass: 166, size: 74, speed: 0.92, power: 1.34, jiggle: 14, element: 'pirate',
     skin: '#e8b48a', skinDark: '#b07a54', belt: '#1a1a1a', hair: '#c8501a', hairStyle: 'none', beard: true, fluid: '#c4102a', fluidName: 'Rum and blood', look: 'pirate', hook: true, traits: { grip: true }, voice: { p: 100, t: 'deep' } },
   { id: 'lardalot', name: 'Sir Lardalot',   mass: 176, size: 76, speed: 0.9, power: 0.88, jiggle: 12, element: 'knight',
     skin: '#f0c0a0', skinDark: '#c08a6a', belt: '#2a4ac8', hair: null, hairStyle: 'none', fluid: '#2a5aff', fluidName: 'Blue blood', look: 'knight', traits: { armor: 0.93 }, voice: { p: 125, t: 'human' } },
-  { id: 'harada', name: 'Hatchet Harada',  mass: 170, size: 74, speed: 0.95, power: 1.2, jiggle: 13, element: 'axe',
+  { id: 'harada', name: 'Hatchet Harada',  mass: 170, size: 74, speed: 0.95, power: 1.38, jiggle: 13, element: 'axe',
     skin: '#e8a878', skinDark: '#b07448', belt: '#2a2a2a', hair: '#2a1a0e', hairStyle: 'none', beard: true, fluid: '#c4102a', fluidName: 'Blood', look: 'lumber', traits: { kbResist: 0.85 }, voice: { p: 95, t: 'deep' } },
   { id: 'bubba', name: 'Bubba Bubbles',    mass: 120, size: 66, speed: 1.1, power: 1.05, jiggle: 22, element: 'bubble',
     skin: '#bfe8ff', skinDark: '#6aaed8', belt: '#ff6ab0', hair: null, hairStyle: 'none', fluid: '#e0f8ff', fluidName: 'Soap suds', look: 'bubble', traits: { float: 0.85 }, voice: { p: 300, t: 'jelly' } },
-  { id: 'dosukoi', name: 'Ozeki Dosukoi',  mass: 235, size: 90, speed: 0.76, power: 1.12, jiggle: 11, element: 'sumo',
+  { id: 'dosukoi', name: 'Ozeki Dosukoi',  mass: 235, size: 90, speed: 0.76, power: 0.95, jiggle: 11, element: 'sumo',
     skin: '#f6c8a4', skinDark: '#c88a64', belt: '#5a2a8a', hair: '#120c08', hairStyle: 'knot', fluid: '#c4102a', fluidName: 'Blood', look: 'sumo', traits: { kbResist: 0.72 }, voice: { p: 80, t: 'deep' } },
   { id: 'kongo',   name: 'Kongō the Colossus', mass: 1800, size: 165, speed: 1.25, power: 0.58, jiggle: 8, element: 'god',
     skin: '#b8904a', skinDark: '#6a4a22', belt: '#ffffff', hair: '#2a1a0a', hairStyle: 'knot', fluid: '#ffd23a', fluidName: 'Molten gold', look: 'nio', hidden: true, giant: true, traits: { armor: 0.5 }, voice: { p: 42, t: 'monster' } },
@@ -620,8 +621,8 @@ const TRAITS = {
   wobbles: 'Soft as pudding, hits like a glacier.', tomo: 'Iron stomach, rotten breath.', sparky: 'Static hair, quick hands.',
   taro: 'Light on his feet and hard to pin down.', kuro: 'Star-flecked skin and a gravity well for a belly.',
   mecha: 'Armour plating: takes 15% less damage. Leaks oil, not blood.', ghost: 'Floats, and one in five slaps pass straight through.',
-  stitches: 'Heals a quarter of the damage he deals.', kiki: 'Jumps 35% higher, and angel wings glide for 2.5 seconds (hold jump while falling).', momo: 'Lands on her feet: half damage from throws.',
-  goro: 'Hits up to 30% harder as his health drops.', buzz: 'Exoskeleton: 10% less damage, and claws that grip the edge.', talon: 'Hollow bones: floaty jumps and a second flap in mid-air.',
+  stitches: 'Heals a quarter of the damage he deals.', kiki: 'Jumps 35% higher, and angel wings glide for 2.5 seconds (hold jump while falling).', momo: 'A lucky black cat: lands on her feet for half damage from throws.',
+  goro: 'Hits up to 22% harder as his health drops.', buzz: 'Exoskeleton: 10% less damage, and claws that grip the edge.', talon: 'Hollow bones: floaty jumps and a second flap in mid-air.',
   mitsu: 'Sees it coming: one in seven frontal slaps is blocked automatically.', hexa: 'Broomstick hops: floats on every jump.', ashura: 'Four arms: slaps rotate through all of them, and he has more to lose.',
   pom: 'Pure custard: shrugs off 30% of all knockback.', hyakume: 'All-seeing: blocks from behind as well as in front.', namazu: 'Slippery skin: half of all grabs slide right off.',
   shiba: 'Zoomies: dashes with almost no cooldown.', morgana: 'Broom-light: floats on every jump, and her hexes burn.', barnacle: 'Hook hand: claws onto the ring edge when shoved.', lardalot: 'Plate armour: takes 7% less damage.', harada: 'Thick as an oak: shrugs off 15% of knockback.', bubba: 'Full of air: floaty jumps and an extra-wobbly belly.', dosukoi: 'A true ozeki: shrugs off 28% of knockback.', kongo: 'A temple guardian the size of a house. Cannot be grabbed, shrugs off hit-stun and takes half damage.', drac: 'Drinks from every hit (heals 8%), and bat wings glide for 2.5 seconds (hold jump while falling).', rexzuna: 'Armoured hide: 20% less damage. Unlocked by winning the tournament.',
@@ -1286,6 +1287,7 @@ class Fighter {
         if (p.kind === 'upper' && this.onGround) { this.vy = -200; this.onGround = false; this.squash = -0.3; }
         if (p.kind === 'sweep') this.squash = 0.3;
       } else if (p.phase === 'active') { if (!p.hit) checkMove(this, opp, p); if (p.t >= M.act * tempo) { p.phase = 'recover'; p.t = 0; } }
+      else if (p.phase === 'recover' && p.hit && p.t > 0.035 && (this.punchBuf > 0 || this.shoveBuf > 0 || this.upperBuf > 0 || this.sweepBuf > 0 || this.miniBuf > 0)) this.punch = null;   // hit-confirm cancel
       else if (p.phase === 'recover' && p.t >= M.rec * tempo * (p.hit ? 0.7 : 1)) this.punch = null;
     }
     if (this.grab) {
@@ -1906,20 +1908,21 @@ class Fighter {
       ctx.strokeStyle = '#8a9aa8'; ctx.lineWidth = 2; ctx.beginPath(); for (let k = 1; k < 5; k++) { const x = f * hr * 0.15 - hr * 0.38 + k * hr * 0.152; ctx.moveTo(x, hr * 0.35); ctx.lineTo(x, hr * 0.57); } ctx.stroke();
       this.drawHat(ctx, hr);
     } else if (look === 'cat') {
-      const H2 = hr * 1.25;
+      const H2 = hr * 1.25, hcol = col.xray ? col.skin : (d.headCol || col.skin), dark = !!d.headCol;
       for (const s of [-1, 1]) {
-        ctx.fillStyle = col.skin; ctx.beginPath(); ctx.moveTo(s * H2 * 0.25, -H2 * 0.78); ctx.lineTo(s * H2 * 0.75, -H2 * 1.12); ctx.lineTo(s * H2 * 0.92, -H2 * 0.45); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = hcol; ctx.beginPath(); ctx.moveTo(s * H2 * 0.25, -H2 * 0.78); ctx.lineTo(s * H2 * 0.75, -H2 * 1.12); ctx.lineTo(s * H2 * 0.92, -H2 * 0.45); ctx.closePath(); ctx.fill(); ctx.stroke();
         ctx.fillStyle = '#ffb0d0'; ctx.beginPath(); ctx.moveTo(s * H2 * 0.4, -H2 * 0.76); ctx.lineTo(s * H2 * 0.72, -H2 * 0.98); ctx.lineTo(s * H2 * 0.8, -H2 * 0.55); ctx.closePath(); ctx.fill();
       }
-      ctx.beginPath(); ctx.ellipse(0, -H2 * 0.05, H2 * 1.12, H2 * 0.9, 0, 0, 7); ctx.fillStyle = col.skin; ctx.fill(); ctx.stroke();
-      const ex0 = f * H2 * 0.15;
+      ctx.beginPath(); ctx.ellipse(0, -H2 * 0.05, H2 * 1.12, H2 * 0.9, 0, 0, 7); ctx.fillStyle = hcol; ctx.fill(); ctx.stroke();
+      const ex0 = f * H2 * 0.15; if (dark) ctx.strokeStyle = '#d8d0e0';
       ctx.fillStyle = 'rgba(255,120,170,0.45)'; for (const s of [-1, 1]) { ctx.beginPath(); ctx.ellipse(ex0 + s * H2 * 0.62, H2 * 0.22, H2 * 0.16, H2 * 0.09, 0, 0, 7); ctx.fill(); }
       for (const [s, p] of [[1, p0], [-1, p1]]) {
         const ex = ex0 + s * H2 * 0.4, ey = -H2 * 0.02;
         if (ko) { ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(ex - 6, ey - 6); ctx.lineTo(ex + 6, ey + 6); ctx.moveTo(ex + 6, ey - 6); ctx.lineTo(ex - 6, ey + 6); ctx.stroke(); }
         else if (hurt) { ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(ex - 7, ey - 4); ctx.lineTo(ex, ey + 2); ctx.lineTo(ex + 7, ey - 4); ctx.stroke(); }
         else {
-          ctx.fillStyle = INK; ctx.beginPath(); ctx.ellipse(ex + p.x * 0.3, ey + p.y * 0.3, H2 * 0.12, H2 * 0.17, 0, 0, 7); ctx.fill();
+          if (dark) { ctx.fillStyle = '#ffe23a'; ctx.beginPath(); ctx.ellipse(ex, ey, H2 * 0.19, H2 * 0.22, 0, 0, 7); ctx.fill(); }
+          ctx.fillStyle = INK; ctx.beginPath(); ctx.ellipse(ex + p.x * 0.3, ey + p.y * 0.3, H2 * (dark ? 0.07 : 0.12), H2 * 0.17, 0, 0, 7); ctx.fill();
           ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(ex + p.x * 0.3 - H2 * 0.04, ey + p.y * 0.3 - H2 * 0.07, H2 * 0.05, 0, 7); ctx.fill();
         }
       }
@@ -1927,6 +1930,7 @@ class Fighter {
       ctx.beginPath(); for (const s of [-1, 1]) for (let k = -1; k <= 1; k++) { ctx.moveTo(ex0 + s * H2 * 0.75, H2 * (0.12 + k * 0.1)); ctx.lineTo(ex0 + s * H2 * 1.22, H2 * (0.08 + k * 0.16)); } ctx.stroke();
       if (hurt || this.heldBy || this.sp) { ctx.beginPath(); ctx.ellipse(ex0, H2 * 0.38, H2 * 0.1, H2 * 0.09, 0, 0, 7); ctx.fillStyle = '#7a1030'; ctx.fill(); ctx.stroke(); }
       else { ctx.beginPath(); ctx.arc(ex0 - H2 * 0.06, H2 * 0.32, H2 * 0.06, 0, Math.PI); ctx.arc(ex0 + H2 * 0.06, H2 * 0.32, H2 * 0.06, 0, Math.PI); ctx.stroke(); }
+      ctx.strokeStyle = INK;
       if (d.bow) this.drawBow(ctx, -f * H2 * 0.62, -H2 * 0.82, H2 * 0.42, d.bow);
       this.drawHat(ctx, H2);
     } else if (look === 'ghost') {
@@ -2657,6 +2661,9 @@ function checkPunch(a, o, p) {
   hv.vx *= -0.25; hv.vy *= -0.25;
 }
 
+const HIT_SFX = { tonka: 'flop', mochi: 'tele', rex: 'growl', wobbles: 'freeze', tomo: 'glorp', sparky: 'zap', taro: 'wind', kuro: 'vortex', mecha: 'clang', ghost: 'whoosh',
+  stitches: 'crunch', kiki: 'sparkle', momo: 'squeak', goro: 'crack', rexzuna: 'growl', buzz: 'buzz', talon: 'flap', mitsu: 'laser', hexa: 'potion', ashura: 'thud', pom: 'boing',
+  drac: 'screech', hyakume: 'squish', namazu: 'splash', shiba: 'dash', kongo: 'gong', morgana: 'sizzle', barnacle: 'explode', lardalot: 'bell', harada: 'kick', bubba: 'pop', dosukoi: 'taiko' };
 function hit(a, o, info) {
   const facingAttacker = o.facing === sign(a.x - o.x) || !!(o.def.traits && o.def.traits.allSeeing), M = MOVES[info.kind || 'slap'], hpBefore = o.hp;
   if (o.bracing && facingAttacker && o.parryT > 0 && !info.power && !M.low) { parry(a, o); return; }
@@ -2729,7 +2736,7 @@ function hit(a, o, info) {
     if (info.power) { addText('NINJA SLAP!', info.x, info.y - 40, ELEMENTS.teleport.color, 48); sever(o, 'teleport', 'arm'); }
     else if (M.text) addText(pick(M.text), info.x, info.y - 40, '#ffb43a', 44 + dmg * 1.4);
     else if (!info.kind || info.kind === 'slap') addText(pick(info.head ? ['BONK!', 'CRONCH!', 'SKULL SLAP!'] : ['SLAP!', 'THWAP!', 'TSUPPARI!', 'SPLORCH!', 'WHAP!']), info.x, info.y - 30, '#ffd21a', 34 + dmg * 1.6);
-    Sfx.play(info.kind === 'sweep' ? 'kick' : 'slap', spd); Sfx.play('squish', 0.5); Sfx.voice(o, dmg > 9 ? 'big' : 'hit', dmg > 9 ? 1 : 0.8);
+    Sfx.play(info.kind === 'sweep' ? 'kick' : 'slap', spd); Sfx.play('squish', 0.5); if (HIT_SFX[a.def.id]) Sfx.play(HIT_SFX[a.def.id], a.def.id === 'barnacle' || a.def.id === 'kongo' ? 0.3 : 0.55); Sfx.voice(o, dmg > 9 ? 'big' : 'hit', dmg > 9 ? 1 : 0.8);
     if (info.kind === 'upper' || info.kind === 'sigEnd') Sfx.play('crack', 0.8);
   } else {
     footDust(o, 0.9);
@@ -3035,29 +3042,29 @@ function sigFx(f, o, fx, x, y, last) {
 
 // Mini specials: a quick move on its own cooldown, separate from the meter special
 const MINI = {
-  earth:     { name: 'Boulder Toss', cd: 6, range: [80, 600], fire(f, o) { shoot(f, o, { look: 'rock', vx: 560, vy: -560, grav: 1500, r: 20, dmg: 7, kb: 420, text: 'BOULDER!', col: stage.rock }); } },
-  teleport:  { name: 'Blink Step', cd: 7, range: [60, 900], fire(f, o) { puff(f.x, f.y, '194,123,255'); let nx = o.x - o.facing * (o.r + f.r + 6); if (nx < EDGE_L + 30 || nx > EDGE_R - 30) nx = o.x + o.facing * (o.r + f.r + 6); f.x = clamp(nx, EDGE_L + 30, EDGE_R - 30); f.facing = sign(o.x - f.x); f.vx = 0; puff(f.x, f.y, '194,123,255'); Sfx.play('tele', 0.8); } },
-  fire:      { name: 'Fireball', cd: 5, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'fireball', mouth: true, vx: 760, r: 16, dmg: 5, kb: 260, text: 'FIREBALL!', col: '#ff7a1a', effect(a, t) { t.burnT = Math.max(t.burnT, 1.4); } }); Sfx.play('sizzle', 1); } },
-  ice:       { name: 'Ice Shard', cd: 5, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'shard', vx: 1000, r: 12, dmg: 4, kb: 180, text: 'CHILL!', col: '#7fe3ff', effect(a, t) { t.freeze += 0.4; if (t.freeze >= 1) freezeSolid(t); } }); Sfx.play('freeze', 0.6); } },
-  acid:      { name: 'Acid Spit', cd: 5, range: [60, 520], fire(f, o) { shoot(f, o, { look: 'glob', mouth: true, vx: 520, vy: -380, grav: 1300, r: 12, dmg: 4, kb: 120, text: 'SPIT!', col: '#c6ff2a', land(m) { for (let k = 0; k < 3; k++) addPuddle(m.x + (k - 1) * 20, m.owner); } }); Sfx.play('glorp', 0.6); } },
-  lightning: { name: 'Lightning Ball', cd: 6, range: [80, 900], fire(f, o) { shoot(f, o, { look: 'orb', vx: 420, r: 18, dmg: 6, kb: 160, stun: 0.7, text: 'ZAP!', col: '#ffe23a', effect(a, t) { t.skeleT = 0.4; Sfx.play('zap', 1.5); } }); Sfx.play('zap', 1); } },
-  wind:      { name: 'Air Palm', cd: 4.5, range: [40, 500], fire(f, o) { shoot(f, o, { look: 'crescent', vx: 900, r: 26, dmg: 2, kb: 760, text: 'GUST!', col: '#7fffd4' }); Sfx.play('wind', 1); } },
-  gravity:   { name: 'Pull Orb', cd: 6, range: [150, 800], fire(f, o) { shoot(f, o, { look: 'pull', vx: 480, r: 18, dmg: 3, kb: 0, stun: 0.5, text: 'COME HITHER', col: '#c45bff', effect(a, t) { t.kbx = sign(a.x - t.x) * 760; t.kbT = 0.25; } }); Sfx.play('vortex', 0.5); } },
-  machine:   { name: 'Mini Missile', cd: 6, range: [120, 900], fire(f, o) { shoot(f, o, { look: 'missile', vx: 300, vy: -300, home: 2400, maxV: 640, r: 12, life: 3, dmg: 7, kb: 360, text: 'KABOOM!', col: '#ff8a1a', boom: true }); Sfx.play('whoosh', 1.2); } },
-  ghost:     { name: 'Wisp', cd: 6, range: [80, 900], fire(f, o) { shoot(f, o, { look: 'wisp', vx: 260, home: 900, maxV: 340, r: 14, life: 3.5, dmg: 3, kb: 60, text: 'HAUNTED', col: '#8affe8', effect(a, t) { t.cursed = Math.max(t.cursed, 1.6); } }); Sfx.play('tele', 0.5); } },
+  earth:     { name: 'Boulder Toss', cd: 6, range: [80, 600], fire(f, o) { shoot(f, o, { look: 'rock', vx: 560, vy: -560, grav: 1500, r: 30, dmg: 7, kb: 420, text: 'BOULDER!', col: stage.rock }); } },
+  teleport:  { name: 'Blink Step', cd: 7, range: [60, 900], fire(f, o) { puff(f.x, f.y, '194,123,255'); let nx = o.x - o.facing * (o.r + f.r + 6); if (nx < EDGE_L + 30 || nx > EDGE_R - 30) nx = o.x + o.facing * (o.r + f.r + 6); f.x = clamp(nx, EDGE_L + 30, EDGE_R - 30); f.facing = sign(o.x - f.x); f.vx = 0; puff(f.x, f.y, '194,123,255'); Sfx.play('tele', 1.2); for (let q = 0; q < 5; q++) f.ghosts.push({ x: f.x + (q - 2) * 40, life: 0.5 }); game.props.push({ type: 'ring', x: f.x, y: f.y - f.r * 0.3, t: 0, dur: 0.4, col: '194,123,255' }); } },
+  fire:      { name: 'Fireball', cd: 5, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'fireball', mouth: true, vx: 760, r: 26, dmg: 5, kb: 260, text: 'FIREBALL!', col: '#ff7a1a', effect(a, t) { t.burnT = Math.max(t.burnT, 1.4); } }); Sfx.play('sizzle', 1); } },
+  ice:       { name: 'Ice Shard', cd: 5, range: [80, 800], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'shard', vx: 1000, vy: k * 120, r: 16, dmg: 1.7, kb: 180, text: 'CHILL!', col: '#7fe3ff', effect(a, t) { t.freeze += 0.22; if (t.freeze >= 1) freezeSolid(t); } }); Sfx.play('freeze', 0.6); } },
+  acid:      { name: 'Acid Spit', cd: 5, range: [60, 520], fire(f, o) { shoot(f, o, { look: 'glob', mouth: true, vx: 520, vy: -380, grav: 1300, r: 18, dmg: 4, kb: 120, text: 'SPIT!', col: '#c6ff2a', land(m) { for (let k = 0; k < 3; k++) addPuddle(m.x + (k - 1) * 20, m.owner); } }); Sfx.play('glorp', 0.6); } },
+  lightning: { name: 'Lightning Ball', cd: 6, range: [80, 900], fire(f, o) { shoot(f, o, { look: 'orb', vx: 420, r: 26, dmg: 6, kb: 160, stun: 0.7, text: 'ZAP!', col: '#ffe23a', effect(a, t) { t.skeleT = 0.4; Sfx.play('zap', 1.5); } }); Sfx.play('zap', 1); Sfx.play('thunder', 0.6); game.bolts.push({ pts: genBoltTo(f.x), t: 0.25 }); } },
+  wind:      { name: 'Air Palm', cd: 4.5, range: [40, 500], fire(f, o) { shoot(f, o, { look: 'crescent', vx: 900, r: 40, dmg: 2, kb: 760, text: 'GUST!', col: '#7fffd4' }); Sfx.play('wind', 1); } },
+  gravity:   { name: 'Pull Orb', cd: 6, range: [150, 800], fire(f, o) { shoot(f, o, { look: 'pull', vx: 480, r: 28, dmg: 3, kb: 0, stun: 0.5, text: 'COME HITHER', col: '#c45bff', effect(a, t) { t.kbx = sign(a.x - t.x) * 760; t.kbT = 0.25; } }); Sfx.play('vortex', 0.5); } },
+  machine:   { name: 'Mini Missile', cd: 6, range: [120, 900], fire(f, o) { for (const k of [0, 1, 2]) shoot(f, o, { look: 'missile', vx: 260 + k * 60, vy: -260 - k * 140, home: 2400, maxV: 640, r: 14, life: 3, dmg: 2.6, kb: 360, text: 'KABOOM!', col: '#ff8a1a', boom: true }); Sfx.play('whoosh', 1.2); } },
+  ghost:     { name: 'Wisp', cd: 6, range: [80, 900], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'wisp', vx: 240 + k * 40, vy: k * 160, home: 900, maxV: 340, r: 18, life: 3.5, dmg: 1.2, kb: 60, text: 'HAUNTED', col: '#8affe8', effect(a, t) { t.cursed = Math.max(t.cursed, 1.6); } }); Sfx.play('tele', 0.5); } },
   horror:    { name: 'Meat Hook', cd: 6, range: [120, 700], fire(f, o) { shoot(f, o, { look: 'hook', vx: 1200, r: 12, life: 0.6, dmg: 4, kb: 0, stun: 0.6, text: 'COME HERE!', col: '#ff3b4a', effect(a, t) { t.kbx = sign(a.x - t.x) * 980; t.kbT = 0.3; spray(t.x, t.y, sign(a.x - t.x), t.def.fluid, 14, 0.8); } }); Sfx.play('whoosh', 1.4); } },
-  heart:     { name: 'Heart Bubble', cd: 6, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'heart', vx: 340, vy: -40, r: 18, life: 3, dmg: 2, kb: 0, stun: 0.2, text: 'CRUSH!', col: '#ff7ad0', effect(a, t) { t.charmT = 1.3; } }); Sfx.play('boing', 1.2); } },
-  kitten:    { name: 'Hairball', cd: 4.5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'hairball', mouth: true, vx: 520, vy: -420, grav: 1400, bounce: 3, r: 12, life: 3, dmg: 4, kb: 200, text: 'HACK!', col: '#d8b890' }); Sfx.voice(f, 'grunt', 0.8); } },
-  rage:      { name: 'Table Flip', cd: 6, range: [60, 600], fire(f, o) { shoot(f, o, { look: 'table', vx: 640, vy: -380, grav: 1400, spin: 14, r: 22, dmg: 5, kb: 360, text: '(╯°□°)╯︵ ┻━┻', col: '#a8703a' }); Sfx.voice(f, 'attack', 1); } },
-  bug:       { name: 'Web Spit', cd: 6, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'web', mouth: true, vx: 720, vy: -120, grav: 300, r: 14, dmg: 2, kb: 0, stun: 0.3, text: 'WEBBED!', col: '#f0f0f0', effect(a, t) { t.rootT = 1.4; } }); Sfx.play('glorp', 0.6); } },
-  sky:       { name: 'Feather Darts', cd: 4.5, range: [60, 800], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'dart', vx: 960, vy: k * 150, r: 9, dmg: 2.5, kb: 90, stun: 0.2, text: 'PFFT!', col: '#f4f0e4' }); Sfx.play('flap', 1); } },
-  eye:       { name: 'Evil Eye', cd: 6, range: [0, 800], fire(f, o) { Sfx.play('laser', 1.2); game.props.push({ type: 'stare', f, o, t: 0, dur: 0.35 }); if (!o.inPit && !o.invisible && sign(o.x - f.x) === f.facing) strike(f, o, { dmg: 3, kb: 0, stun: 0.85, text: 'PETRIFIED!', color: '#ff4a6a', from: f.x }); } },
-  hex:       { name: 'Bubbling Potion', cd: 6, range: [80, 600], fire(f, o) { shoot(f, o, { look: 'potion', vx: 520, vy: -560, grav: 1300, r: 12, dmg: 3, kb: 60, text: 'BLEGH!', col: '#7aff3a', effect(a, t) { t.poisonT = Math.max(t.poisonT, 2); }, land(m) { game.hz.push({ type: 'cloud', x: m.x, t: 0, warn: 0, dur: 3, owner: m.owner }); Sfx.play('potion', 1); } }); } },
+  heart:     { name: 'Heart Bubble', cd: 6, range: [80, 800], fire(f, o) { shoot(f, o, { look: 'heart', vx: 340, vy: -40, r: 28, life: 3, dmg: 2, kb: 0, stun: 0.2, text: 'CRUSH!', col: '#ff7ad0', effect(a, t) { t.charmT = 1.3; } }); Sfx.play('boing', 1.2); } },
+  kitten:    { name: 'Hairball', cd: 4.5, range: [60, 700], fire(f, o) { for (const k of [0, 1, 2]) shoot(f, o, { look: 'hairball', mouth: true, vx: 420 + k * 120, vy: -380 - k * 90, grav: 1400, bounce: 3, r: 15, life: 3, dmg: 1.2, kb: 200, text: 'HACK!', col: '#d8b890' }); Sfx.voice(f, 'grunt', 0.8); } },
+  rage:      { name: 'Table Flip', cd: 6, range: [60, 600], fire(f, o) { shoot(f, o, { look: 'table', vx: 640, vy: -380, grav: 1400, spin: 14, r: 32, dmg: 5, kb: 360, text: '(╯°□°)╯︵ ┻━┻', col: '#a8703a' }); Sfx.voice(f, 'attack', 1); } },
+  bug:       { name: 'Web Spit', cd: 6, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'web', mouth: true, vx: 720, vy: -120, grav: 300, r: 26, dmg: 2, kb: 0, stun: 0.3, text: 'WEBBED!', col: '#f0f0f0', effect(a, t) { t.rootT = 1.4; } }); Sfx.play('glorp', 0.6); } },
+  sky:       { name: 'Feather Darts', cd: 4.5, range: [60, 800], fire(f, o) { for (const k of [-3, -2, -1, 0, 1, 2, 3]) shoot(f, o, { look: 'dart', vx: 960, vy: k * 70, r: 11, dmg: 1.1, kb: 90, stun: 0.2, text: 'PFFT!', col: '#f4f0e4' }); Sfx.play('flap', 1.4); for (let q = 0; q < 30; q++) game.particles.push({ k: 'feather', x: f.x, y: f.y - f.r * 0.5, vx: f.facing * rand(200, 700), vy: rand(-300, 200), rot: rand(0, 6), life: 1.2, c: f.def.belt }); } },
+  eye:       { name: 'Evil Eye', cd: 6, range: [0, 800], fire(f, o) { Sfx.play('laser', 1.2); game.props.push({ type: 'stare', f, o, t: 0, dur: 0.6 }); game.tint = { c: '#ff2040', t: 0.25 }; game.shake += 10; if (!o.inPit && !o.invisible && sign(o.x - f.x) === f.facing) strike(f, o, { dmg: 3, kb: 0, stun: 0.85, text: 'PETRIFIED!', color: '#ff4a6a', from: f.x }); } },
+  hex:       { name: 'Bubbling Potion', cd: 6, range: [80, 600], fire(f, o) { shoot(f, o, { look: 'potion', vx: 520, vy: -560, grav: 1300, r: 18, dmg: 3, kb: 60, text: 'BLEGH!', col: '#7aff3a', effect(a, t) { t.poisonT = Math.max(t.poisonT, 2); }, land(m) { game.hz.push({ type: 'cloud', x: m.x, t: 0, warn: 0, dur: 3, owner: m.owner }); Sfx.play('potion', 1); } }); } },
   titan:     { name: 'Ground Pound', cd: 6, range: [0, 300], fire(f, o) { f.squash = 0.55; game.shake += 16; dust(f.x, GROUND, 20, 1.5); crackDecal(f.x, 100); Sfx.play('flop', 1.2); game.props.push({ type: 'ring', x: f.x, y: GROUND, t: 0, dur: 0.5, col: '120,255,140', flat: true }); if (o.y + o.base > GROUND - 30 && Math.abs(o.x - f.x) < 340 && !o.inPit) strike(f, o, { dmg: 6, kb: 220, lift: 430, stun: 0.5, dir: sign(o.x - f.x), text: 'GROUND POUND!', color: '#4aff6a' }); } },
-  jelly:     { name: 'Gummy Glob', cd: 5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'glob', vx: 640, vy: -220, grav: 650, r: 14, dmg: 3, kb: 80, text: 'GOOPED!', col: '#ff9ad8', effect(a, t) { t.gooT = 2.2; } }); Sfx.play('glorp', 0.8); } },
-  blood:     { name: 'Bat Swarm', cd: 6, range: [80, 900], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'bat', vx: 300, vy: -200 + k * 150, home: 1700, maxV: 540, r: 11, life: 3, dmg: 2, kb: 40, col: '#c4102a', effect(a) { a.hp = Math.min(100, a.hp + 1); } }); Sfx.play('flap', 1.2); } },
-  warp:      { name: 'Eyeball', cd: 5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'eyeball', vx: 600, vy: -320, grav: 1300, bounce: 2, r: 13, dmg: 4, kb: 120, stun: 0.5, text: 'LOOK AT ME', col: '#d04aff', effect(a, t) { t.cursed = Math.max(t.cursed, 0.8); } }); Sfx.play('glorp', 0.7); } },
-  water:     { name: 'Bubble Trap', cd: 6, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'bubble', mouth: true, vx: 420, vy: -60, r: 22, life: 3, dmg: 2, kb: 0, stun: 0.3, text: 'BUBBLED!', col: '#9ae8ff', effect(a, t) { t.rootT = 1.3; t.vy = -260; t.onGround = false; } }); Sfx.play('bubble', 1.2); } },
+  jelly:     { name: 'Gummy Glob', cd: 5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'glob', vx: 640, vy: -220, grav: 650, r: 22, dmg: 3, kb: 80, text: 'GOOPED!', col: '#ff9ad8', effect(a, t) { t.gooT = 2.2; } }); Sfx.play('glorp', 0.8); } },
+  blood:     { name: 'Bat Swarm', cd: 6, range: [80, 900], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'bat', vx: 300, vy: -200 + k * 150, home: 1700, maxV: 540, r: 11, life: 3, dmg: 2, kb: 40, col: '#c4102a', effect(a) { a.hp = Math.min(100, a.hp + 1); } }); Sfx.play('flap', 1.6); Sfx.play('screech', 1.2); game.props.push({ type: 'batswarm', owner: f, target: o, dir: f.facing, t: 0, dur: 2.8, tick: 0, bats: Array.from({ length: 80 }, () => ({ x: f.x + rand(-60, 60), y: f.y - f.r * 0.4 + rand(-40, 40), vx: f.facing * rand(260, 620), vy: rand(-260, 260), ph: rand(0, 6), s: rand(0.6, 1.4), d: rand(0, 0.5) })).concat(Array.from({ length: 60 }, () => ({ x: f.facing > 0 ? rand(-160, -20) : rand(W + 20, W + 160), y: rand(40, GROUND - 20), vx: f.facing * rand(400, 700), vy: rand(-120, 120), ph: rand(0, 6), s: rand(0.8, 1.8), d: rand(0, 0.9) }))) }); } },
+  warp:      { name: 'Eyeball', cd: 5, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'eyeball', vx: 600, vy: -320, grav: 1300, bounce: 2, r: 20, dmg: 4, kb: 120, stun: 0.5, text: 'LOOK AT ME', col: '#d04aff', effect(a, t) { t.cursed = Math.max(t.cursed, 0.8); } }); Sfx.play('glorp', 0.7); } },
+  water:     { name: 'Bubble Trap', cd: 6, range: [60, 700], fire(f, o) { shoot(f, o, { look: 'bubble', mouth: true, vx: 420, vy: -60, r: 30, life: 3, dmg: 2, kb: 0, stun: 0.3, text: 'BUBBLED!', col: '#9ae8ff', effect(a, t) { t.rootT = 1.3; t.vy = -260; t.onGround = false; } }); Sfx.play('bubble', 1.2); } },
   dog:       { name: 'Big Bark', cd: 5, range: [0, 380], fire(f, o) { Sfx.voice(f, 'big', 1.5); game.props.push({ type: 'ring', x: f.x + f.facing * f.r, y: f.y - f.r * 0.6, t: 0, dur: 0.45, col: '255,176,74' }); addText('WOOF!', f.x + f.facing * f.r * 1.5, f.y - f.r * 1.5, '#ffb04a', 50); if (!o.inPit && sign(o.x - f.x) === f.facing && Math.abs(o.x - f.x) - o.r - f.r < 380) strike(f, o, { dmg: 2, kb: 220, stun: 0.65, text: 'STARTLED!', color: '#ffb04a', from: f.x }); } },
   occult:    { name: 'Hellfire Skulls', cd: 5.5, range: [80, 800], fire(f, o) { for (const k of [-1, 0, 1]) shoot(f, o, { look: 'skull', vx: 600, vy: k * 160, home: 520, maxV: 700, r: 13, life: 2, dmg: 2.6, kb: 140, stun: 0.3, text: k ? null : 'HELLFIRE!', col: '#ff3a2a', effect(a, t) { t.burnT = Math.max(t.burnT, 1); } }); Sfx.play('vortex', 1); Sfx.play('sizzle', 1.2); } },
   pirate:    { name: 'Hook Shot', cd: 6, range: [120, 700], fire(f, o) { shoot(f, o, { look: 'hook', vx: 1250, r: 12, life: 0.6, dmg: 3, kb: 0, stun: 0.6, text: 'YARR, COME HERE!', col: '#d8dde4', effect(a, t) { t.kbx = sign(a.x - t.x) * 1050; t.kbT = 0.3; Sfx.play('clang', 0.8); } }); Sfx.play('whoosh', 1.3); } },
@@ -3084,6 +3091,7 @@ function startMini(f, o) {
   for (let k = 0; k < 26; k++) { const a = rand(0, 6.283), v = rand(180, 560); game.particles.push({ k: 'spark2', x: hx, y: hy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, s: rand(2, 5), life: 0.45, max: 0.45, c: rgb }); }
   if (game.mode !== 'demo') { game.zoomK = Math.max(game.zoomK, 0.06); game.zoomAt = { x: hx, y: hy }; game.tint = { c: col, t: 0.14 }; }
   game.hitstop = Math.max(game.hitstop, 0.05); game.shake += 6; Sfx.play('stab', 0.45); Sfx.voice(f, 'attack', 0.9);
+  if (!game.cutin) cutIn(f, M.name, col, 0.6);
   M.fire(f, o);
 }
 function updateMinis(dt) {
@@ -3487,7 +3495,7 @@ const SPECIALS = {
     move: 0,
     update(f, dt, o, it, s) {
       if (!s.shot && s.t > 0.3) { s.shot = true; Sfx.play('potion', 1.2); Sfx.voice(f, 'win', 0.8);
-        shoot(f, o, { look: 'orb', vx: 760, r: 18, dmg: 6, kb: 120, stun: 0.4, text: 'HEXED!', col: '#b06aff', effect(a, t) { t.toadT = 4.5; t.sizeT = 0; puff(t.x, t.y, '120,220,90'); addText('RIBBIT!', t.x, t.y - t.r * 1.6, '#9aff6a', 48); Sfx.play('boing', 1.6); } }); }
+        shoot(f, o, { look: 'orb', vx: 760, r: 18, dmg: 6, kb: 120, stun: 0.4, text: 'HEXED!', col: '#b06aff', effect(a, t) { t.toadT = 3.5; t.sizeT = 0; puff(t.x, t.y, '120,220,90'); addText('RIBBIT!', t.x, t.y - t.r * 1.6, '#9aff6a', 48); Sfx.play('boing', 1.6); } }); }
       if (s.t < 0.3 && Math.random() < 0.7) game.particles.push({ k: 'spark2', x: f.x + f.facing * f.r + rand(-20, 20), y: f.y - f.r * 0.4 + rand(-20, 20), vx: 0, vy: -40, s: rand(2, 4), life: 0.4, max: 0.4, c: '190,120,255' });
       return s.t < 0.6;
     },
@@ -3670,7 +3678,7 @@ const SPECIALS = {
         if (!a.hit && !o.inPit && !o.invisible && Math.hypot(a.x - o.x, a.y - o.y) < o.r + a.r * 0.8) {
           a.hit = true; s.hits++;
           if (o.bracing && o.facing === -s.dir) { o.guard -= 3; o.guardT = 0.6; o.shieldFlash = 1; damage(o, 0.15); if (o.guard <= 0) guardBreak(o); if (s.hits % 3 === 0) Sfx.play('clang', 0.7); a.vx *= -0.3; }
-          else { damage(o, 1.1 * f.def.power); o.kbx = s.dir * 140; o.kbT = 0.05; o.hurtT = 0.25; o.stun = Math.max(o.stun, 0.14); o.jiggleHit(a.x - o.x, a.y - o.y, s.dir * 260, -60); spray(a.x, a.y, s.dir, o.def.fluid, 5, 0.8); addMeter(o, 0.6); if (s.hits % 2) Sfx.play('slap', 0.7); if (s.hits % 6 === 0) { addText(pick(['CHOP!', 'HACK!', 'THWACK!']), a.x, a.y - 30, '#ff8a3a', 40); Sfx.voice(o, 'hit', 0.8); game.shake += 6; } if (s.hits === 12) sever(o, 'axe'); }
+          else { damage(o, 1.25 * f.def.power); o.kbx = s.dir * 140; o.kbT = 0.05; o.hurtT = 0.25; o.stun = Math.max(o.stun, 0.14); o.jiggleHit(a.x - o.x, a.y - o.y, s.dir * 260, -60); spray(a.x, a.y, s.dir, o.def.fluid, 5, 0.8); addMeter(o, 0.6); if (s.hits % 2) Sfx.play('slap', 0.7); if (s.hits % 6 === 0) { addText(pick(['CHOP!', 'HACK!', 'THWACK!']), a.x, a.y - 30, '#ff8a3a', 40); Sfx.voice(o, 'hit', 0.8); game.shake += 6; } if (s.hits === 12) sever(o, 'axe'); }
         }
       }
       if (s.t > 2.6) { s.prop.dur = 0; return false; }
@@ -3870,9 +3878,14 @@ function updateProps(dt) {
       }
     }
     if (p.type === 'ship' && p.vx) p.x += p.vx * dt;
+    if (p.type === 'batswarm') {
+      const o = p.target, e = p.t / p.dur;
+      for (const b of p.bats) { if (p.t < b.d) continue; b.ph += dt * 14; const dx = o.x - b.x, dy = (o.y - o.r * 0.3) - b.y; if (e < 0.75) { b.vx += dx * 3 * dt + rand(-500, 500) * dt; b.vy += dy * 3 * dt + rand(-500, 500) * dt; } else b.vy -= 900 * dt; const sp = Math.hypot(b.vx, b.vy), mx = 640; if (sp > mx) { b.vx *= mx / sp; b.vy *= mx / sp; } b.x += b.vx * dt; b.y += b.vy * dt; }
+      p.tick -= dt; if (p.tick <= 0 && e < 0.8) { p.tick = 0.3; if (!o.inPit && !o.invisible && o.hp > 0) { const blk = o.bracing; damage(o, blk ? 0.08 : 0.4); if (!blk) { o.hurtT = 0.2; o.jiggleHit(rand(-o.r, o.r), rand(-o.r, o.r), rand(-200, 200), -80); spray(o.x + rand(-o.r, o.r), o.y - o.r * 0.3, sign(rand(-1, 1)), o.def.fluid, 4, 0.6); p.owner.hp = Math.min(100, p.owner.hp + 0.2); } if (Math.random() < 0.5) Sfx.play('flap', 0.6); if (Math.random() < 0.25) Sfx.play('screech', 0.5); } }
+    }
     if (p.type === 'quake') {
       const e = p.t / p.dur, o = other(p.owner); game.shake = Math.max(game.shake, 18 * (1 - e)); if (Math.random() < 0.5) dust(rand(EDGE_L, EDGE_R), GROUND, 1, 1.2);
-      if (!p.hit && p.t > 0.05) { p.hit = true; if (o && !o.inPit && !o.invisible && o.y + o.base > GROUND - 24) { strike(p.owner, o, { dmg: 4 * p.owner.def.power, kb: 0, stun: 0.75, unblockable: true, text: 'TREMOR!', color: '#ffffff', x: o.x, y: GROUND - 20 }); o.vy = -300; o.onGround = false; } else if (o) addText('JUMPED IT!', o.x, o.y - o.r * 2, '#a9b5a4', 30); }
+      if (!p.hit && p.t > 0.05) { p.hit = true; if (o && !o.inPit && !o.invisible && o.y + o.base > GROUND - 24) { strike(p.owner, o, { dmg: 3 * p.owner.def.power, kb: 0, stun: 0.55, unblockable: true, text: 'TREMOR!', color: '#ffffff', x: o.x, y: GROUND - 20 }); o.vy = -300; o.onGround = false; } else if (o) addText('JUMPED IT!', o.x, o.y - o.r * 2, '#a9b5a4', 30); }
     }
     if (p.type === 'bubbletrap') {
       const o = p.f;
@@ -4014,6 +4027,12 @@ function drawProps(ctx) {
       ctx.translate(p.x, GROUND + 40 - rise); drawJaw(ctx, open, big); ctx.restore();
     } else if (p.type === 'bigrex' || p.type === 'demon') {
       ctx.save(); ctx.translate(p.hx, p.hy); ctx.scale(-p.side, 1); ctx.rotate(p.shakeA || 0); if (p.type === 'demon') drawDemon(ctx, p.jaw || 0, p.t); else drawBigRex(ctx, p.jaw || 0, p.t); ctx.restore();
+    } else if (p.type === 'batswarm') {
+      const k = clamp(Math.min(p.t / 0.3, (p.dur - p.t) / 0.5), 0, 1);
+      ctx.save(); ctx.fillStyle = `rgba(30,0,10,${0.32 * k})`; ctx.fillRect(-200, -100, W + 400, H + 200); ctx.restore();
+      for (const b of p.bats) { if (p.t < b.d) continue; const w = Math.sin(b.ph) * 12 * b.s, s = 12 * b.s; ctx.save(); ctx.globalAlpha = k; ctx.translate(b.x, b.y); ctx.scale(sign(b.vx) || 1, 1);
+        ctx.fillStyle = '#16040a'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(-s, -s - w, -s * 2, -w); ctx.quadraticCurveTo(-s, -s * 0.2, 0, s * 0.35); ctx.quadraticCurveTo(s, -s * 0.2, s * 2, -w); ctx.quadraticCurveTo(s, -s - w, 0, 0); ctx.fill();
+        ctx.fillStyle = '#ff2a3a'; ctx.beginPath(); ctx.arc(s * 0.22, -s * 0.1, 1.8 * b.s, 0, 7); ctx.fill(); ctx.restore(); }
     } else if (p.type === 'ship') { drawShip(ctx, p);
     } else if (p.type === 'bubbletrap' || p.type === 'bigbubble') {
       const o = p.f, R = o.r * (p.type === 'bigbubble' ? 1.7 + (p.grow || 0) : 1.7) * (1 + Math.sin(p.t * 9) * 0.04), bx = o.x, by = o.y - o.r * 0.2;
@@ -4231,6 +4250,7 @@ function addPuddle(x, owner) {
 }
 
 function updateParticles(dt) {
+  if (game.particles.length > 1600) game.particles.splice(0, game.particles.length - 1600);
   const P = game.particles;
   for (let i = P.length - 1; i >= 0; i--) {
     const p = P[i]; p.life -= dt; let dead = p.life <= 0;
@@ -7046,6 +7066,10 @@ function render() {
   ctx.fillStyle = '#030605'; ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.setTransform(scale, 0, 0, scale, offX, offY);
   ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
+  { const fz = game.fighters, live = fz.length === 2 && ['fight', 'intro', 'ko', 'finish'].includes(game.state) && !REDUCED && !game.pan;
+    const dist = live ? Math.abs(fz[0].x - fz[1].x) : 9999, tz = live ? 1 + clamp((560 - dist) / 2600, 0, 0.1) : 1; game.camZ = (game.camZ || 1) + (tz - (game.camZ || 1)) * 0.06;
+    if (fz.length !== 2) game.camZ = 1;
+    else if (game.camZ > 1.002) { const zx = clamp((fz[0].x + fz[1].x) / 2 - game.cam, 300, W - 300), zy = 460; ctx.translate(zx, zy); ctx.scale(game.camZ, game.camZ); ctx.translate(-zx, -zy); } }
   if (game.pan && game.panV) { const v = game.panV; ctx.translate(W / 2, H / 2); ctx.scale(v.z, v.z); ctx.translate(-(v.x - game.cam), -v.y); }
   else if (game.zoomK > 0.002 && !REDUCED) { const za = game.zoomAt || { x: W / 2 + game.cam, y: H / 2 }, zx = clamp(za.x - game.cam, 260, W - 260), zy = clamp(za.y, 220, H - 160), z = 1 + game.zoomK; ctx.translate(zx, zy); ctx.scale(z, z); ctx.translate(-zx, -zy); }
   const sh = Math.min(28, game.shake) * (REDUCED ? 0.3 : 1);
@@ -7159,6 +7183,14 @@ function drawLiquidBar(ctx, x, y, w, h, st, lag, left, cols) {
   }
   ctx.restore();
 }
+function hudLabel(text, x, y, size, col, left, glow, hint) {
+  ctx.save(); ctx.font = `${size}px Bangers, Impact, sans-serif`; ctx.textAlign = left ? 'left' : 'right'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
+  ctx.translate(x, y); ctx.transform(1, 0, -0.12, 1, 0, 0);
+  if (glow) { ctx.shadowColor = glow; ctx.shadowBlur = 14; }
+  ctx.lineWidth = 5; ctx.strokeStyle = INK; ctx.strokeText(text, 0, 0); ctx.fillStyle = col; ctx.fillText(text, 0, 0); ctx.shadowBlur = 0;
+  if (hint) { const w = ctx.measureText(text).width; ctx.font = '700 12px "Barlow Condensed", sans-serif'; ctx.fillStyle = 'rgba(230,230,240,0.75)'; ctx.fillText(hint, left ? w + 8 : -w - 8, -2); }
+  ctx.restore();
+}
 function barSparks(x, y, w, h, col) {
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = col; ctx.lineWidth = 1.5;
   for (let k = 0; k < 2; k++) { let px = x + rand(0, w), py = y; ctx.beginPath(); ctx.moveTo(px, py); for (let s = 0; s < 4; s++) { px += rand(-14, 14); py += h / 4; ctx.lineTo(px, py); } ctx.stroke(); }
@@ -7209,11 +7241,9 @@ function drawHUD(ctx) {
     const zap = full && Math.sin(amb.t * 10) > 0;
     drawLiquidBar(ctx, mx, my - 2, mw, 16, f.bars.sp, null, left, full ? { hi: zap ? '#eaffea' : '#b4ffb0', mid: '#2ae85a', lo: '#065a1a', glow: '#3aff6a', glowK: 14 + (zap ? 10 : 0), foam: '#ffffff' } : { hi: '#a8e8ff', mid: '#1a7cff', lo: '#06206a', glow: 'rgba(40,140,255,0.6)', glowK: 8 });
     if (full) barSparks(mx, my - 2, mw, 20, 'rgba(190,255,200,0.85)');
-    ctx.font = '600 15px "Barlow Condensed", sans-serif'; ctx.textAlign = left ? 'left' : 'right'; ctx.fillStyle = full ? ec : '#a9b5a4';
-    const human = !(i === 1 && p2cpu), key = touchMode && i === 0 ? 'SPECIAL' : i === 0 ? (p2cpu ? 'H/SPACE' : 'H') : ';';
-    const label = !human ? (full ? E.move.toUpperCase() + ' READY' : f.charging ? 'CHARGING ' + E.label.toUpperCase() : E.label.toUpperCase())
-      : full ? 'RELEASE ' + key + ': ' + E.move.toUpperCase() : f.charging ? 'CHARGING ' + Math.floor(f.meter) + '%' : 'HOLD ' + key + ' TO CHARGE';
-    ctx.fillText(label, left ? mx + mw + 10 : mx - 10, my + 10);
+    const human = !(i === 1 && p2cpu), key = touchMode && i === 0 ? 'SPECIAL' : i === 0 ? 'H' : ';';
+    const hint = !human ? (full ? 'READY' : '') : full ? 'RELEASE ' + key : f.charging ? Math.floor(f.meter) + '%' : 'HOLD ' + key;
+    hudLabel(E.move.toUpperCase() + (full ? '!' : ''), left ? mx + mw + 12 : mx - 12, my + 13, 21, full ? (Math.sin(amb.t * 10) > 0 ? '#ffffff' : '#7aff8a') : '#8ac8ff', left, full ? '#3aff6a' : null, hint);
     const gy = my + 20, gw = 200, gx = left ? x : x + bw - gw, gkey = touchMode && i === 0 ? 'BLOCK' : i === 0 ? 'S' : '↓';
     ctx.textAlign = left ? 'left' : 'right';
     if (f.guardBroken > 0) {
@@ -7236,9 +7266,7 @@ function drawHUD(ctx) {
       const mz = ready && Math.sin(amb.t * 10) > 0;
       drawLiquidBar(ctx, px, py, pw, ph, f.bars.mi, null, left, ready ? { hi: mz ? '#eaffea' : '#b4ffb0', mid: '#2ae85a', lo: '#065a1a', glow: '#3aff6a', glowK: 14 + (mz ? 10 : 0), foam: '#ffffff' } : { hi: '#a8e8ff', mid: '#1a7cff', lo: '#06206a', glow: 'rgba(40,140,255,0.6)', glowK: 8 });
       if (ready) barSparks(px, py, pw, ph, 'rgba(190,255,200,0.85)');
-      ctx.font = '700 12px "Barlow Condensed", sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,0.85)'; ctx.fillStyle = '#ffffff';
-      const mk = !human ? '' : touchMode && i === 0 ? 'MINI · ' : i === 0 ? 'E · ' : "' · ";
-      ctx.strokeText(mk + MM.name.toUpperCase(), px + pw / 2, py + 12); ctx.fillText(mk + MM.name.toUpperCase(), px + pw / 2, py + 12);
+      hudLabel(MM.name.toUpperCase() + (ready ? '!' : ''), left ? px + pw + 12 : px - 12, py + 13, 18, ready ? (mz ? '#ffffff' : '#7aff8a') : '#8ac8ff', left, ready ? '#3aff6a' : null, ready ? '' : Math.ceil(f.miniCD) + 's');
     }
     ctx.textAlign = left ? 'left' : 'right';
     if (f.combo >= 2 && f.comboT > 0) {
@@ -7513,7 +7541,7 @@ touchEl.querySelectorAll('button').forEach(b => {
 canvas.addEventListener('pointerdown', () => { if (game.state === 'match') matchContinue(); else if (game.state === 'replay') pressed.add('Tap'); else if (game.state === 'finish' && game.winner === 0) pressed.add('TouchSpecial'); });
 
 const soundBtn = document.getElementById('sound'), musicBtn = document.getElementById('music');
-function syncAudioBtns() { document.getElementById('pSound').innerHTML = (Sfx.muted ? 'Sound off' : 'Sound on') + ' <small>M</small>'; document.getElementById('pMusic').innerHTML = (Music.on ? 'Music on' : 'Music off') + ' <small>N</small>'; }
+function syncAudioBtns() { document.getElementById('pSound').innerHTML = (Sfx.muted ? 'Sound effects off' : 'Sound effects on') + ' <small>M</small>'; document.getElementById('pMusic').innerHTML = (Music.on ? 'Music on' : 'Music off') + ' <small>N</small>'; }
 function toggleMusic() { Sfx.init(); Music.setOn(!Music.on); musicBtn.textContent = Music.on ? 'Music on' : 'Music off'; musicBtn.setAttribute('aria-pressed', Music.on); syncAudioBtns(); if (game.paused && Music.bus) Music.bus.gain.setTargetAtTime(Music.on ? 0.12 : 0, Sfx.ctx.currentTime, 0.1); }
 musicBtn.addEventListener('click', toggleMusic); musicBtn.textContent = Music.on ? 'Music on' : 'Music off'; musicBtn.setAttribute('aria-pressed', Music.on);
 addEventListener('pointerdown', () => Sfx.init(), { once: true }); addEventListener('keydown', () => Sfx.init(), { once: true });
