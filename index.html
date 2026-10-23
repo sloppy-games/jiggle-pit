@@ -104,7 +104,8 @@ button:focus-visible { outline: 2px solid var(--hazard); outline-offset: 2px; }
 
 body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); left: auto; right: 16px; transform: none; }
 #touch[hidden] { display: none; }
-#sound, #music, #pickFor { display: none !important; }
+#sound, #music, #pickFor, #menu .foot { display: none !important; }
+#menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #options { background: radial-gradient(ellipse at 50% -10%, rgba(150,0,255,0.5), rgba(10,0,24,0) 60%), linear-gradient(180deg, #0d0024, #04000c 75%); }
 #options h2 { color: #fff; text-shadow: 0 0 6px #fff, 0 0 16px #ff2bd6, 0 0 38px #ff2bd6; }
 .opt-hint { color: #cdb8ff; margin: 0; text-align: center; }
@@ -412,6 +413,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
         <div class="tape"></div>
         <div class="slot-body">
           <div class="who"><span>East · Player 1</span></div>
+          <div class="who spacer" id="slot0Spacer" aria-hidden="true"><span>&nbsp;</span></div>
           <div class="pick">
             <button class="arrow" type="button" data-p="0" data-d="-1" aria-label="Previous fighter">◀</button>
             <span class="name" id="name0"></span>
@@ -7910,7 +7912,7 @@ for (const i of [0, 1]) document.getElementById('slot' + i).addEventListener('po
 function cycle(i, dir) { do { sel[i] = (sel[i] + dir + ROSTER.length) % ROSTER.length; } while (!isUnlocked(ROSTER[sel[i]].lock) || ROSTER[sel[i]].hidden); refreshSlot(i); savePrefs(); }
 function cycleCos(i, dir) { do { cos[i] = (cos[i] + dir + COSTUMES.length) % COSTUMES.length; } while (!isUnlocked(COSTUMES[cos[i]].lock)); refreshSlot(i); savePrefs(); }
 document.querySelectorAll('.arrow').forEach(b => b.addEventListener('click', () => cycle(+b.dataset.p, +b.dataset.d)));
-function setCpu(v) { p2cpu = v; savedCpu = v; if (typeof refreshRoster === 'function' && rosterEl) refreshRoster(); document.getElementById('ctlCpu').setAttribute('aria-pressed', v); document.getElementById('ctlHuman').setAttribute('aria-pressed', !v); document.getElementById('cpuLvl').closest('.who').hidden = !v; savePrefs(); }
+function setCpu(v) { p2cpu = v; savedCpu = v; if (typeof refreshRoster === 'function' && rosterEl) refreshRoster(); document.getElementById('ctlCpu').setAttribute('aria-pressed', v); document.getElementById('ctlHuman').setAttribute('aria-pressed', !v); document.getElementById('cpuLvl').closest('.who').hidden = !v; document.getElementById('slot0Spacer').hidden = !v; savePrefs(); }
 document.getElementById('ctlCpu').addEventListener('click', () => setCpu(true));
 function setLevel(l) { cpuLevel = l; document.querySelectorAll('#cpuLvl button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.l === l)); savePrefs(); }
 document.querySelectorAll('#cpuLvl button').forEach(b => b.addEventListener('click', () => setLevel(+b.dataset.l)));
