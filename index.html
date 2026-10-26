@@ -1,3 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#07100c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Jiggle Pit</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -274,6 +282,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   .screen-head .step { display: none; }
   .big-btn { font-size: 30px; }
   #fight { font-size: 36px; padding-inline: 40px; }
+  #stagesel .stage .st-name { font-size: 19px; } #stagesel .stage { aspect-ratio: auto; min-height: 76px; justify-content: flex-end; }
 }
 @media (pointer: coarse) { .keys { display: none; } }
 
@@ -340,6 +349,47 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   #menu .slot-body { gap: 7px; }
   #menu .keys { font-size: 13px; }
 }
+
+/* Phones held sideways: everything on one screen, no scrolling */
+@media (orientation: landscape) and (max-height: 540px) {
+  .screen { padding-block: max(6px, env(safe-area-inset-top, 0px)) max(6px, env(safe-area-inset-bottom, 0px)); }
+  .screen-head h2 { font-size: 26px; }
+  .screen-head .back { padding: 4px 10px; font-size: 13px; }
+  #menu { overflow: hidden; }
+  #menu .menu-inner { max-width: none; height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; gap: 6px 10px; align-items: start; }
+  #menu .screen-head { grid-column: 1 / -1; }
+  #menu .select { display: contents; }
+  #menu #slot0 { grid-column: 1; grid-row: 2 / 4; } #menu #slot1 { grid-column: 3; grid-row: 2 / 4; }
+  #menu .slot { align-self: stretch; max-height: 100%; overflow-y: auto; scrollbar-width: none; }
+  #menu .slot-body { padding: 6px 8px 8px; gap: 5px; }
+  #menu .roster { grid-column: 2; grid-row: 2; align-self: stretch; max-height: 100%; overflow-y: auto; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 4px; scrollbar-width: none; }
+  #menu .rbtn .t0, #menu .rbtn .t1 { font-size: 8px; }
+  #menu .vs { display: none; }
+  #menu #fight { grid-column: 2; grid-row: 3; justify-self: center; font-size: 24px; padding: 6px 22px; }
+  #menu .menu-inner.solo .roster, #menu .menu-inner.solo #fight { grid-column: 2 / 4; }
+  #menu .who { font-size: 10px; letter-spacing: 0.08em; } #menu .who { min-height: 22px; }
+  #menu .ctl button { padding: 2px 6px; font-size: 10px; }
+  #menu .pick { grid-template-columns: 28px 1fr 28px; } #menu .pick .name { font-size: 20px; } #menu .arrow { height: 28px; }
+  #menu .el { font-size: 10px; padding: 2px 8px; }
+  #menu .preview { height: 76px; }
+  #menu .cos-row { font-size: 11px; }
+  #menu .swatches { gap: 4px; } #menu .swatch { width: 18px; height: 18px; }
+  #menu .stats { font-size: 11px; gap: 1px 6px; } #menu .stats dt { font-size: 10px; }
+  #menu .desc, #menu .keys { display: none; }
+  #stagesel .menu-inner { gap: 8px; }
+  #stagesel .stage-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  #stagesel .stage { aspect-ratio: auto; min-height: 56px; padding: 4px 7px; justify-content: flex-end; }
+  #stagesel .stage-info { display: none; } #stagesel #goFight { font-size: 24px; padding: 6px 22px; }
+  #stagesel .stage .st-name { font-size: 16px; } #stagesel .stage .st-sub { font-size: 10px; line-height: 1.15; } #stagesel .st-num { font-size: 15px; }
+  .title-screen .logo { font-size: clamp(44px, 14vh, 80px); }
+  .title-screen .big-btn { font-size: 24px; padding-block: 6px; }
+  .pause-card { padding: 10px 14px; gap: 8px; max-height: 100%; overflow-y: auto; } .pause-card h2 { font-size: 34px; }
+  .pause-moves { font-size: 12px; } .pause-btns .big-btn { font-size: 20px; }
+  #touch button { width: 54px; height: 54px; font-size: 16px; } #touch button.mini { width: 46px; height: 46px; font-size: 12px; }
+  #touch { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); }
+}
+/* Phones held upright: arena in the middle of the space above the controls */
+@media (orientation: portrait) and (pointer: coarse) { #trainUI .tpanel { width: 200px; font-size: 12px; } }
 </style>
 
 <canvas id="game" aria-label="Jiggle Pit arena"></canvas>
@@ -6928,7 +6978,14 @@ document.getElementById('pRestart').addEventListener('click', () => { togglePaus
 document.getElementById('pQuit').addEventListener('click', () => { togglePause(); showMenu(); });
 addEventListener('blur', () => { if (!game.paused && !game.screen && game.mode !== 'demo' && ['fight', 'intro', 'pan'].includes(game.state)) togglePause(); });
 function resetSun() { game.sunK = 0; game.sunFade = 0; }
-function hideScreens() { game.screen = null; game.died = null; for (const id of SCREENS) document.getElementById(id).hidden = true; touchEl.hidden = !touchMode; resize(); }
+function hideScreens() { game.screen = null; game.died = null; for (const id of SCREENS) document.getElementById(id).hidden = true; touchEl.hidden = !touchMode; if (touchMode) phoneFullscreen(); resize(); }
+// Phones: go fullscreen and ask for landscape when a bout starts; suggest turning sideways once if that fails
+let sidewaysTip = false;
+function phoneFullscreen() {
+  const el = document.documentElement, req = el.requestFullscreen || el.webkitRequestFullscreen;
+  try { if (!document.fullscreenElement && !document.webkitFullscreenElement && req) { const r = req.call(el); if (r && r.then) r.then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {}); } } catch (e) {}
+  if (!sidewaysTip && innerHeight > innerWidth) { sidewaysTip = true; setTimeout(() => { if (innerHeight > innerWidth) toast('Turn your phone sideways for a bigger arena'); }, 600); }
+}
 
 const FIGHT_TRACK = { pit: 'fight1', caldera: 'fight2', glacier: 'fight3', swamp: 'fight1', shrine: 'fight2', foundry: 'fight1', candy: 'fight3', raft: 'fight3', bog: 'fight2', peak: 'fight3', sushi: 'fight3', galleon: 'fight1', moon: 'fight3', kaiju: 'fight1', summit: 'fight2' };
 // Attract mode: two CPU wrestlers brawl behind the title screen
@@ -8136,3 +8193,5 @@ function boot() {
 const fontsReady = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('50px Bangers'), document.fonts.load('600 16px "Barlow Condensed"'), document.fonts.load('700 40px Cinzel')]) : Promise.resolve();
 Promise.race([fontsReady, new Promise(r => setTimeout(r, 1500))]).catch(() => {}).then(boot);
 </script>
+
+</html>
