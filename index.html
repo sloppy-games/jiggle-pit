@@ -600,7 +600,7 @@ const ELEMENTS = {
 };
 
 const ROSTER = [
-  { id: 'tonka',   name: 'Big Tonka',       mass: 182, size: 80, speed: 0.85, power: 1.34, jiggle: 12, element: 'earth',
+  { id: 'tonka',   name: 'Big Iwao',        mass: 182, size: 80, speed: 0.85, power: 1.34, jiggle: 12, element: 'earth',
     skin: '#f4b48a', skinDark: '#cc8256', belt: '#2846c8', hair: '#14100c', hairStyle: 'knot', fluid: '#d1121e', fluidName: 'Blood' },
   { id: 'mochi',   name: "Lil' Mochi",      mass: 92,  size: 56, speed: 1.22, power: 1.2, jiggle: 19, element: 'teleport',
     skin: '#ffe2d2', skinDark: '#eaa98c', belt: '#ff3d8b', hair: '#2a1a12', hairStyle: 'knot', fluid: '#7dff2a', fluidName: 'Neon goo' },
@@ -626,7 +626,7 @@ const ROSTER = [
     skin: '#ffffff', skinDark: '#ffd0e4', belt: '#ff4fa0', hair: null, hairStyle: 'none', bow: '#ff2f6a', fluid: '#ff7ad0', fluidName: 'Glitter', look: 'cat', traits: { bounce: 1, wings: 'angel' } },
   { id: 'momo',    name: 'Momo Nyan',       mass: 88,  size: 55, speed: 1.30, power: 1.05, jiggle: 20, element: 'kitten',
     skin: '#fff4e0', skinDark: '#f0c890', belt: '#3aa8ff', hair: null, hairStyle: 'none', bow: '#3a7aff', fluid: '#7ad7ff', fluidName: 'Sprinkles', look: 'cat', headCol: '#1c1a22', traits: { feet: 0.5 } },
-  { id: 'goro',    name: 'Ikari Goro',      mass: 150, size: 70, speed: 0.97, power: 0.9, jiggle: 13, element: 'rage',
+  { id: 'goro',    name: 'Ikari Gonta',     mass: 150, size: 70, speed: 0.97, power: 0.9, jiggle: 13, element: 'rage',
     skin: '#ff9a7a', skinDark: '#c85a40', belt: '#1a1a1a', hair: '#1a0a06', hairStyle: 'knot', fluid: '#e0141e', fluidName: 'Blood', look: 'angry', traits: { rage: 0.22 } },
   { id: 'rexzuna', name: 'Yokozuna Rex',    mass: 260, size: 92, speed: 0.78, power: 1.30, jiggle: 9, element: 'boss',
     skin: '#6a8a3a', skinDark: '#3a5a1a', belt: '#e6b422', hair: null, hairStyle: 'none', fluid: '#c4102a', fluidName: 'Blood', tail: true, look: 'rex', boss: true, lock: { tournaments: 1 }, traits: { armor: 0.8 } },
@@ -7134,7 +7134,7 @@ function enterFinish() {
   l.ko = false; l.dizzy = true; l.stun = 99; w.facing = sign(l.x - w.x); l.facing = -w.facing;
   game.state = 'finish'; game.finT = 0; game.cpuFat = false; game.slow = 1; game.dark = 0.6; game.projs = []; game.kittens = []; game.hz = [];
   const key = touchMode && game.winner === 0 ? 'SPECIAL' : keyLabel(CONTROLS[game.winner].special[0]);
-  banner('FINISH THEM!', isHuman(game.winner) ? `Press ${key} for the fatality` : '', 0);
+  banner('SEAL THE BOUT!', isHuman(game.winner) ? `Press ${key} for the fatality` : '', 0);
   Sfx.play('roar', 0.7);
 }
 function startFatality() {
