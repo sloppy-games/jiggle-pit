@@ -114,6 +114,7 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #touch[hidden] { display: none; }
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
+#menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
 #options { background: radial-gradient(ellipse at 50% -10%, rgba(150,0,255,0.5), rgba(10,0,24,0) 60%), linear-gradient(180deg, #0d0024, #04000c 75%); }
 #options h2 { color: #fff; text-shadow: 0 0 6px #fff, 0 0 16px #ff2bd6, 0 0 38px #ff2bd6; }
 .opt-hint { color: #cdb8ff; margin: 0; text-align: center; }
@@ -164,6 +165,22 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #touch button.big { background: rgba(255,194,26,0.85); color: var(--hazard-ink); border-color: var(--hazard); }
 #touch button.sp { background: rgba(196,91,255,0.75); border-color: #e0b0ff; }
 #touch button.on { filter: brightness(1.5); transform: scale(0.94); }
+#touch .acts button { --c: #8fa0b8; --d: #2a3346; color: #fff; border: 2px solid color-mix(in srgb, var(--c) 80%, #fff);
+  background: radial-gradient(circle at 35% 28%, rgba(255,255,255,0.55) 0 8%, transparent 26%), radial-gradient(circle at 50% 60%, var(--c), var(--d) 78%);
+  box-shadow: 0 5px 0 var(--d), 0 7px 14px rgba(0,0,0,0.55), 0 0 14px color-mix(in srgb, var(--c) 55%, transparent), inset 0 -4px 8px rgba(0,0,0,0.35);
+  text-shadow: 0 2px 0 rgba(0,0,0,0.55), 0 0 8px rgba(0,0,0,0.4); letter-spacing: 0.05em; transition: transform 0.05s, box-shadow 0.05s; opacity: 0.93; }
+#touch .acts button.on { filter: brightness(1.35); transform: translateY(4px) scale(0.96); box-shadow: 0 1px 0 var(--d), 0 3px 8px rgba(0,0,0,0.5), 0 0 22px var(--c), inset 0 -2px 6px rgba(0,0,0,0.35); }
+#touch button[data-k="TouchPunch"] { --c: #ffc21a; --d: #9a5a00; color: #2a1200; text-shadow: 0 1px 0 rgba(255,255,255,0.45); }
+#touch button[data-k="TouchShove"] { --c: #ff7a2b; --d: #8a2c00; }
+#touch button[data-k="TouchUpper"] { --c: #ff3b4a; --d: #7a0010; }
+#touch button[data-k="TouchSweep"] { --c: #19d3ff; --d: #00507a; }
+#touch button[data-k="TouchGrab"] { --c: #4f7bff; --d: #172a8a; }
+#touch button[data-k="TouchMini"] { --c: #39e86a; --d: #0a6a2a; color: #fff; }
+#touch button[data-k="TouchSpecial"] { --c: #c45bff; --d: #4a0a8a; }
+#touch .stick { background: radial-gradient(circle, rgba(255,255,255,0.06) 0 30%, rgba(8,4,20,0.55) 31%, rgba(8,4,20,0.72) 70%), conic-gradient(from 45deg, rgba(0,240,255,0.25), rgba(255,43,214,0.25), rgba(0,240,255,0.25));
+  border: 2px solid rgba(0,240,255,0.55); box-shadow: 0 0 18px rgba(0,240,255,0.3), inset 0 0 22px rgba(0,0,0,0.6); }
+#touch .stick.active { border-color: #ff2bd6; box-shadow: 0 0 24px rgba(255,43,214,0.55), inset 0 0 22px rgba(0,0,0,0.6); }
+#touch .stick .knob { background: radial-gradient(circle at 36% 30%, #fff 0 10%, #fff27a 22%, #ffc21a 55%, #b87400); box-shadow: 0 6px 0 #6a4200, 0 8px 16px rgba(0,0,0,0.55), 0 0 16px rgba(255,194,26,0.6); }
 
 .title-menu { display: flex; flex-direction: column; gap: 12px; width: min(440px, 100%); }
 .big-btn {
@@ -372,7 +389,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   #menu .slot-body { padding: 6px 8px 8px; gap: 5px; }
   #menu .roster { grid-column: 2; grid-row: 2; align-self: stretch; max-height: 100%; overflow-y: auto; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 4px; scrollbar-width: none; }
   #menu .rbtn .t0, #menu .rbtn .t1 { font-size: 8px; }
-  #menu .vs { display: none; }
+  #menu .vs { display: none; } #menu .roster { align-content: start; }
   #menu #fight { grid-column: 2; grid-row: 3; justify-self: center; font-size: 24px; padding: 6px 22px; }
   #menu .menu-inner.solo .roster, #menu .menu-inner.solo #fight { grid-column: 2 / 4; }
   #menu .who { font-size: 10px; letter-spacing: 0.08em; } #menu .who { min-height: 22px; }
@@ -409,7 +426,22 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   #menu .swatches { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; } #menu .swatch { flex: none; }
   #menu .stats { font-size: 12px; } #menu .slot-body { gap: 6px; }
   #menu .ctl button { padding: 2px 5px; font-size: 10px; }
+  #menu .who { height: 26px; min-height: 26px; overflow: hidden; gap: 4px; } #menu .ctl { flex-wrap: nowrap; white-space: nowrap; } #menu .ctl button { padding: 2px 4px; font-size: 9px; letter-spacing: 0.04em; }
+  #menu .el { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; height: 22px; box-sizing: border-box; }
+  #menu .pick { height: 44px; }
   #touch .stick { width: 128px; height: 128px; }
+}
+/* Training on touch screens: the dummy menu tucks under the health bars, the move list stays small */
+@media (pointer: coarse) {
+  #trainUI .tbar { bottom: auto; top: calc(env(safe-area-inset-top, 0px) + 74px); padding: 3px 5px; gap: 3px; max-width: min(560px, calc(100vw - 24px)); opacity: 0.8; }
+  #trainUI .tbar button { font-size: 11px; padding: 3px 7px; } #trainUI .tlab { font-size: 13px; }
+  #trainUI .tpanel { top: calc(env(safe-area-inset-top, 0px) + 74px); bottom: auto; left: 8px; width: 214px; max-height: calc(100% - 250px); overflow-y: auto; }
+  #trainUI .tpanel.right { left: auto; right: 8px; }
+  #trainUI .tpanel header { padding: 4px 8px; } #trainUI .tpanel header b { font-size: 15px; }
+  #trainUI .tbody { font-size: 11px; line-height: 1.35; padding: 4px 8px 8px; } #trainUI .tbody kbd { min-width: 70px; }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 540px) {
+  #trainUI .tbar, #trainUI .tpanel { top: calc(env(safe-area-inset-top, 0px) + 62px); } #trainUI .tpanel { max-height: calc(100% - 200px); width: 200px; }
 }
 /* Phones held upright: arena in the middle of the space above the controls */
 @media (orientation: portrait) and (pointer: coarse) { #trainUI .tpanel { width: 200px; font-size: 12px; } }
@@ -555,7 +587,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Options · Controls</h2><span class="step"></span></header>
     <p class="opt-hint" id="optHint">Click a key, then press the new key you want. Esc cancels.</p>
     <div class="opt-grid"><section class="opt-col" id="opt0"></section><section class="opt-col" id="opt1"></section></div>
-    <div class="opt-btns"><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
+    <div class="opt-btns"><button type="button" class="big-btn alt" id="optVibe" hidden>Vibration on <small>touch buttons buzz</small></button><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
   </div>
 </div>
 <div id="trainUI" hidden>
@@ -576,7 +608,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   <div class="pause-card">
     <h2>Paused</h2>
     <div class="pause-moves" id="pauseMoves"></div>
-    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
+    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pVibe" hidden>Vibration on <small>phones</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
   </div>
 </div>
 
@@ -586,7 +618,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <button type="button" class="mini" data-k="TouchSweep">Sweep</button>
     <button type="button" class="mini" data-k="TouchShove">Shove</button>
     <button type="button" class="mini" data-k="TouchUpper">Upper</button>
-    <button type="button" class="mini sp1" data-k="TouchMini">Special 1</button>
+    <button type="button" class="sp1" data-k="TouchMini">Special 1</button>
     <button type="button" data-k="TouchGrab">Grab</button>
     <button type="button" class="big" data-k="TouchPunch">Slap</button>
     <button type="button" class="sp" data-k="TouchSpecial">Special 2</button>
@@ -8067,9 +8099,10 @@ document.getElementById('goFight').addEventListener('click', beginFight);
 function selectNext() { if (game.mode === 'tour') startTournament(); else if (game.mode === 'train') beginTraining(); else showScreen('stagesel'); }
 const train = { dummy: 0, meter: true, combo: 0, last: 0, best: 0 };
 const trainUI = document.getElementById('trainUI');
+const TOUCH_LABEL = { left: 'Stick ◀', right: '▶', up: 'Stick ▲', down: 'Stick ▼', punch: 'Slap', shove: 'Shove', upper: 'Upper', sweep: 'Sweep', grab: 'Grab', mini: 'Special 1', special: 'Special 2' };
 function trainMoves(p) {
   const f = game.fighters[p]; if (!f) return '';
-  const E = ELEMENTS[f.def.element], MM = MINI[f.def.element], SG = SIG[f.def.id], FN = FINISH[f.def.id], k = a => keyLabel(CONTROLS[p][a][0]);
+  const E = ELEMENTS[f.def.element], MM = MINI[f.def.element], SG = SIG[f.def.id], FN = FINISH[f.def.id], k = a => touchMode && p === 0 ? TOUCH_LABEL[a] : keyLabel(CONTROLS[p][a][0]);
   const rows = [[k('left') + ' ' + k('right'), 'Move (double-tap to dash)'], [k('up'), 'Jump'], [k('down'), 'Block · tap to parry'], [k('punch'), 'Slap'], [k('shove'), 'Shove'], [k('upper'), 'Uppercut'], [k('sweep'), 'Sweep · in the air: belly flop'], [k('grab'), 'Grab, again to throw'], [k('mini'), 'Mini: ' + (MM ? MM.name : '—')], ['Hold ' + k('special'), 'Special: ' + E.move], [k('punch') + ' ' + k('punch') + ' ' + k('upper'), 'Combo: ' + (SG ? SG.name : 'Combo') + ' → ' + (FN ? FN[0] : 'Finisher')]];
   return rows.map(([a, b]) => `<div><kbd>${a}</kbd><span>${b}</span></div>`).join('');
 }
@@ -8095,7 +8128,8 @@ for (const p of [0, 1]) { const el = document.getElementById('tp' + p); el.query
 function beginTraining() {
   Sfx.init(); hideScreens(); game.mode = 'train'; p2cpu = true; stage = STAGES.find(s => s.id === 'bamboo') || STAGES[0]; buildLayers(); initAmbient();
   game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[1]; train.combo = 0; train.last = 0; train.best = 0; p2cpu = train.dummy !== 3; startMatch();
-  document.getElementById('tp0').hidden = false; refreshTrainUI();
+  document.getElementById('tp0').hidden = touchMode; if (touchMode) { train.closed1 = true; const bar = trainUI.querySelector('.tbar'), h = document.getElementById('tHide'); bar.classList.add('min'); h.textContent = '▸'; h.setAttribute('aria-label', 'Expand dummy menu'); }
+  refreshTrainUI();
 }
 function drawTrainPanel(ctx) {
   ctx.save(); ctx.textAlign = 'center'; ctx.font = '700 16px "Barlow Condensed", sans-serif'; ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.fillStyle = '#ffffff';
@@ -8167,9 +8201,16 @@ function pollPads() {
 
 // Touch controls
 touchMode = matchMedia('(pointer: coarse)').matches;
+// Vibration: a short buzz on every touch press (phones that support it), switchable in Options and the pause menu
+let vibeOn = true; try { vibeOn = localStorage.getItem('jigglepit-vibe') !== '0'; } catch (e) {}
+const canVibe = !!navigator.vibrate;
+function buzz(ms) { if (vibeOn && canVibe) try { navigator.vibrate(ms); } catch (e) {} }
+function syncVibe() { for (const id of ['pVibe', 'optVibe']) { const b = document.getElementById(id); b.hidden = !canVibe; b.firstChild.textContent = vibeOn ? 'Vibration on ' : 'Vibration off '; b.setAttribute('aria-pressed', vibeOn); } }
+function toggleVibe() { vibeOn = !vibeOn; try { localStorage.setItem('jigglepit-vibe', vibeOn ? '1' : '0'); } catch (e) {} syncVibe(); buzz(30); }
+document.getElementById('pVibe').addEventListener('click', toggleVibe); document.getElementById('optVibe').addEventListener('click', toggleVibe); syncVibe();
 touchEl.querySelectorAll('button').forEach(b => {
   const k = b.dataset.k;
-  const down = e => { e.preventDefault(); if (b.setPointerCapture) b.setPointerCapture(e.pointerId); keyDown(k); b.classList.add('on'); };
+  const down = e => { e.preventDefault(); if (b.setPointerCapture) b.setPointerCapture(e.pointerId); keyDown(k); b.classList.add('on'); buzz(b.classList.contains('sp') ? 22 : 12); };
   const up = e => { e.preventDefault(); keyUp(k); b.classList.remove('on'); };
   b.addEventListener('pointerdown', down); b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
 });
@@ -8180,7 +8221,7 @@ touchEl.querySelectorAll('button').forEach(b => {
   const set = (dx, dy) => {
     const want = new Set(); if (dx < -0.35) want.add('TouchLeft'); if (dx > 0.35) want.add('TouchRight'); if (dy < -0.5) want.add('TouchUp'); if (dy > 0.5) want.add('TouchDown');
     for (const k of held) if (!want.has(k)) { keyUp(k); held.delete(k); }
-    for (const k of want) if (!held.has(k)) { keyDown(k); held.add(k); }
+    for (const k of want) if (!held.has(k)) { keyDown(k); held.add(k); buzz(k === 'TouchUp' ? 14 : 8); }
   };
   const move = e => {
     const r = stick.getBoundingClientRect(), R = r.width / 2; let dx = (e.clientX - r.left - R) / R, dy = (e.clientY - r.top - R) / R;
