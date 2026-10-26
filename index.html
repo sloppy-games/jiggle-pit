@@ -115,6 +115,26 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
+/* Online VS */
+#online .menu-inner { max-width: 860px; }
+.net-hint { margin: 0; color: var(--muted); text-align: center; }
+.net-grid { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.net-card { background: linear-gradient(180deg, rgba(34,0,70,0.88), rgba(8,0,22,0.92)); border: 2px solid #00f0ff; border-radius: 14px; box-shadow: 0 0 22px rgba(0,240,255,0.35); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+.net-card + .net-card { border-color: #ff2bd6; box-shadow: 0 0 22px rgba(255,43,214,0.35); }
+.net-card h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 30px; letter-spacing: 0.04em; color: #fff; }
+.net-card p { margin: 0; color: #cdb8ff; font-size: 15px; line-height: 1.35; }
+.net-code { font-family: var(--font-display); font-size: 64px; letter-spacing: 0.18em; text-align: center; color: #ffe600; text-shadow: 0 0 14px rgba(255,230,0,0.6), 4px 4px 0 #000; }
+#netJoinCode { font-family: var(--font-display); font-size: 40px; letter-spacing: 0.3em; text-align: center; text-transform: uppercase; padding: 6px; border-radius: 10px; border: 2px solid #ff2bd6; background: rgba(0,0,0,0.45); color: #fff; width: 100%; box-sizing: border-box; }
+.net-status { margin: 0; min-height: 1.4em; text-align: center; color: #fff; font-weight: 700; }
+#netView { position: fixed; inset: 0; z-index: 3; background: #000; }
+#netView[hidden] { display: none; }
+#netView video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+.net-wait { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); padding: 14px 22px; border-radius: 12px; background: rgba(8,0,22,0.85); border: 2px solid #00f0ff; color: #fff; font-family: var(--font-display); font-size: 26px; letter-spacing: 0.04em; text-align: center; }
+.net-wait:empty, .net-wait[hidden] { display: none; }
+.net-leave { position: absolute; top: max(8px, env(safe-area-inset-top, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); z-index: 5; padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.4); background: rgba(0,0,0,0.5); color: #fff; font-size: 13px; }
+.net-tap { position: absolute; top: max(8px, env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); z-index: 5; padding: 6px 14px; border-radius: 10px; border: 2px solid #ffc21a; background: #ffc21a; color: #1a0b00; font-family: var(--font-display); font-size: 18px; }
+@media (max-width: 640px) { .net-grid { grid-template-columns: 1fr; } .net-code { font-size: 54px; } }
+@media (orientation: landscape) and (max-height: 540px) { .net-card { padding: 8px 12px; gap: 6px; } .net-card h3 { font-size: 22px; } .net-card p { font-size: 12px; } .net-code { font-size: 40px; } #netJoinCode { font-size: 28px; padding: 2px; } .net-hint { font-size: 12px; } }
 #options { background: radial-gradient(ellipse at 50% -10%, rgba(150,0,255,0.5), rgba(10,0,24,0) 60%), linear-gradient(180deg, #0d0024, #04000c 75%); }
 #options h2 { color: #fff; text-shadow: 0 0 6px #fff, 0 0 16px #ff2bd6, 0 0 38px #ff2bd6; }
 .opt-hint { color: #cdb8ff; margin: 0; text-align: center; }
@@ -461,6 +481,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <nav class="title-menu" aria-label="Main menu">
       <button type="button" class="big-btn" id="goVersus">Versus <small>1–2 players</small></button>
       <button type="button" class="big-btn" id="goTour">Tournament <small>9 fights to the Colossus</small></button>
+      <button type="button" class="big-btn" id="goOnline">Online VS <small>2 phones</small></button>
       <button type="button" class="big-btn alt" id="goTrain">Training <small>dojo practice</small></button>
       <button type="button" class="big-btn alt" id="goOptions">Options <small>controls</small></button>
       <button type="button" class="big-btn alt" id="goMoves">Moves <small>controls & combos</small></button>
@@ -582,6 +603,21 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   </div>
 </div>
 
+<div id="online" class="screen" hidden>
+  <div class="menu-inner">
+    <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Online VS · two phones</h2><span class="step"></span></header>
+    <p class="net-hint">Both devices need internet (Wi-Fi or mobile data). One player hosts, the other joins with the code.</p>
+    <div class="net-grid">
+      <section class="net-card"><h3>Host a match</h3><p>You are Player 1 and pick the stage. Your rival sees the fight live on their phone.</p>
+        <button type="button" class="big-btn" id="netHost">Host <small>get a code</small></button><div class="net-code" id="netCode" hidden></div></section>
+      <section class="net-card"><h3>Join a match</h3><p>Type the 4-letter code shown on your rival's screen. You are Player 2.</p>
+        <input id="netJoinCode" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CODE" aria-label="Match code">
+        <button type="button" class="big-btn" id="netJoin">Join <small>connect</small></button></section>
+    </div>
+    <p class="net-status" id="netStatus" role="status"></p>
+  </div>
+</div>
+
 <div id="options" class="screen" hidden>
   <div class="menu-inner">
     <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Options · Controls</h2><span class="step"></span></header>
@@ -612,6 +648,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   </div>
 </div>
 
+<div id="netView" hidden><video id="netVideo" playsinline autoplay></video><div class="net-wait" id="netWait"></div><button type="button" class="net-leave" id="netLeave">✕ Leave</button><button type="button" class="net-tap" id="netTap" hidden>🔊 Tap for sound</button></div>
 <div id="touch" hidden>
   <div class="stick" id="stick" role="group" aria-label="Joystick: left and right move, up jumps, down blocks"><span class="hint up">Jump</span><span class="hint dn">Block</span><div class="knob"></div></div>
   <div class="cluster acts">
@@ -6766,9 +6803,10 @@ function saveBindings() { try { localStorage.setItem('jigglepit-keys', JSON.stri
 function loadBindings() { try { const b = JSON.parse(localStorage.getItem('jigglepit-keys') || 'null'); if (Array.isArray(b)) b.forEach((m, p) => { for (const [a] of ACTIONS) if (m && m[a]) setBinding(p, a, m[a]); }); } catch (e) { } }
 const GAME_KEYS = new Set(CONTROLS.flatMap(c => Object.values(c).flat()).concat(['Space'], Object.values(SOLO).flat()));
 loadBindings();
-function keyDown(code) { if (!keys.has(code)) pressed.add(code); keys.add(code); }
-function keyUp(code) { if (keys.has(code)) released.add(code); keys.delete(code); }
+function keyDown(code) { if (net.role === 'guest' && net.ready) { netGuestKey(code, 1); return; } if (!keys.has(code)) pressed.add(code); keys.add(code); }
+function keyUp(code) { if (net.role === 'guest' && net.ready) { netGuestKey(code, 0); return; } if (keys.has(code)) released.add(code); keys.delete(code); }
 addEventListener('keydown', e => {
+  if (net.role === 'guest' && net.ready) { e.preventDefault(); if (!e.repeat) netGuestKey(e.code, 1); return; }
   if (rebind) { e.preventDefault(); finishRebind(e.code); return; }
   if (GAME_KEYS.has(e.code) && !game.screen) e.preventDefault();
   if (e.repeat) return;
@@ -6782,7 +6820,7 @@ addEventListener('keydown', e => {
   else if (e.code === 'Escape') showMenu();
   else if (game.state === 'match' && (e.code === 'Enter' || e.code === 'Space')) matchContinue();
 });
-addEventListener('keyup', e => keyUp(e.code));
+addEventListener('keyup', e => keyUp(e.code));   // keyUp forwards for an online guest
 addEventListener('blur', () => keys.clear());
 
 let rebind = null;
@@ -7654,6 +7692,10 @@ function updateGame(rdt) {
 // ---------------------------------------------------------------------------
 // Rendering
 // ---------------------------------------------------------------------------
+// A shape squashed past zero (a jiggle overshoot) would throw and abort the rest of that frame's drawing; clamp instead
+{ const P = CanvasRenderingContext2D.prototype, arc = P.arc, ell = P.ellipse;
+  P.arc = function (x, y, r, ...a) { return arc.call(this, x, y, r > 0 ? r : 0, ...a); };
+  P.ellipse = function (x, y, rx, ry, ...a) { return ell.call(this, x, y, rx > 0 ? rx : 0, ry > 0 ? ry : 0, ...a); }; }
 const canvas = document.getElementById('game'), ctx = canvas.getContext('2d');
 let scale = 1, offX = 0, offY = 0, touchMode = false;
 function resize() {
@@ -7962,7 +8004,7 @@ function drawHUD(ctx) {
 // ---------------------------------------------------------------------------
 // Menu
 // ---------------------------------------------------------------------------
-const SCREENS = ['title', 'menu', 'stagesel', 'unlocks', 'moves', 'options'];
+const SCREENS = ['title', 'menu', 'stagesel', 'unlocks', 'moves', 'options', 'online'];
 const menu = document.getElementById('menu'), touchEl = document.getElementById('touch');
 const previews = [null, null];
 function statRow(label, pct, text) { return `<dt>${label}</dt><dd>${text != null ? text : `<div class="bar"><i style="width:${Math.round(clamp(pct, 0.05, 1) * 100)}%"></i></div>`}</dd>`; }
@@ -8072,11 +8114,12 @@ function showScreen(name) {
 }
 function showMenu() { showScreen('title'); }
 function applyMode() {
-  const solo = game.mode === 'tour';
+  const solo = game.mode === 'tour' || net.role === 'guest';
   document.getElementById('slot1').hidden = solo; document.querySelector('.vs').hidden = solo; document.querySelector('.select').classList.toggle('solo', solo); document.querySelector('#menu .menu-inner').classList.toggle('solo', solo);
   document.getElementById('selTitle').textContent = solo ? 'Choose your champion' : 'Choose your wrestlers';
   document.getElementById('selStep').textContent = solo ? 'Tournament · 8 fights' : 'Versus · step 1 of 2';
-  document.getElementById('fight').textContent = solo ? 'Begin tournament ▶' : game.mode === 'train' ? 'Enter the dojo ▶' : 'Choose stage ▶';
+  if (net.role === 'guest') document.getElementById('selTitle').textContent = 'Online VS: pick your fighter';
+  document.getElementById('fight').textContent = net.role === 'guest' ? 'Ready ▶' : solo ? 'Begin tournament ▶' : game.mode === 'train' ? 'Enter the dojo ▶' : 'Choose stage ▶';
   if (game.mode === 'train') document.getElementById('selTitle').textContent = 'Training dojo: you and a sparring dummy';
 }
 function sayJP() {
@@ -8096,7 +8139,7 @@ document.getElementById('goMoves').addEventListener('click', () => showScreen('m
 document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => showScreen(b.dataset.back)));
 document.getElementById('fight').addEventListener('click', selectNext);
 document.getElementById('goFight').addEventListener('click', beginFight);
-function selectNext() { if (game.mode === 'tour') startTournament(); else if (game.mode === 'train') beginTraining(); else showScreen('stagesel'); }
+function selectNext() { if (net.role === 'guest') netGuestReadyUp(); else if (game.mode === 'tour') startTournament(); else if (game.mode === 'train') beginTraining(); else showScreen('stagesel'); }
 const train = { dummy: 0, meter: true, combo: 0, last: 0, best: 0 };
 const trainUI = document.getElementById('trainUI');
 const TOUCH_LABEL = { left: 'Stick ◀', right: '▶', up: 'Stick ▲', down: 'Stick ▼', punch: 'Slap', shove: 'Shove', upper: 'Upper', sweep: 'Sweep', grab: 'Grab', mini: 'Special 1', special: 'Special 2' };
@@ -8214,6 +8257,95 @@ touchEl.querySelectorAll('button').forEach(b => {
   const up = e => { e.preventDefault(); keyUp(k); b.classList.remove('on'); };
   b.addEventListener('pointerdown', down); b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
 });
+// Online VS: two devices over WebRTC (PeerJS). The host runs the bout and streams the arena canvas with
+// its audio; the guest picks a fighter on its own screen, then watches the stream and sends presses as Player 2.
+const net = { role: null, peer: null, conn: null, live: false, ready: false, stream: null, prevCpu: true };
+const NET_Q = new URLSearchParams(location.search), NET_ABC = 'ABCDEFGHJKMNPQRSTUVWXYZ';
+function netStatus(t) { document.getElementById('netStatus').textContent = t; }
+function netLoad() {
+  if (window.Peer) return Promise.resolve();
+  const urls = NET_Q.get('peerjs') ? [NET_Q.get('peerjs')] : ['https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js', 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js'];
+  return urls.reduce((p, u) => p.catch(() => new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = u; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc); })), Promise.reject())
+    .then(() => { if (!window.Peer) throw new Error('PeerJS missing'); });
+}
+function netOpts() { const h = NET_Q.get('peerhost'); return h ? { host: h, port: +(NET_Q.get('peerport') || 9000), path: '/', secure: false } : {}; }
+function netSend(m) { if (net.conn && net.conn.open) net.conn.send(m); }
+function netFail() { netStatus('Could not reach the online service. Check the internet connection and try again.'); }
+function netReset(msg) {
+  const was = net.role; if (!was) return;
+  net.role = null; net.ready = false; net.live = false;
+  try { if (net.conn) net.conn.close(); } catch (e) {} try { if (net.peer) net.peer.destroy(); } catch (e) {}
+  net.conn = null; net.peer = null;
+  if (net.stream) net.stream.getTracks().forEach(t => t.stop()); net.stream = null;
+  document.getElementById('netView').hidden = true; document.getElementById('netVideo').srcObject = null; document.getElementById('netCode').hidden = true; document.getElementById('netTap').hidden = true;
+  if (was === 'host') { for (const a in CONTROLS[1]) keyUp(CONTROLS[1][a][0]); setCpu(net.prevCpu); }
+  else { keys.clear(); showScreen('title'); }
+  if (msg) toast(msg);
+}
+function netHost() {
+  if (net.role) netReset();
+  netStatus('Getting a code…');
+  netLoad().then(() => {
+    let code = ''; for (let i = 0; i < 4; i++) code += NET_ABC[(Math.random() * NET_ABC.length) | 0];
+    const peer = new Peer('jigglepit-' + code.toLowerCase(), netOpts()); net.peer = peer; net.role = 'host';
+    peer.on('open', () => { const el = document.getElementById('netCode'); el.textContent = code; el.hidden = false; netStatus('Waiting for your rival to join with this code…'); });
+    peer.on('error', e => { if (e.type === 'unavailable-id') { net.role = null; peer.destroy(); netHost(); } else if (!net.conn) netFail(); });
+    peer.on('connection', c => {
+      if (net.conn) { c.close(); return; }
+      net.conn = c; c.on('data', netHostData); c.on('close', () => netReset('Your rival left the match'));
+      c.on('open', () => {
+        net.prevCpu = p2cpu; setCpu(false); Sfx.init();
+        const tracks = canvas.captureStream(30).getVideoTracks();
+        if (Sfx.ctx && Sfx.ctx.createMediaStreamDestination) { const d = Sfx.ctx.createMediaStreamDestination(); Sfx.master.connect(d); tracks.push(...d.stream.getAudioTracks()); }
+        tracks.forEach(t => { if (t.kind === 'video' && 'contentHint' in t) t.contentHint = 'motion'; });
+        net.stream = new MediaStream(tracks); const call = peer.call(c.peer, net.stream);
+        // favour a smooth, sharp picture over saving data
+        setTimeout(() => { try { call.peerConnection.getSenders().forEach(sd => { if (!sd.track || sd.track.kind !== 'video') return; const pr = sd.getParameters(); if (!pr.encodings || !pr.encodings.length) pr.encodings = [{}]; pr.encodings[0].maxBitrate = 3500000; pr.encodings[0].maxFramerate = 30; pr.degradationPreference = 'maintain-framerate'; sd.setParameters(pr).catch(() => {}); }); } catch (e) {} }, 1500);
+        toast('Rival connected! Pick your fighter and a stage'); goMode('versus'); netTick(true);
+      });
+    });
+  }).catch(netFail);
+}
+function netHostData(m) {
+  if (!m) return;
+  if (m.t === 'k' && CONTROLS[1][m.a]) (m.d ? keyDown : keyUp)(CONTROLS[1][m.a][0]);
+  else if (m.t === 'pick' && ROSTER[m.i] && !ROSTER[m.i].hidden) { sel[1] = m.i; cos[1] = m.c | 0; refreshSlot(1); refreshRoster(); toast('Your rival picked ' + ROSTER[m.i].name); }
+}
+function netTick(force) { const live = !game.screen; if (force || live !== net.live) { net.live = live; netSend({ t: 'view', live }); } }
+function netJoin() {
+  const code = document.getElementById('netJoinCode').value.trim().toUpperCase();
+  if (code.length !== 4) { netStatus('Type the 4-letter code from the host screen'); return; }
+  if (net.role) netReset();
+  netStatus('Connecting…'); Sfx.init();
+  netLoad().then(() => {
+    const peer = new Peer(undefined, netOpts()); net.peer = peer; net.role = 'guest';
+    peer.on('open', () => {
+      const c = peer.connect('jigglepit-' + code.toLowerCase(), { reliable: true }); net.conn = c;
+      c.on('open', () => { netStatus(''); toast('Connected! Pick your fighter'); game.mode = 'versus'; showScreen('menu'); });
+      c.on('data', m => { if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } });
+      c.on('close', () => netReset('The host ended the match'));
+    });
+    peer.on('call', call => { call.answer(); call.on('stream', st => { const v = document.getElementById('netVideo'); v.srcObject = st; v.muted = false; const pl = v.play(); if (pl && pl.catch) pl.catch(() => { v.muted = true; v.play().catch(() => {}); document.getElementById('netTap').hidden = false; }); }); });
+    peer.on('error', e => { if (e.type === 'peer-unavailable') { netStatus('No match with that code. Check it and try again.'); net.role = null; peer.destroy(); } else if (!net.conn || !net.conn.open) netFail(); });
+  }).catch(netFail);
+}
+function netGuestReadyUp() { netSend({ t: 'pick', i: sel[0], c: cos[0] }); net.ready = true; netViewUpdate(); }
+function netViewUpdate() {
+  const v = document.getElementById('netView'), w = document.getElementById('netWait');
+  if (net.role !== 'guest' || !net.ready) { v.hidden = true; return; }
+  if (game.screen) hideScreens();
+  v.hidden = false; touchEl.hidden = !touchMode; w.textContent = net.live ? '' : 'Your rival is picking the stage…';
+}
+function netGuestKey(code, d) {
+  for (const c of CONTROLS) for (const a in c) if (c[a].includes(code)) { netSend({ t: 'k', a, d }); return; }
+}
+document.getElementById('goOnline').addEventListener('click', () => { netStatus(''); showScreen('online'); });
+document.getElementById('netHost').addEventListener('click', netHost);
+document.getElementById('netJoin').addEventListener('click', netJoin);
+document.getElementById('netJoinCode').addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') netJoin(); });
+document.getElementById('netLeave').addEventListener('click', () => netReset('You left the match'));
+document.getElementById('netTap').addEventListener('click', e => { const v = document.getElementById('netVideo'); v.muted = false; v.play().catch(() => {}); e.currentTarget.hidden = true; });
+
 // Joystick: left/right walk (flick twice to dash), up jumps, down blocks
 {
   const stick = document.getElementById('stick'), knob = stick.querySelector('.knob'), held = new Set();
@@ -8255,6 +8387,7 @@ function frame(now) {
   const tOn = game.mode === 'train' && !game.screen && !game.paused && game.fighters.length === 2; if (trainUI.hidden === tOn) trainUI.hidden = !tOn;
   pollPads();
   if (!game.paused) ambientUpdate(rdt);
+  if (net.role === 'host') netTick();
   if (game.paused) { pressed.clear(); released.clear(); }
   else if (game.state === 'menu') { pressed.clear(); released.clear(); drawPreview(0, rdt); drawPreview(1, rdt); game.shake *= Math.exp(-rdt * 9); }
   else updateGame(rdt);
