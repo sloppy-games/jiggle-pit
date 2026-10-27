@@ -117,7 +117,6 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
-a.own-tab { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; } a.own-tab[hidden] { display: none; }
 /* Online VS */
 #online .menu-inner { max-width: 860px; }
 .net-hint { margin: 0; color: var(--muted); text-align: center; }
@@ -292,6 +291,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
 .mv-card p { margin: 0 0 6px; line-height: 1.35; color: var(--ink); font-size: 15px; }
 .mv-card kbd { font-family: var(--font-body); font-weight: 700; border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; background: rgba(255,255,255,0.06); }
 #touch .cluster.acts { max-width: 250px; }
+#touch button.tpause { position: fixed; top: max(4px, env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); width: 34px; height: 26px; border-radius: 8px; font-family: var(--font-body); font-size: 11px; letter-spacing: 0; padding: 0; pointer-events: auto; background: rgba(8,4,20,0.55); border: 1px solid rgba(255,255,255,0.35); color: #fff; box-shadow: none; opacity: 0.8; z-index: 6; }
 #touch .stick { position: relative; width: 136px; height: 136px; border-radius: 50%; pointer-events: auto; touch-action: none; flex: none;
   background: radial-gradient(circle, rgba(8,16,12,0.25) 0 38%, rgba(8,16,12,0.6) 70%); border: 2px solid rgba(244,234,210,0.35); box-shadow: inset 0 0 18px rgba(0,0,0,0.5); }
 #touch .stick .knob { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff27a, #ffc21a 60%, #c98a00); border: 2px solid var(--hazard-ink); box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events: none; }
@@ -627,7 +627,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Options · Controls</h2><span class="step"></span></header>
     <p class="opt-hint" id="optHint">Click a key, then press the new key you want. Esc cancels.</p>
     <div class="opt-grid"><section class="opt-col" id="opt0"></section><section class="opt-col" id="opt1"></section></div>
-    <div class="opt-btns"><a class="big-btn alt own-tab" id="optTab" target="_blank" rel="noopener" hidden>Open in its own tab ↗ <small>vibration + true fullscreen</small></a><button type="button" class="big-btn alt" id="optVibe" hidden>Vibration on <small>touch buttons buzz</small></button><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
+    <div class="opt-btns"><button type="button" class="big-btn alt" id="optVibe" hidden>Vibration on <small>touch buttons buzz</small></button><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
   </div>
 </div>
 <div id="trainUI" hidden>
@@ -648,12 +648,13 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   <div class="pause-card">
     <h2>Paused</h2>
     <div class="pause-moves" id="pauseMoves"></div>
-    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><a class="big-btn alt own-tab" id="pTab" target="_blank" rel="noopener" hidden>Own tab ↗ <small>vibration + fullscreen</small></a><button type="button" class="big-btn alt" id="pVibe" hidden>Vibration on <small>phones</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
+    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pVibe" hidden>Vibration on <small>phones</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
   </div>
 </div>
 
 <div id="netView" hidden><video id="netVideo" playsinline autoplay></video><div class="net-wait" id="netWait"></div><button type="button" class="net-leave" id="netLeave">✕ Leave</button><button type="button" class="net-tap" id="netTap" hidden>🔊 Tap for sound</button></div>
 <div id="touch" hidden>
+  <button type="button" class="tpause" id="tPause" aria-label="Pause">❚❚</button>
   <div class="stick" id="stick" role="group" aria-label="Joystick: left and right move, up jumps, down blocks"><span class="hint up">Jump</span><span class="hint dn">Block</span><div class="knob"></div></div>
   <div class="cluster acts">
     <button type="button" class="mini" data-k="TouchSweep">Sweep</button>
@@ -8252,17 +8253,11 @@ touchMode = matchMedia('(pointer: coarse)').matches;
 // Vibration: a short buzz on every touch press (phones that support it), switchable in Options and the pause menu
 let vibeOn = true; try { vibeOn = localStorage.getItem('jigglepit-vibe') !== '0'; } catch (e) {}
 const canVibe = !!navigator.vibrate;
-// Chrome refuses vibration inside an embedded frame (itch.io runs games in one); if a buzz is refused, say how to get it
-let framed = false; try { framed = window.self !== window.top; } catch (e) { framed = true; }
-let vibeWarned = false, lastHitBuzz = 0;
-function buzz(ms) {
-  if (!vibeOn || !canVibe) return;
-  let ok = true; try { ok = navigator.vibrate(ms); } catch (e) { ok = false; }
-  if (ok === false && framed && !vibeWarned) { vibeWarned = true; toast('Vibration is blocked inside this page. Use "Open in its own tab" in Options to feel it.'); }
-}
+let lastHitBuzz = 0;
+function buzz(ms) { if (vibeOn && canVibe) try { navigator.vibrate(ms); } catch (e) {} }
 // a short buzz when your fighter takes a hit; bigger hits buzz longer
 function hitBuzz(f, amt) {
-  const ms = Math.round(clamp(10 + amt * 3, 12, 45));
+  const ms = Math.round(clamp(18 + amt * 4, 20, 70));   // strong enough to feel through a phone case
   if (net.role === 'host' && f.idx === 1) { netSend({ t: 'buzz', ms }); return; }
   const now = performance.now();
   if (f.idx !== 0 || !touchMode || game.mode === 'demo' || now - lastHitBuzz < 90) return;
@@ -8270,9 +8265,9 @@ function hitBuzz(f, amt) {
 }
 function syncVibe() { for (const id of ['pVibe', 'optVibe']) { const b = document.getElementById(id); b.hidden = !canVibe; b.firstChild.textContent = vibeOn ? 'Vibration on ' : 'Vibration off '; b.setAttribute('aria-pressed', vibeOn); } }
 function toggleVibe() { vibeOn = !vibeOn; try { localStorage.setItem('jigglepit-vibe', vibeOn ? '1' : '0'); } catch (e) {} syncVibe(); buzz(30); }
-for (const id of ['optTab', 'pTab']) { const a = document.getElementById(id); a.href = location.href; a.hidden = !(framed && touchMode); }
 document.getElementById('pVibe').addEventListener('click', toggleVibe); document.getElementById('optVibe').addEventListener('click', toggleVibe); syncVibe();
-touchEl.querySelectorAll('button').forEach(b => {
+document.getElementById('tPause').addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); buzz(10); if (net.role === 'guest') return; togglePause(); });
+touchEl.querySelectorAll('button:not(.tpause)').forEach(b => {
   const k = b.dataset.k;
   const down = e => { e.preventDefault(); if (b.setPointerCapture) b.setPointerCapture(e.pointerId); keyDown(k); b.classList.add('on'); buzz(b.classList.contains('sp') ? 22 : 12); };
   const up = e => { e.preventDefault(); keyUp(k); b.classList.remove('on'); };
@@ -8298,7 +8293,7 @@ function netReset(msg) {
   try { if (net.conn) net.conn.close(); } catch (e) {} try { if (net.peer) net.peer.destroy(); } catch (e) {}
   net.conn = null; net.peer = null;
   if (net.stream) net.stream.getTracks().forEach(t => t.stop()); net.stream = null;
-  document.getElementById('netView').hidden = true; document.getElementById('netVideo').srcObject = null; document.getElementById('netCode').hidden = true; document.getElementById('netTap').hidden = true;
+  document.getElementById('tPause').hidden = false; document.getElementById('netView').hidden = true; document.getElementById('netVideo').srcObject = null; document.getElementById('netCode').hidden = true; document.getElementById('netTap').hidden = true;
   if (was === 'host') { for (const a in CONTROLS[1]) keyUp(CONTROLS[1][a][0]); setCpu(net.prevCpu); }
   else { keys.clear(); showScreen('title'); }
   if (msg) toast(msg);
@@ -8355,7 +8350,7 @@ function netViewUpdate() {
   const v = document.getElementById('netView'), w = document.getElementById('netWait');
   if (net.role !== 'guest' || !net.ready) { v.hidden = true; return; }
   if (game.screen) hideScreens();
-  v.hidden = false; touchEl.hidden = !touchMode; w.textContent = net.live ? '' : 'Your rival is picking the stage…';
+  v.hidden = false; touchEl.hidden = !touchMode; document.getElementById('tPause').hidden = true; w.textContent = net.live ? '' : 'Your rival is picking the stage…';
 }
 function netGuestKey(code, d) {
   for (const c of CONTROLS) for (const a in c) if (c[a].includes(code)) { netSend({ t: 'k', a, d }); return; }
@@ -8374,8 +8369,8 @@ function goFull() {
   if (!req || document.fullscreenElement || document.webkitFullscreenElement) return;
   try { const r = req.call(el, { navigationUI: 'hide' }); if (r && r.catch) r.catch(() => {}); } catch (e) {}
 }
-addEventListener('pointerdown', () => { if (touchMode && landMQ.matches) goFull(); }, true);
-landMQ.addEventListener('change', () => { if (touchMode && landMQ.matches && !document.fullscreenElement && (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)) toast('Tap anywhere for fullscreen'); });
+let fullOnce = false;
+addEventListener('pointerdown', () => { if (touchMode && (!fullOnce || landMQ.matches)) { fullOnce = true; goFull(); } }, true);
 
 // Joystick: left/right walk (flick twice to dash), up jumps, down blocks
 {
