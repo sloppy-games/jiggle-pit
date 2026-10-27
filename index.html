@@ -117,6 +117,12 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
+#resultFx { position: fixed; left: 0; right: 0; top: 40%; transform: translateY(-50%); z-index: 4; pointer-events: none; text-align: center; padding: 18px 0; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.78) 30%, rgba(0,0,0,0.78) 70%, transparent); animation: resIn 0.5s ease-out; }
+#resultFx[hidden] { display: none; }
+#resultFx b { display: block; font-family: Cinzel, 'Times New Roman', serif; font-weight: 700; font-size: clamp(44px, 11vw, 110px); letter-spacing: 0.1em; line-height: 1; }
+#resultFx i { display: block; margin-top: 8px; font-style: normal; font-family: Cinzel, serif; font-weight: 700; font-size: clamp(16px, 3.4vw, 30px); letter-spacing: 0.08em; color: #ded0b8; text-transform: uppercase; }
+#resultFx.lose b { color: #b0101a; text-shadow: 0 0 26px rgba(200,0,20,0.9); } #resultFx.win b { color: #e8c860; text-shadow: 0 0 26px rgba(255,200,80,0.8); }
+@keyframes resIn { from { opacity: 0; transform: translateY(-50%) scale(1.15); } to { opacity: 1; transform: translateY(-50%) scale(1); } }
 #menu #fight.waiting { filter: grayscale(0.85) brightness(0.75); animation: none; }
 #touch.no-pause .tpause, #touch.edit .tpause { display: none; }
 /* touch layout editor */
@@ -700,6 +706,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
 </div>
 
 <div id="netView" hidden><video id="netVideo" playsinline autoplay></video><div class="net-wait" id="netWait"></div><button type="button" class="net-leave" id="netLeave">✕ Leave</button><button type="button" class="net-tap" id="netTap" hidden>🔊 Tap for sound</button></div>
+<div id="resultFx" hidden><b></b><i></i></div>
 <div id="layoutBar" hidden><b>Drag the buttons where you like</b><span><button type="button" data-ls="-1" aria-label="Smaller">−</button><i id="layoutSize">100%</i><button type="button" data-ls="1" aria-label="Bigger">+</button></span><button type="button" id="layoutReset">Reset</button><button type="button" class="done" id="layoutDone">Done</button></div>
 <div id="touch" hidden>
   <button type="button" class="tpause" id="tPause" aria-label="Pause">❚❚</button>
@@ -7120,7 +7127,7 @@ document.getElementById('pRestart').addEventListener('click', () => { togglePaus
 document.getElementById('pQuit').addEventListener('click', () => { togglePause(); showMenu(); });
 addEventListener('blur', () => { if (!game.paused && !game.screen && game.mode !== 'demo' && ['fight', 'intro', 'pan'].includes(game.state)) togglePause(); });
 function resetSun() { game.sunK = 0; game.sunFade = 0; }
-function hideScreens() { game.screen = null; game.died = null; for (const id of SCREENS) document.getElementById(id).hidden = true; touchEl.hidden = !touchMode; if (touchMode) phoneFullscreen(); resize(); }
+function hideScreens() { game.screen = null; game.died = null; hideResult(); for (const id of SCREENS) document.getElementById(id).hidden = true; touchEl.hidden = !touchMode; if (touchMode) phoneFullscreen(); resize(); }
 // Phones: go fullscreen and ask for landscape when a bout starts; suggest turning sideways once if that fails
 let sidewaysTip = false;
 function phoneFullscreen() {
@@ -7224,12 +7231,27 @@ function drawPanOverlay(ctx) {
   fcard(b, 6.8, 10.5, 1, 'IN THE WEST CORNER · ' + b.def.mass + ' KG');
   if (t < PAN_T - 0.5) { ctx.fillStyle = 'rgba(255,255,255,0.65)'; ctx.font = '700 16px "Barlow Condensed", sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic'; ctx.fillText('ANY KEY TO SKIP', W - 24, H - 28); }
 }
+// Results are told from the viewer's side: 0 = this screen belongs to Player 1, -1 = two players share it
+const viewer = () => net.role === 'host' || p2cpu ? 0 : -1;
+const onlineHost = () => net.role === 'host' && !!net.conn;
+function showResult(word, name, dur) {   // a DOM overlay, so it is not part of the picture streamed to an online guest
+  const el = document.getElementById('resultFx'); el.querySelector('b').textContent = word; el.querySelector('i').textContent = name;
+  el.className = word === 'YOU DIED' ? 'lose' : 'win'; el.hidden = false; clearTimeout(el._t); if (dur) el._t = setTimeout(() => { el.hidden = true; }, dur * 1000);
+}
+function hideResult() { const el = document.getElementById('resultFx'); clearTimeout(el._t); el.hidden = true; }
+function tellResult(winner, dur) {   // online: each phone gets its own WINNER / YOU DIED
+  const F = game.fighters;
+  showResult(winner === 0 ? 'WINNER' : 'YOU DIED', F[0].def.name, dur);
+  netSend({ t: 'result', word: winner === 1 ? 'WINNER' : 'YOU DIED', name: F[1].def.name, dur });
+}
 function endRound(winner, reason, loser) {
   game.state = 'ko'; game.koT = 0; game.slow = 0.22; game.winner = winner; game.koIndex = replay.count; game.clash = null;
   if (winner >= 0) game.wins[winner]++;
   const wname = winner >= 0 ? game.fighters[winner].def.name : '';
   if (reason === 'out') banner('RING OUT!', loser.wasThrown ? 'Thrown to the dinosaurs' : 'Yorikiri off the edge', 2.4);
   else if (reason === 'double') banner('DOUBLE K.O.!', 'Nobody wins. Run it back.', 2.4);
+  else if (onlineHost()) { game.banner = null; tellResult(winner, 2.6); }
+  else if (viewer() === 0) banner(winner === 0 ? 'WINNER' : 'YOU DIED', game.fighters[0].def.name, 2.4);
   else { const ln = game.fighters[1 - winner] ? game.fighters[1 - winner].def.name : ''; banner('YOU DIED', ln, 0); game.winBannerT = 1.4; }
   if (reason === 'out') game.winBannerT = 1.4;
   Sfx.play('taiko', 1); hype(1.5); Sfx.play('cheer', 1.3);
@@ -7357,15 +7379,19 @@ function showMatchEnd() {
       if (tour.i >= tour.ladder.length - 1) { tour.done = true; bumpStat('tournaments'); sub = 'Champion of the Pit · peace returns to the valley...'; hype(2); Sfx.play('cheer', 2); game.autoNext = amb.t + 4.5; }
       else { sub = `Bout ${tour.i + 1} of ${tour.ladder.length} won · climbing the banzuke...`; game.autoNext = amb.t + 3.6; }
     } else sub = 'Enter to retry this fight · Esc to quit';
-  } else sub = touchMode ? 'Tap to rematch' : 'Enter to rematch · Esc for the main menu';
-  const humanLost = isHuman(1 - w) && !(1 - w === 1 && p2cpu);
-  game.died = { t0: amb.t, name: lf.def.name.toUpperCase(), winner: wf.def.name, human: humanLost, sub, champ: tour.done && game.mode === 'tour' };
+  } else if (net.role) { sub = 'Back to fighter select…'; game.autoNext = amb.t + 4.5; }
+  else sub = touchMode ? 'Tap to pick fighters' : 'Enter to rematch · Esc for the main menu';
+  const me = viewer(), humanLost = me === 0 ? w !== 0 : isHuman(1 - w) && !(1 - w === 1 && p2cpu);
+  const word = tour.done && game.mode === 'tour' ? 'CHAMPION' : me === 0 ? (w === 0 ? 'WINNER' : 'YOU DIED') : 'YOU DIED';
+  game.died = { t0: amb.t, word, name: (me === 0 ? game.fighters[0] : lf).def.name.toUpperCase(), winner: wf.def.name, human: humanLost, sub, hideText: onlineHost() };
+  if (onlineHost()) tellResult(w, 0);
   Music.stop();
   if (humanLost) { Sfx.play('boom', 1.5); Music.playSting('died'); }
   else { Sfx.play('gong', 1.2); Music.playSting('victory'); Sfx.voice(wf, 'win', 1.2); }
 }
 function matchContinue() {
-  game.died = null;
+  game.died = null; hideResult();
+  if (game.mode === 'versus' && (touchMode || net.role)) { showScreen('menu'); return; }
   if (game.mode === 'tour') { if (tour.done) { startEnding(); return; } if (game.winner === 0) tour.i++; startTourFight(); }
   else startMatch();
 }
@@ -7698,7 +7724,12 @@ function updateGame(rdt) {
   if (game.state === 'ko') {
     game.koT += rdt;
     if (game.koT > 3.3) game.slow = Math.min(1, game.slow + rdt * 2);
-    if (game.winBannerT && game.koT > game.winBannerT && game.winner >= 0) { game.winBannerT = 0; banner('WINNER', game.fighters[game.winner].def.name, 2.2); Sfx.play('gong', 1); }
+    if (game.winBannerT && game.koT > game.winBannerT && game.winner >= 0) {
+      game.winBannerT = 0; Sfx.play('gong', 1);
+      if (onlineHost()) { game.banner = null; tellResult(game.winner, 2.2); }
+      else if (viewer() === 0) banner(game.winner === 0 ? 'WINNER' : 'YOU DIED', game.fighters[0].def.name, 2.2);
+      else banner('WINNER', game.fighters[game.winner].def.name, 2.2);
+    }
     if (game.koT > 3.8) { const w = game.winner; if (w >= 0 && game.wins[w] >= 2) enterFinish(); else afterReplay('round'); }
   }
   if (game.state === 'finish') {
@@ -8030,17 +8061,17 @@ function drawHUD(ctx) {
     const bg = ctx.createLinearGradient(0, cy - 150, 0, cy + 150); bg.addColorStop(0, 'rgba(0,0,0,0)'); bg.addColorStop(0.3, `rgba(0,0,0,${0.82 * k})`); bg.addColorStop(0.7, `rgba(0,0,0,${0.82 * k})`); bg.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = bg; ctx.fillRect(0, cy - 150, W, 300);
     ctx.save(); ctx.translate(W / 2, cy); const sc = 1 + Math.min(e, 6) * 0.012; ctx.scale(sc, sc); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    const word = DD.champ ? 'CHAMPION' : DD.human ? 'YOU DIED' : 'ENEMY FELLED';
+    const word = DD.word, lost = word === 'YOU DIED';
     try { ctx.letterSpacing = '12px'; } catch (er) {}
-    ctx.font = `700 ${DD.human ? 112 : 92}px Cinzel, 'Times New Roman', serif`;
-    ctx.shadowColor = DD.human ? 'rgba(200,0,20,0.9)' : 'rgba(255,200,80,0.8)'; ctx.shadowBlur = 30 * k;
-    ctx.fillStyle = DD.human ? `rgba(176,16,26,${k})` : `rgba(232,200,96,${k})`; ctx.fillText(word, 0, -10);
+    ctx.font = `700 ${lost ? 112 : 100}px Cinzel, 'Times New Roman', serif`;
+    ctx.shadowColor = lost ? 'rgba(200,0,20,0.9)' : 'rgba(255,200,80,0.8)'; ctx.shadowBlur = 30 * k;
+    ctx.fillStyle = lost ? `rgba(176,16,26,${k})` : `rgba(232,200,96,${k})`; if (!DD.hideText) ctx.fillText(word, 0, -10);
     ctx.shadowBlur = 0; try { ctx.letterSpacing = '6px'; } catch (er) {}
     const k2 = clamp((e - 0.7) / 0.8, 0, 1);
-    ctx.font = '700 30px Cinzel, "Times New Roman", serif'; ctx.fillStyle = `rgba(222,208,184,${k2})`; ctx.fillText(DD.name + (DD.human ? '' : ' HAS FALLEN'), 0, 66);
+    ctx.font = '700 30px Cinzel, "Times New Roman", serif'; ctx.fillStyle = `rgba(222,208,184,${k2})`; if (!DD.hideText) ctx.fillText(DD.name, 0, 66);
     try { ctx.letterSpacing = '0px'; } catch (er) {}
     const k3 = clamp((e - 1.5) / 0.6, 0, 1);
-    ctx.font = '600 22px "Barlow Condensed", sans-serif'; ctx.fillStyle = `rgba(244,234,210,${k3 * 0.85})`; ctx.fillText(`${DD.winner} wins · ${DD.sub}`, 0, 112);
+    ctx.font = '600 22px "Barlow Condensed", sans-serif'; ctx.fillStyle = `rgba(244,234,210,${k3 * 0.85})`; ctx.fillText(DD.hideText ? DD.sub : `${DD.winner} wins · ${DD.sub}`, 0, 112);
     ctx.restore();
   }
   drawCutIn(ctx);
@@ -8372,11 +8403,13 @@ function netHost() {
   netLoad().then(() => {
     let code = ''; for (let i = 0; i < 4; i++) code += NET_ABC[(Math.random() * NET_ABC.length) | 0];
     const peer = new Peer('jigglepit-' + code.toLowerCase(), netOpts()); net.peer = peer; net.role = 'host';
+    peer.on('disconnected', () => { if (net.peer === peer) try { peer.reconnect(); } catch (e) {} });
     peer.on('open', () => { const el = document.getElementById('netCode'); el.textContent = code; el.hidden = false; netStatus('Waiting for your rival to join with this code…'); });
     peer.on('error', e => { if (e.type === 'unavailable-id') { net.role = null; peer.destroy(); netHost(); } else if (!net.conn) netFail(); });
     peer.on('connection', c => {
-      if (net.conn) { c.close(); return; }
-      net.conn = c; c.on('data', netHostData); c.on('close', () => netReset('Your rival left the match'));
+      if (net.conn && net.conn.open) { c.close(); return; }
+      if (net.conn) try { net.conn.close(); } catch (e) {}
+      net.conn = c; c.on('data', netHostData); c.on('close', () => { if (net.conn === c) netReset('Your rival left the match'); });
       c.on('open', () => {
         net.prevCpu = p2cpu; setCpu(false); Sfx.init(); touchEl.classList.add('no-pause');
         const tracks = canvas.captureStream(30).getVideoTracks();
@@ -8408,19 +8441,32 @@ function netJoin() {
   const code = document.getElementById('netJoinCode').value.trim().toUpperCase();
   if (code.length !== 4) { netStatus('Type the 4-letter code from the host screen'); return; }
   if (net.role) netReset();
-  netStatus('Connecting…'); Sfx.init();
-  netLoad().then(() => {
-    const peer = new Peer(undefined, netOpts()); net.peer = peer; net.role = 'guest';
-    peer.on('open', () => {
-      const c = peer.connect('jigglepit-' + code.toLowerCase(), { reliable: true }); net.conn = c;
-      c.on('open', () => { netStatus(''); toast('Connected! Pick your fighter'); game.mode = 'versus'; showScreen('menu'); });
-      c.on('data', m => { if (m && m.t === 'repick') { net.ready = false; keys.clear(); document.getElementById('netView').hidden = true; showScreen('menu'); toast('Rematch! Pick your fighter and tap Ready'); return; }
-        if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz' && phone.hitVibe) vib(m.ms); });
-      c.on('close', () => netReset('The host ended the match'));
-    });
-    peer.on('call', call => { call.answer(); call.on('stream', st => { const v = document.getElementById('netVideo'); v.srcObject = st; v.muted = false; const pl = v.play(); if (pl && pl.catch) pl.catch(() => { v.muted = true; v.play().catch(() => {}); document.getElementById('netTap').hidden = false; }); }); });
-    peer.on('error', e => { if (e.type === 'peer-unavailable') { netStatus('No match with that code. Check it and try again.'); net.role = null; peer.destroy(); } else if (!net.conn || !net.conn.open) netFail(); });
-  }).catch(netFail);
+  Sfx.init(); netStatus('Connecting…');
+  netLoad().then(() => netTryJoin(code, 1)).catch(netFail);
+}
+// Signalling and the peer link can take a few seconds to settle, so a join retries a few times before giving up
+function netTryJoin(code, n) {
+  let peer, done = false;
+  const MAX = 5, again = why => {
+    if (done || net.peer !== peer) return; done = true;   // only the newest attempt may retry or give up
+    try { if (net.conn) net.conn.close(); } catch (e) {} try { peer.destroy(); } catch (e) {}
+    net.conn = null; net.peer = null; net.role = null;
+    if (n < MAX) { netStatus(`Connecting… (try ${n + 1} of ${MAX})`); setTimeout(() => netTryJoin(code, n + 1), 1200); }
+    else netStatus(why);
+  };
+  peer = new Peer(undefined, netOpts()); net.peer = peer; net.role = 'guest';
+  let opened = false; const stall = setTimeout(() => { if (!opened) again('Could not connect. Check the code and both connections, then try again.'); }, 7000);
+  peer.on('open', () => {
+    const c = peer.connect('jigglepit-' + code.toLowerCase(), { reliable: true }); net.conn = c;
+    c.on('open', () => { opened = true; clearTimeout(stall); netStatus(''); toast('Connected! Pick your fighter'); game.mode = 'versus'; showScreen('menu'); });
+    c.on('data', m => { if (m && m.t === 'repick') { hideResult(); net.ready = false; keys.clear(); document.getElementById('netView').hidden = true; showScreen('menu'); toast('Rematch! Pick your fighter and tap Ready'); return; }
+      if (m && m.t === 'result') { showResult(m.word, m.name, m.dur); return; }
+      if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz' && phone.hitVibe) vib(m.ms); });
+    c.on('close', () => { if (opened && net.conn === c) netReset('The host ended the match'); });
+  });
+  peer.on('call', call => { call.answer(); call.on('stream', st => { const v = document.getElementById('netVideo'); v.srcObject = st; v.muted = false; const pl = v.play(); if (pl && pl.catch) pl.catch(() => { v.muted = true; v.play().catch(() => {}); document.getElementById('netTap').hidden = false; }); }); });
+  peer.on('disconnected', () => { if (opened && net.peer === peer) try { peer.reconnect(); } catch (e) {} });
+  peer.on('error', e => { if (opened) return; clearTimeout(stall); again(e.type === 'peer-unavailable' ? 'No match with that code. Check it and try again.' : 'Could not reach the online service. Check the internet connection and try again.'); });
 }
 function netGuestReadyUp() { netSend({ t: 'pick', i: sel[0], c: cos[0] }); net.ready = true; netViewUpdate(); }
 function netViewUpdate() {
