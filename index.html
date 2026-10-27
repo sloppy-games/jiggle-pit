@@ -470,6 +470,19 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   #menu .pick { height: 44px; }
   #touch .stick { width: 128px; height: 128px; }
 }
+/* Title menu on phones: small buttons hugging the bottom edge, out of the demo bout */
+@media (pointer: coarse) {
+  .title-screen .title-menu { bottom: max(8px, env(safe-area-inset-bottom, 0px)); gap: 6px; width: min(720px, calc(100% - 16px)); }
+  .title-screen .big-btn { flex: 1 1 30%; max-width: 200px; font-size: 17px; padding: 6px 10px; border-radius: 9px; animation: none; min-height: 0; }
+  .title-screen .big-btn small { font-size: 10px; }
+  .title-screen .press { display: none; }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 540px) {
+  .title-screen .title-menu { width: calc(100% - 16px); flex-wrap: nowrap; gap: 5px; }
+  .title-screen .big-btn { flex: 1 1 0; max-width: none; font-size: 15px; padding: 5px 6px; align-items: center; text-align: center; }
+  .title-screen .big-btn small { display: none; }
+  .title-screen .logo { font-size: clamp(40px, 12vh, 64px); }
+}
 /* Training on touch screens: the dummy menu tucks under the health bars, the move list stays small */
 @media (pointer: coarse) {
   #trainUI .tbar { bottom: auto; top: calc(env(safe-area-inset-top, 0px) + 74px); padding: 3px 5px; gap: 3px; max-width: min(560px, calc(100vw - 24px)); opacity: 0.8; }
@@ -947,7 +960,7 @@ function costumeSwatch(c, def) {
 // Audio: tiny synth, starts on first interaction
 // ---------------------------------------------------------------------------
 const Sfx = {
-  ctx: null, master: null, noise: null, muted: false,
+  ctx: null, master: null, mix: null, noise: null, muted: false,
   init() {
     if (this.ctx) { if (this.ctx.state === 'suspended') this.ctx.resume(); return; }
     try {
@@ -955,7 +968,7 @@ const Sfx = {
       this.ctx = new C();
       this.master = this.ctx.createGain(); this.master.gain.value = this.muted ? 0 : 0.55;
       const comp = this.ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.knee.value = 10; comp.ratio.value = 5; comp.attack.value = 0.003; comp.release.value = 0.2;
-      this.master.connect(comp); comp.connect(this.ctx.destination);
+      this.mix = this.ctx.createGain(); this.master.connect(this.mix); this.mix.connect(comp); comp.connect(this.ctx.destination);   // sound effects (master) and music meet here
       const len = this.ctx.sampleRate, b = this.ctx.createBuffer(1, len, this.ctx.sampleRate), d = b.getChannelData(0);
       for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
       this.noise = b;
@@ -1239,7 +1252,7 @@ const Music = {
   on: true, song: null, name: null, step: 0, next: 0, timer: null, bus: null, delay: null, speed: 1,
   init() {
     const S = Sfx; if (!S.ctx || this.bus) return !!this.bus;
-    const c = S.ctx; this.bus = c.createGain(); this.bus.gain.value = this.on ? 0.36 : 0; this.bus.connect(S.master);
+    const c = S.ctx; this.bus = c.createGain(); this.bus.gain.value = this.on ? 0.36 : 0; this.bus.connect(S.mix);
     this.delay = c.createDelay(1); const fb = c.createGain(), wet = c.createGain(); fb.gain.value = 0.32; wet.gain.value = 0.28;
     this.delay.connect(fb); fb.connect(this.delay); this.delay.connect(wet); wet.connect(this.bus);
     return true;
@@ -8355,7 +8368,7 @@ function netHost() {
       c.on('open', () => {
         net.prevCpu = p2cpu; setCpu(false); Sfx.init(); touchEl.classList.add('no-pause');
         const tracks = canvas.captureStream(30).getVideoTracks();
-        if (Sfx.ctx && Sfx.ctx.createMediaStreamDestination) { const d = Sfx.ctx.createMediaStreamDestination(); Sfx.master.connect(d); tracks.push(...d.stream.getAudioTracks()); }
+        if (Sfx.ctx && Sfx.ctx.createMediaStreamDestination) { const d = Sfx.ctx.createMediaStreamDestination(); Sfx.mix.connect(d); tracks.push(...d.stream.getAudioTracks()); }
         tracks.forEach(t => { if (t.kind === 'video' && 'contentHint' in t) t.contentHint = 'motion'; });
         net.stream = new MediaStream(tracks); const call = peer.call(c.peer, net.stream);
         // favour a smooth, sharp picture over saving data
