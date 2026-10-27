@@ -117,6 +117,7 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
+#menu #fight.waiting { filter: grayscale(0.85) brightness(0.75); animation: none; }
 #touch.no-pause .tpause, #touch.edit .tpause { display: none; }
 /* touch layout editor */
 #touch.edit { background: rgba(4,0,14,0.72); pointer-events: auto; inset: 0; top: 0; z-index: 9; }
@@ -7229,7 +7230,8 @@ function endRound(winner, reason, loser) {
   const wname = winner >= 0 ? game.fighters[winner].def.name : '';
   if (reason === 'out') banner('RING OUT!', loser.wasThrown ? 'Thrown to the dinosaurs' : 'Yorikiri off the edge', 2.4);
   else if (reason === 'double') banner('DOUBLE K.O.!', 'Nobody wins. Run it back.', 2.4);
-  else banner('K.O.!', wname + ' takes the round', 2.4);
+  else { const ln = game.fighters[1 - winner] ? game.fighters[1 - winner].def.name : ''; banner('YOU DIED', ln, 0); game.winBannerT = 1.4; }
+  if (reason === 'out') game.winBannerT = 1.4;
   Sfx.play('taiko', 1); hype(1.5); Sfx.play('cheer', 1.3);
 }
 
@@ -7696,6 +7698,7 @@ function updateGame(rdt) {
   if (game.state === 'ko') {
     game.koT += rdt;
     if (game.koT > 3.3) game.slow = Math.min(1, game.slow + rdt * 2);
+    if (game.winBannerT && game.koT > game.winBannerT && game.winner >= 0) { game.winBannerT = 0; banner('WINNER', game.fighters[game.winner].def.name, 2.2); Sfx.play('gong', 1); }
     if (game.koT > 3.8) { const w = game.winner; if (w >= 0 && game.wins[w] >= 2) enterFinish(); else afterReplay('round'); }
   }
   if (game.state === 'finish') {
@@ -8176,6 +8179,7 @@ function applyMode() {
   if (net.role === 'guest') document.getElementById('selTitle').textContent = 'Online VS: pick your fighter';
   document.getElementById('fight').textContent = net.role === 'guest' ? 'Ready ▶' : solo ? 'Begin tournament ▶' : game.mode === 'train' ? 'Enter the dojo ▶' : 'Choose stage ▶';
   if (game.mode === 'train') document.getElementById('selTitle').textContent = 'Training dojo: you and a sparring dummy';
+  if (typeof netHostButton === 'function') netHostButton();
 }
 function sayJP() {
   if (Sfx.muted || !window.speechSynthesis) return;
@@ -8194,7 +8198,7 @@ document.getElementById('goMoves').addEventListener('click', () => showScreen('m
 document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => showScreen(b.dataset.back)));
 document.getElementById('fight').addEventListener('click', selectNext);
 document.getElementById('goFight').addEventListener('click', beginFight);
-function selectNext() { if (net.role === 'guest') netGuestReadyUp(); else if (game.mode === 'tour') startTournament(); else if (game.mode === 'train') beginTraining(); else showScreen('stagesel'); }
+function selectNext() { if (net.role === 'host' && net.conn && !net.guestReady) { toast('Waiting for your rival to lock in their fighter'); return; } if (net.role === 'guest') netGuestReadyUp(); else if (game.mode === 'tour') startTournament(); else if (game.mode === 'train') beginTraining(); else showScreen('stagesel'); }
 const train = { dummy: 0, meter: true, combo: 0, last: 0, best: 0 };
 const trainUI = document.getElementById('trainUI');
 const TOUCH_LABEL = { left: 'Stick ◀', right: '▶', up: 'Stick ▲', down: 'Stick ▼', punch: 'Slap', shove: 'Shove', upper: 'Upper', sweep: 'Sweep', grab: 'Grab', mini: 'Special 1', special: 'Special 2' };
@@ -8234,7 +8238,8 @@ function drawTrainPanel(ctx) {
   const t = `COMBO ${train.combo.toFixed(1)}  ·  LAST ${train.last.toFixed(1)}  ·  BEST ${train.best.toFixed(1)}`; ctx.strokeText(t, W / 2, 172); ctx.fillText(t, W / 2, 172);
   ctx.restore();
 }
-function beginFight() { Sfx.init(); game.mode = 'versus'; p2cpu = savedCpu; hideScreens(); game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[cpuLevel]; startMatch(); }
+function beginFight() {
+  if (net.role === 'host' && net.conn && !net.guestReady) { toast('Waiting for your rival to lock in their fighter'); showScreen('menu'); return; } Sfx.init(); game.mode = 'versus'; p2cpu = savedCpu; hideScreens(); game.pick = { a: sel[0], b: sel[1], ca: cos[0], cb: cos[1] }; cpu.skill = CPU_SKILL[cpuLevel]; startMatch(); }
 function renderUnlocks() {
   document.getElementById('statLine').textContent = `${stats.wins} wins · ${stats.limbs} limbs · ${stats.fatalities} fatalities · ${stats.tournaments} titles`;
   const items = COSTUMES.filter(c => c.lock).map(c => ({ name: c.name, kind: 'Costume', lock: c.lock, bg: costumeSwatch(c, ROSTER[0]) }))
@@ -8331,7 +8336,7 @@ touchEl.querySelectorAll('button:not(.tpause)').forEach(b => {
 });
 // Online VS: two devices over WebRTC (PeerJS). The host runs the bout and streams the arena canvas with
 // its audio; the guest picks a fighter on its own screen, then watches the stream and sends presses as Player 2.
-const net = { role: null, peer: null, conn: null, live: false, ready: false, stream: null, prevCpu: true };
+const net = { role: null, peer: null, conn: null, live: false, ready: false, stream: null, prevCpu: true, guestReady: false, lastScreen: null };
 const NET_Q = new URLSearchParams(location.search), NET_ABC = 'ABCDEFGHJKMNPQRSTUVWXYZ';
 function netStatus(t) { document.getElementById('netStatus').textContent = t; }
 function netLoad() {
@@ -8350,7 +8355,8 @@ function netReset(msg) {
   net.conn = null; net.peer = null;
   if (net.stream) net.stream.getTracks().forEach(t => t.stop()); net.stream = null;
   touchEl.classList.remove('no-pause'); document.getElementById('netView').hidden = true; document.getElementById('netVideo').srcObject = null; document.getElementById('netCode').hidden = true; document.getElementById('netTap').hidden = true;
-  if (was === 'host') { for (const a in CONTROLS[1]) keyUp(CONTROLS[1][a][0]); setCpu(net.prevCpu); }
+  net.guestReady = false; net.played = false; net.lastScreen = null;
+  if (was === 'host') { for (const a in CONTROLS[1]) keyUp(CONTROLS[1][a][0]); setCpu(net.prevCpu); netHostButton(); applyMode(); }
   else { keys.clear(); showScreen('title'); }
   if (msg) toast(msg);
 }
@@ -8381,9 +8387,17 @@ function netHost() {
 function netHostData(m) {
   if (!m) return;
   if (m.t === 'k' && CONTROLS[1][m.a]) (m.d ? keyDown : keyUp)(CONTROLS[1][m.a][0]);
-  else if (m.t === 'pick' && ROSTER[m.i] && !ROSTER[m.i].hidden) { sel[1] = m.i; cos[1] = m.c | 0; refreshSlot(1); refreshRoster(); toast('Your rival picked ' + ROSTER[m.i].name); }
+  else if (m.t === 'pick' && ROSTER[m.i] && !ROSTER[m.i].hidden) { sel[1] = m.i; cos[1] = m.c | 0; net.guestReady = true; refreshSlot(1); refreshRoster(); netHostButton(); toast(ROSTER[m.i].name + ' is ready! Your turn'); }
 }
-function netTick(force) { const live = !game.screen; if (force || live !== net.live) { net.live = live; netSend({ t: 'view', live }); } }
+function netTick(force) {
+  const live = !game.screen; if (force || live !== net.live) { net.live = live; netSend({ t: 'view', live }); }
+  // back on the fighter select after a bout: both players lock in again
+  if (game.screen !== net.lastScreen) { if (game.screen === 'menu' && net.played && net.conn) { net.guestReady = false; net.played = false; netSend({ t: 'repick' }); } if (live) net.played = true; net.lastScreen = game.screen; netHostButton(); }
+}
+function netHostButton() {
+  const b = document.getElementById('fight'); if (net.role !== 'host' || !net.conn) { b.classList.remove('waiting'); return; }
+  b.classList.toggle('waiting', !net.guestReady); b.textContent = net.guestReady ? 'Choose stage ▶' : 'Waiting for rival…';
+}
 function netJoin() {
   const code = document.getElementById('netJoinCode').value.trim().toUpperCase();
   if (code.length !== 4) { netStatus('Type the 4-letter code from the host screen'); return; }
@@ -8394,7 +8408,8 @@ function netJoin() {
     peer.on('open', () => {
       const c = peer.connect('jigglepit-' + code.toLowerCase(), { reliable: true }); net.conn = c;
       c.on('open', () => { netStatus(''); toast('Connected! Pick your fighter'); game.mode = 'versus'; showScreen('menu'); });
-      c.on('data', m => { if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz' && phone.hitVibe) vib(m.ms); });
+      c.on('data', m => { if (m && m.t === 'repick') { net.ready = false; keys.clear(); document.getElementById('netView').hidden = true; showScreen('menu'); toast('Rematch! Pick your fighter and tap Ready'); return; }
+        if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz' && phone.hitVibe) vib(m.ms); });
       c.on('close', () => netReset('The host ended the match'));
     });
     peer.on('call', call => { call.answer(); call.on('stream', st => { const v = document.getElementById('netVideo'); v.srcObject = st; v.muted = false; const pl = v.play(); if (pl && pl.catch) pl.catch(() => { v.muted = true; v.play().catch(() => {}); document.getElementById('netTap').hidden = false; }); }); });
