@@ -55,7 +55,9 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font-body); 
 .pick { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 6px; }
 .pick .name { font-family: var(--font-display); font-size: 32px; text-align: center; letter-spacing: 0.03em; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 button { font: inherit; color: inherit; cursor: pointer; }
-.arrow { height: 40px; border-radius: 4px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); font-size: 18px; }
+.arrow { height: 40px; border-radius: 4px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); font-size: 0; display: grid; place-items: center; padding: 0; }
+.arrow::before { content: ''; width: 11px; height: 14px; background: #fff; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
+.arrow[data-d="1"]::before { clip-path: polygon(0 0, 0 100%, 100% 50%); }
 .arrow:hover { background: rgba(255, 194, 26, 0.14); }
 button:focus-visible { outline: 2px solid var(--hazard); outline-offset: 2px; }
 .el {
@@ -115,6 +117,7 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
+a.own-tab { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; } a.own-tab[hidden] { display: none; }
 /* Online VS */
 #online .menu-inner { max-width: 860px; }
 .net-hint { margin: 0; color: var(--muted); text-align: center; }
@@ -437,8 +440,8 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
 /* Phones held upright: both fighter cards first, roster under them, the stage button always in reach */
 @media (orientation: portrait) and (max-width: 640px) {
   #menu .menu-inner { gap: 10px; }
-  #menu .select { order: 1; } #menu .roster { order: 2; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 5px; }
-  #menu #fight { order: 3; position: sticky; bottom: max(8px, env(safe-area-inset-bottom, 0px)); z-index: 3; box-shadow: 0 6px 22px rgba(0,0,0,0.7); }
+  #menu .select { order: 1; } #menu .roster { order: 3; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 5px; }
+  #menu #fight { order: 2; font-size: 26px; padding: 8px 26px; }
   #menu .pickfor, #menu .foot { order: 4; }
   #menu .pick .name { font-size: clamp(13px, 3.9vw, 17px); white-space: normal; overflow-wrap: anywhere; text-overflow: clip; line-height: 1; min-height: 2em; display: grid; place-items: center; letter-spacing: 0.01em; }
   #menu .pick { grid-template-columns: 26px 1fr 26px; gap: 3px; } #menu .arrow { height: 30px; }
@@ -446,7 +449,8 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   #menu .swatches { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; } #menu .swatch { flex: none; }
   #menu .stats { font-size: 12px; } #menu .slot-body { gap: 6px; }
   #menu .ctl button { padding: 2px 5px; font-size: 10px; }
-  #menu .who { height: 26px; min-height: 26px; overflow: hidden; gap: 4px; } #menu .ctl { flex-wrap: nowrap; white-space: nowrap; } #menu .ctl button { padding: 2px 4px; font-size: 9px; letter-spacing: 0.04em; }
+  #menu .who { height: 26px; min-height: 26px; overflow: hidden; gap: 4px; }
+  #menu .who:has(#cpuLvl) > span:first-child { display: none; } #menu .who:has(#cpuLvl) { justify-content: center; } #menu .ctl { flex-wrap: nowrap; white-space: nowrap; } #menu .ctl button { padding: 2px 4px; font-size: 9px; letter-spacing: 0.04em; }
   #menu .el { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; height: 22px; box-sizing: border-box; }
   #menu .pick { height: 44px; }
   #touch .stick { width: 128px; height: 128px; }
@@ -623,7 +627,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Options · Controls</h2><span class="step"></span></header>
     <p class="opt-hint" id="optHint">Click a key, then press the new key you want. Esc cancels.</p>
     <div class="opt-grid"><section class="opt-col" id="opt0"></section><section class="opt-col" id="opt1"></section></div>
-    <div class="opt-btns"><button type="button" class="big-btn alt" id="optVibe" hidden>Vibration on <small>touch buttons buzz</small></button><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
+    <div class="opt-btns"><a class="big-btn alt own-tab" id="optTab" target="_blank" rel="noopener" hidden>Open in its own tab ↗ <small>vibration + true fullscreen</small></a><button type="button" class="big-btn alt" id="optVibe" hidden>Vibration on <small>touch buttons buzz</small></button><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
   </div>
 </div>
 <div id="trainUI" hidden>
@@ -644,7 +648,7 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   <div class="pause-card">
     <h2>Paused</h2>
     <div class="pause-moves" id="pauseMoves"></div>
-    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pVibe" hidden>Vibration on <small>phones</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
+    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><a class="big-btn alt own-tab" id="pTab" target="_blank" rel="noopener" hidden>Own tab ↗ <small>vibration + fullscreen</small></a><button type="button" class="big-btn alt" id="pVibe" hidden>Vibration on <small>phones</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
   </div>
 </div>
 
@@ -2776,6 +2780,7 @@ function damage(f, amt) {
   if (game.state === 'finish' || game.state === 'fatality') return;
   if (amt < 500) amt *= DMG_SCALE * (f.toadT > 0 ? 1.4 : 1) * Math.pow(120 / Math.min(f.mass, 300), 0.2);   // heavier bodies soak a little more
   if (f.def.traits && f.def.traits.armor) amt *= f.def.traits.armor;
+  if (amt > 0.4) hitBuzz(f, amt);
   f.hp = Math.max(game.mode === 'train' ? 1 : 0, f.hp - amt);
   if (game.mode === 'train' && f.idx === 1) train.combo += amt;
   f.sinceHit = 0; if (f.bars) f.bars.hp.amp = Math.min(10, f.bars.hp.amp + amt * 1.4);
@@ -7276,7 +7281,7 @@ function enterFinish() {
   if (Math.abs(w.x - l.x) < 220) { const side = w.x <= l.x ? 1 : -1; l.x = clamp(w.x + side * 240, EDGE_L + 120, EDGE_R - 120); if (Math.abs(w.x - l.x) < 200) w.x = clamp(l.x - side * 240, EDGE_L + 120, EDGE_R - 120); }
   l.ko = false; l.dizzy = true; l.stun = 99; w.facing = sign(l.x - w.x); l.facing = -w.facing;
   game.state = 'finish'; game.finT = 0; game.cpuFat = false; game.slow = 1; game.dark = 0.6; game.projs = []; game.kittens = []; game.hz = [];
-  const key = touchMode && game.winner === 0 ? 'SPECIAL' : keyLabel(CONTROLS[game.winner].special[0]);
+  const key = (touchMode && game.winner === 0) || (net.role === 'host' && game.winner === 1) ? 'SPECIAL 1 or 2' : keyLabel(CONTROLS[game.winner].special[0]);
   banner('SEAL THE BOUT!', isHuman(game.winner) ? `Press ${key} for the fatality` : '', 0);
   Sfx.play('roar', 0.7);
 }
@@ -7645,7 +7650,7 @@ function updateGame(rdt) {
   }
   if (game.state === 'finish') {
     game.finT += rdt; var wi = game.winner;
-    if (isHuman(wi) && CONTROLS[wi].special.some(k => pressed.has(k))) startFatality();
+    if (isHuman(wi) && (CONTROLS[wi].special.some(k => pressed.has(k)) || CONTROLS[wi].mini.some(k => pressed.has(k)))) startFatality();
     else if (!isHuman(wi) && game.finT > 1.3 && !game.cpuFat) { game.cpuFat = true; if (Math.random() < 0.85 || game.fighters[wi].def.giant) startFatality(); }
     if (game.state === 'finish' && game.finT > 4.5) {
       const l = game.fighters[1 - wi], out = Math.random() < 0.5; game.state = 'collapse'; game.colT = 0; game.colOut = out; game.banner = null; l.dizzy = false;
@@ -8247,9 +8252,25 @@ touchMode = matchMedia('(pointer: coarse)').matches;
 // Vibration: a short buzz on every touch press (phones that support it), switchable in Options and the pause menu
 let vibeOn = true; try { vibeOn = localStorage.getItem('jigglepit-vibe') !== '0'; } catch (e) {}
 const canVibe = !!navigator.vibrate;
-function buzz(ms) { if (vibeOn && canVibe) try { navigator.vibrate(ms); } catch (e) {} }
+// Chrome refuses vibration inside an embedded frame (itch.io runs games in one); if a buzz is refused, say how to get it
+let framed = false; try { framed = window.self !== window.top; } catch (e) { framed = true; }
+let vibeWarned = false, lastHitBuzz = 0;
+function buzz(ms) {
+  if (!vibeOn || !canVibe) return;
+  let ok = true; try { ok = navigator.vibrate(ms); } catch (e) { ok = false; }
+  if (ok === false && framed && !vibeWarned) { vibeWarned = true; toast('Vibration is blocked inside this page. Use "Open in its own tab" in Options to feel it.'); }
+}
+// a short buzz when your fighter takes a hit; bigger hits buzz longer
+function hitBuzz(f, amt) {
+  const ms = Math.round(clamp(10 + amt * 3, 12, 45));
+  if (net.role === 'host' && f.idx === 1) { netSend({ t: 'buzz', ms }); return; }
+  const now = performance.now();
+  if (f.idx !== 0 || !touchMode || game.mode === 'demo' || now - lastHitBuzz < 90) return;
+  lastHitBuzz = now; buzz(ms);
+}
 function syncVibe() { for (const id of ['pVibe', 'optVibe']) { const b = document.getElementById(id); b.hidden = !canVibe; b.firstChild.textContent = vibeOn ? 'Vibration on ' : 'Vibration off '; b.setAttribute('aria-pressed', vibeOn); } }
 function toggleVibe() { vibeOn = !vibeOn; try { localStorage.setItem('jigglepit-vibe', vibeOn ? '1' : '0'); } catch (e) {} syncVibe(); buzz(30); }
+for (const id of ['optTab', 'pTab']) { const a = document.getElementById(id); a.href = location.href; a.hidden = !(framed && touchMode); }
 document.getElementById('pVibe').addEventListener('click', toggleVibe); document.getElementById('optVibe').addEventListener('click', toggleVibe); syncVibe();
 touchEl.querySelectorAll('button').forEach(b => {
   const k = b.dataset.k;
@@ -8322,7 +8343,7 @@ function netJoin() {
     peer.on('open', () => {
       const c = peer.connect('jigglepit-' + code.toLowerCase(), { reliable: true }); net.conn = c;
       c.on('open', () => { netStatus(''); toast('Connected! Pick your fighter'); game.mode = 'versus'; showScreen('menu'); });
-      c.on('data', m => { if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } });
+      c.on('data', m => { if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz') buzz(m.ms); });
       c.on('close', () => netReset('The host ended the match'));
     });
     peer.on('call', call => { call.answer(); call.on('stream', st => { const v = document.getElementById('netVideo'); v.srcObject = st; v.muted = false; const pl = v.play(); if (pl && pl.catch) pl.catch(() => { v.muted = true; v.play().catch(() => {}); document.getElementById('netTap').hidden = false; }); }); });
@@ -8345,6 +8366,16 @@ document.getElementById('netJoin').addEventListener('click', netJoin);
 document.getElementById('netJoinCode').addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') netJoin(); });
 document.getElementById('netLeave').addEventListener('click', () => netReset('You left the match'));
 document.getElementById('netTap').addEventListener('click', e => { const v = document.getElementById('netVideo'); v.muted = false; v.play().catch(() => {}); e.currentTarget.hidden = true; });
+
+// Sideways phone: browsers only allow fullscreen from a tap, so any tap while sideways (and not yet fullscreen) enters it
+const landMQ = matchMedia('(orientation: landscape)');
+function goFull() {
+  const el = document.documentElement, req = el.requestFullscreen || el.webkitRequestFullscreen;
+  if (!req || document.fullscreenElement || document.webkitFullscreenElement) return;
+  try { const r = req.call(el, { navigationUI: 'hide' }); if (r && r.catch) r.catch(() => {}); } catch (e) {}
+}
+addEventListener('pointerdown', () => { if (touchMode && landMQ.matches) goFull(); }, true);
+landMQ.addEventListener('change', () => { if (touchMode && landMQ.matches && !document.fullscreenElement && (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)) toast('Tap anywhere for fullscreen'); });
 
 // Joystick: left/right walk (flick twice to dash), up jumps, down blocks
 {
