@@ -117,6 +117,22 @@ body:has(.screen:not([hidden])) #sound { top: auto; bottom: calc(env(safe-area-i
 #sound, #music, #pickFor, #menu .foot { display: none !important; }
 #menu .who { min-height: 28px; } #menu .who.spacer { visibility: hidden; }
 #menu .slot[hidden], #menu .vs[hidden] { display: none !important; }
+#touch.no-pause .tpause, #touch.edit .tpause { display: none; }
+/* touch layout editor */
+#touch.edit { background: rgba(4,0,14,0.72); pointer-events: auto; inset: 0; top: 0; z-index: 9; }
+#touch.edit .stick, #touch.edit .acts button { outline: 2px dashed rgba(255,255,255,0.55); outline-offset: 3px; cursor: grab; }
+#touch.edit .dragging { outline-color: #ffe600 !important; }
+#layoutBar { position: fixed; top: max(6px, env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center;
+  padding: 6px 10px; border-radius: 12px; background: rgba(20,0,40,0.92); border: 2px solid #00f0ff; color: #fff; font-size: 13px; max-width: calc(100vw - 20px); }
+#layoutBar[hidden] { display: none; }
+#layoutBar b { font-family: var(--font-display); font-weight: 400; font-size: 17px; letter-spacing: 0.04em; }
+#layoutBar span { display: flex; align-items: center; gap: 4px; } #layoutBar i { font-style: normal; min-width: 40px; text-align: center; }
+#layoutBar button { padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.08); color: #fff; font-weight: 700; }
+#layoutBar button.done { background: #ffc21a; color: #1a0b00; border-color: #ffc21a; }
+.opt-phone { width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; box-sizing: border-box; }
+.opt-phone[hidden] { display: none; }
+.opt-phone h3 { margin: 0 0 6px; font-family: var(--font-display); font-weight: 400; font-size: 24px; color: var(--hazard); letter-spacing: 0.04em; }
+.opt-phone .tog { min-width: 56px; } .opt-phone .tog[aria-pressed="true"] { background: #7aff8a; color: #062010; border-color: #7aff8a; }
 /* Online VS */
 #online .menu-inner { max-width: 860px; }
 .net-hint { margin: 0; color: var(--muted); text-align: center; }
@@ -291,7 +307,8 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
 .mv-card p { margin: 0 0 6px; line-height: 1.35; color: var(--ink); font-size: 15px; }
 .mv-card kbd { font-family: var(--font-body); font-weight: 700; border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; background: rgba(255,255,255,0.06); }
 #touch .cluster.acts { max-width: 250px; }
-#touch button.tpause { position: fixed; top: max(4px, env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); width: 34px; height: 26px; border-radius: 8px; font-family: var(--font-body); font-size: 11px; letter-spacing: 0; padding: 0; pointer-events: auto; background: rgba(8,4,20,0.55); border: 1px solid rgba(255,255,255,0.35); color: #fff; box-shadow: none; opacity: 0.8; z-index: 6; }
+#touch .acts { margin-right: 30px; }
+#touch button.tpause { position: fixed; bottom: max(4px, env(safe-area-inset-bottom, 0px)); right: max(4px, env(safe-area-inset-right, 0px)); width: 32px; height: 24px; border-radius: 8px; font-family: var(--font-body); font-size: 11px; letter-spacing: 0; padding: 0; pointer-events: auto; background: rgba(8,4,20,0.55); border: 1px solid rgba(255,255,255,0.35); color: #fff; box-shadow: none; opacity: 0.8; z-index: 6; }
 #touch .stick { position: relative; width: 136px; height: 136px; border-radius: 50%; pointer-events: auto; touch-action: none; flex: none;
   background: radial-gradient(circle, rgba(8,16,12,0.25) 0 38%, rgba(8,16,12,0.6) 70%); border: 2px solid rgba(244,234,210,0.35); box-shadow: inset 0 0 18px rgba(0,0,0,0.5); }
 #touch .stick .knob { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff27a, #ffc21a 60%, #c98a00); border: 2px solid var(--hazard-ink); box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events: none; }
@@ -431,8 +448,6 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   #stagesel .stage .st-name { font-size: 16px; } #stagesel .stage .st-sub { font-size: 10px; line-height: 1.15; } #stagesel .st-num { font-size: 15px; }
   .title-screen .logo { font-size: clamp(44px, 14vh, 80px); }
   .title-screen .big-btn { font-size: 24px; padding-block: 6px; }
-  .pause-card { padding: 10px 14px; gap: 8px; max-height: 100%; overflow-y: auto; } .pause-card h2 { font-size: 34px; }
-  .pause-moves { font-size: 12px; } .pause-btns .big-btn { font-size: 20px; }
   #touch button { width: 54px; height: 54px; font-size: 16px; } #touch button.mini { width: 46px; height: 46px; font-size: 12px; } #touch button.sp { font-size: 12px; } #touch button.sp1 { font-size: 10px; }
   #touch .stick { width: 118px; height: 118px; } #touch .stick .knob { width: 52px; height: 52px; margin: -26px 0 0 -26px; }
   #touch { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); }
@@ -469,6 +484,17 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
 }
 /* Phones held upright: arena in the middle of the space above the controls */
 @media (orientation: portrait) and (pointer: coarse) { #trainUI .tpanel { width: 200px; font-size: 12px; } }
+/* compact pause card on touch screens */
+@media (pointer: coarse) {
+  #pause.pause { place-items: start center; padding-top: max(10px, env(safe-area-inset-top, 0px)); overflow-y: auto; }
+  #pause .pause-card { width: min(560px, 100%); padding: 10px 12px; gap: 8px; }
+  #pause .pause-card h2 { font-size: 30px; line-height: 1; }
+  #pause .pause-moves { font-size: 11px; gap: 6px; } #pause .pause-moves h3 { font-size: 16px; } #pause .pause-moves p { line-height: 1.3; }
+  #pause .pause-btns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  #pause .pause-btns .big-btn { font-size: 15px; padding: 7px 8px; min-height: 0; align-items: center; justify-content: center; text-align: center; border-radius: 8px; flex: none; animation: none; }
+  #pause .pause-btns .big-btn small { display: none; }
+}
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 540px) { #pause .pause-moves { display: none; } #pause .pause-btns { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>
 
 <canvas id="game" aria-label="Jiggle Pit arena"></canvas>
@@ -627,7 +653,14 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
     <header class="screen-head"><button type="button" class="back" data-back="title">◀ Back</button><h2>Options · Controls</h2><span class="step"></span></header>
     <p class="opt-hint" id="optHint">Click a key, then press the new key you want. Esc cancels.</p>
     <div class="opt-grid"><section class="opt-col" id="opt0"></section><section class="opt-col" id="opt1"></section></div>
-    <div class="opt-btns"><button type="button" class="big-btn alt" id="optVibe" hidden>Vibration on <small>touch buttons buzz</small></button><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
+    <section class="opt-phone" id="optPhone" hidden><h3>Phone</h3>
+      <div class="opt-row"><span>Buzz on button press</span><button type="button" class="tog" data-o="vibe"></button></div>
+      <div class="opt-row"><span>Buzz when you get hit</span><button type="button" class="tog" data-o="hitVibe"></button></div>
+      <div class="opt-row"><span>One-tap Special 2 (fires when the meter is full)</span><button type="button" class="tog" data-o="oneTap"></button></div>
+      <div class="opt-row"><span>Swipe the joystick to dash</span><button type="button" class="tog" data-o="swipeDash"></button></div>
+      <div class="opt-row"><span>Button layout</span><button type="button" id="optLayout">Move buttons</button></div>
+    </section>
+    <div class="opt-btns"><button type="button" class="big-btn alt" id="optReset">Reset to defaults <small>both players</small></button></div>
   </div>
 </div>
 <div id="trainUI" hidden>
@@ -648,11 +681,12 @@ body:has(.screen:not([hidden])) #music { top: auto; bottom: calc(env(safe-area-i
   <div class="pause-card">
     <h2>Paused</h2>
     <div class="pause-moves" id="pauseMoves"></div>
-    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pVibe" hidden>Vibration on <small>phones</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
+    <div class="pause-btns"><button type="button" class="big-btn" id="pResume">Resume <small>Esc / Enter</small></button><button type="button" class="big-btn alt" id="pLayout" hidden>Move buttons <small>drag to arrange</small></button><button type="button" class="big-btn alt" id="pSound">Sound effects on <small>M</small></button><button type="button" class="big-btn alt" id="pMusic">Music on <small>N</small></button><button type="button" class="big-btn alt" id="pRestart">Restart <small>R</small></button><button type="button" class="big-btn alt" id="pQuit">Main menu <small>Q</small></button></div>
   </div>
 </div>
 
 <div id="netView" hidden><video id="netVideo" playsinline autoplay></video><div class="net-wait" id="netWait"></div><button type="button" class="net-leave" id="netLeave">✕ Leave</button><button type="button" class="net-tap" id="netTap" hidden>🔊 Tap for sound</button></div>
+<div id="layoutBar" hidden><b>Drag the buttons where you like</b><span><button type="button" data-ls="-1" aria-label="Smaller">−</button><i id="layoutSize">100%</i><button type="button" data-ls="1" aria-label="Bigger">+</button></span><button type="button" id="layoutReset">Reset</button><button type="button" class="done" id="layoutDone">Done</button></div>
 <div id="touch" hidden>
   <button type="button" class="tpause" id="tPause" aria-label="Pause">❚❚</button>
   <div class="stick" id="stick" role="group" aria-label="Joystick: left and right move, up jumps, down blocks"><span class="hint up">Jump</span><span class="hint dn">Block</span><div class="knob"></div></div>
@@ -6846,6 +6880,7 @@ function finishRebind(code) {
 }
 function keysLine(p) { const k = a => `<kbd>${keyLabel(CONTROLS[p][a][0])}</kbd>`; return `${k('left')}${k('right')} move · ${k('up')} jump · ${k('down')} block · ${k('punch')} slap · ${k('shove')} shove · ${k('upper')} uppercut · ${k('sweep')} sweep · ${k('grab')} grab · ${k('mini')} mini · hold ${k('special')} special`; }
 function updateKeyHints() { document.querySelectorAll('#menu .keys').forEach((el, i) => { el.innerHTML = keysLine(i); }); }
+let touchDash = 0;   // set by a fast joystick swipe
 function humanIntent(c, edges) {
   const solo = c === CONTROLS[0] && p2cpu, ks = name => solo && SOLO[name] ? c[name].concat(SOLO[name]) : c[name];
   const any = a => a.some(k => keys.has(k)), tap = a => edges && a.some(k => pressed.has(k));
@@ -6854,6 +6889,7 @@ function humanIntent(c, edges) {
     const now = performance.now();
     for (const [dir, list] of [[-1, c.left], [1, c.right]]) if (tap(list)) { if (c._tapDir === dir && now - c._tapT < 260) { dash = dir; c._tapT = 0; } else { c._tapDir = dir; c._tapT = now; } }
   }
+  if (edges && touchDash && c === CONTROLS[0]) { dash = touchDash; touchDash = 0; }
   return {
     x: (any(c.right) ? 1 : 0) - (any(c.left) ? 1 : 0), dash,
     jump: tap(c.up), up: any(c.up), brace: any(c.down), braceTap: tap(c.down), punch: tap(ks('punch')), grab: tap(ks('grab')), special: tap(ks('special')),
@@ -8114,7 +8150,7 @@ function showScreen(name) {
   if (name === 'menu') { applyMode(); refreshSlot(0); refreshSlot(1); }
   if (name === 'stagesel') setStage(selStage);
   if (name === 'unlocks') renderUnlocks();
-  if (name === 'options') { rebind = null; renderOptions(); }
+  if (name === 'options') { rebind = null; renderOptions(); if (typeof syncPhone === 'function') syncPhone(); }
   Sfx.quiet = false; Music.play('title');
   if (name === 'title') startDemo();
 }
@@ -8251,26 +8287,33 @@ function pollPads() {
 // Touch controls
 touchMode = matchMedia('(pointer: coarse)').matches;
 // Vibration: a short buzz on every touch press (phones that support it), switchable in Options and the pause menu
-let vibeOn = true; try { vibeOn = localStorage.getItem('jigglepit-vibe') !== '0'; } catch (e) {}
+const phone = { vibe: true, hitVibe: true, oneTap: false, swipeDash: true };
+try { Object.assign(phone, JSON.parse(localStorage.getItem('jigglepit-phone') || '{}')); if (localStorage.getItem('jigglepit-vibe') === '0') phone.vibe = false; } catch (e) {}
 const canVibe = !!navigator.vibrate;
 let lastHitBuzz = 0;
-function buzz(ms) { if (vibeOn && canVibe) try { navigator.vibrate(ms); } catch (e) {} }
+function vib(ms) { if (canVibe) try { navigator.vibrate(ms); } catch (e) {} }
+function buzz(ms) { if (phone.vibe) vib(ms); }
 // a short buzz when your fighter takes a hit; bigger hits buzz longer
 function hitBuzz(f, amt) {
   const ms = Math.round(clamp(18 + amt * 4, 20, 70));   // strong enough to feel through a phone case
   if (net.role === 'host' && f.idx === 1) { netSend({ t: 'buzz', ms }); return; }
   const now = performance.now();
   if (f.idx !== 0 || !touchMode || game.mode === 'demo' || now - lastHitBuzz < 90) return;
-  lastHitBuzz = now; buzz(ms);
+  lastHitBuzz = now; if (phone.hitVibe) vib(ms);
 }
-function syncVibe() { for (const id of ['pVibe', 'optVibe']) { const b = document.getElementById(id); b.hidden = !canVibe; b.firstChild.textContent = vibeOn ? 'Vibration on ' : 'Vibration off '; b.setAttribute('aria-pressed', vibeOn); } }
-function toggleVibe() { vibeOn = !vibeOn; try { localStorage.setItem('jigglepit-vibe', vibeOn ? '1' : '0'); } catch (e) {} syncVibe(); buzz(30); }
-document.getElementById('pVibe').addEventListener('click', toggleVibe); document.getElementById('optVibe').addEventListener('click', toggleVibe); syncVibe();
-document.getElementById('tPause').addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); buzz(10); if (net.role === 'guest') return; togglePause(); });
+function savePhone() { try { localStorage.setItem('jigglepit-phone', JSON.stringify(phone)); } catch (e) {} }
+function syncPhone() {
+  document.getElementById('optPhone').hidden = !touchMode; document.getElementById('pLayout').hidden = !touchMode;
+  document.querySelectorAll('#optPhone .tog').forEach(b => { const k = b.dataset.o, na = (k === 'vibe' || k === 'hitVibe') && !canVibe; b.disabled = na; b.textContent = na ? 'n/a' : phone[k] ? 'On' : 'Off'; b.setAttribute('aria-pressed', !na && phone[k]); });
+}
+document.querySelectorAll('#optPhone .tog').forEach(b => b.addEventListener('click', () => { phone[b.dataset.o] = !phone[b.dataset.o]; savePhone(); syncPhone(); if (b.dataset.o.includes('ibe') && phone[b.dataset.o]) vib(40); }));
+document.getElementById('tPause').addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); if (net.role) return; buzz(10); togglePause(); });
 touchEl.querySelectorAll('button:not(.tpause)').forEach(b => {
   const k = b.dataset.k;
-  const down = e => { e.preventDefault(); if (b.setPointerCapture) b.setPointerCapture(e.pointerId); keyDown(k); b.classList.add('on'); buzz(b.classList.contains('sp') ? 22 : 12); };
-  const up = e => { e.preventDefault(); keyUp(k); b.classList.remove('on'); };
+  const down = e => { e.preventDefault(); if (touchEl.classList.contains('edit')) return; if (b.setPointerCapture) b.setPointerCapture(e.pointerId); b.classList.add('on'); buzz(b.classList.contains('sp') ? 22 : 12);
+    const f0 = game.fighters[0]; if (k === 'TouchSpecial' && phone.oneTap && (game.state === 'finish' || (f0 && f0.meter >= 100))) { keyDown(k); keyUp(k); b._tapped = true; return; }
+    b._tapped = false; keyDown(k); };
+  const up = e => { e.preventDefault(); if (!b._tapped) keyUp(k); b._tapped = false; b.classList.remove('on'); };
   b.addEventListener('pointerdown', down); b.addEventListener('pointerup', up); b.addEventListener('pointercancel', up); b.addEventListener('lostpointercapture', up);
 });
 // Online VS: two devices over WebRTC (PeerJS). The host runs the bout and streams the arena canvas with
@@ -8293,7 +8336,7 @@ function netReset(msg) {
   try { if (net.conn) net.conn.close(); } catch (e) {} try { if (net.peer) net.peer.destroy(); } catch (e) {}
   net.conn = null; net.peer = null;
   if (net.stream) net.stream.getTracks().forEach(t => t.stop()); net.stream = null;
-  document.getElementById('tPause').hidden = false; document.getElementById('netView').hidden = true; document.getElementById('netVideo').srcObject = null; document.getElementById('netCode').hidden = true; document.getElementById('netTap').hidden = true;
+  touchEl.classList.remove('no-pause'); document.getElementById('netView').hidden = true; document.getElementById('netVideo').srcObject = null; document.getElementById('netCode').hidden = true; document.getElementById('netTap').hidden = true;
   if (was === 'host') { for (const a in CONTROLS[1]) keyUp(CONTROLS[1][a][0]); setCpu(net.prevCpu); }
   else { keys.clear(); showScreen('title'); }
   if (msg) toast(msg);
@@ -8310,7 +8353,7 @@ function netHost() {
       if (net.conn) { c.close(); return; }
       net.conn = c; c.on('data', netHostData); c.on('close', () => netReset('Your rival left the match'));
       c.on('open', () => {
-        net.prevCpu = p2cpu; setCpu(false); Sfx.init();
+        net.prevCpu = p2cpu; setCpu(false); Sfx.init(); touchEl.classList.add('no-pause');
         const tracks = canvas.captureStream(30).getVideoTracks();
         if (Sfx.ctx && Sfx.ctx.createMediaStreamDestination) { const d = Sfx.ctx.createMediaStreamDestination(); Sfx.master.connect(d); tracks.push(...d.stream.getAudioTracks()); }
         tracks.forEach(t => { if (t.kind === 'video' && 'contentHint' in t) t.contentHint = 'motion'; });
@@ -8338,7 +8381,7 @@ function netJoin() {
     peer.on('open', () => {
       const c = peer.connect('jigglepit-' + code.toLowerCase(), { reliable: true }); net.conn = c;
       c.on('open', () => { netStatus(''); toast('Connected! Pick your fighter'); game.mode = 'versus'; showScreen('menu'); });
-      c.on('data', m => { if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz') buzz(m.ms); });
+      c.on('data', m => { if (m && m.t === 'view') { net.live = m.live; netViewUpdate(); } else if (m && m.t === 'buzz' && phone.hitVibe) vib(m.ms); });
       c.on('close', () => netReset('The host ended the match'));
     });
     peer.on('call', call => { call.answer(); call.on('stream', st => { const v = document.getElementById('netVideo'); v.srcObject = st; v.muted = false; const pl = v.play(); if (pl && pl.catch) pl.catch(() => { v.muted = true; v.play().catch(() => {}); document.getElementById('netTap').hidden = false; }); }); });
@@ -8350,7 +8393,7 @@ function netViewUpdate() {
   const v = document.getElementById('netView'), w = document.getElementById('netWait');
   if (net.role !== 'guest' || !net.ready) { v.hidden = true; return; }
   if (game.screen) hideScreens();
-  v.hidden = false; touchEl.hidden = !touchMode; document.getElementById('tPause').hidden = true; w.textContent = net.live ? '' : 'Your rival is picking the stage…';
+  v.hidden = false; touchEl.hidden = !touchMode; touchEl.classList.add('no-pause'); w.textContent = net.live ? '' : 'Your rival is picking the stage…';
 }
 function netGuestKey(code, d) {
   for (const c of CONTROLS) for (const a in c) if (c[a].includes(code)) { netSend({ t: 'k', a, d }); return; }
@@ -8370,7 +8413,53 @@ function goFull() {
   try { const r = req.call(el, { navigationUI: 'hide' }); if (r && r.catch) r.catch(() => {}); } catch (e) {}
 }
 let fullOnce = false;
-addEventListener('pointerdown', () => { if (touchMode && (!fullOnce || landMQ.matches)) { fullOnce = true; goFull(); } }, true);
+function fullTap() { if (touchMode && (!fullOnce || landMQ.matches) && !touchEl.classList.contains('edit')) { fullOnce = true; goFull(); } }
+for (const ev of ['touchend', 'click']) addEventListener(ev, fullTap, true);
+document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement && screen.orientation && screen.orientation.lock && landMQ.matches) screen.orientation.lock('landscape').catch(() => {}); resize(); });
+
+// Touch layout editor: drag each control, change the size; saved per orientation
+const layout = { land: {}, port: {}, size: 1 };
+try { Object.assign(layout, JSON.parse(localStorage.getItem('jigglepit-layout') || '{}')); } catch (e) {}
+const layoutEls = () => [document.getElementById('stick'), ...touchEl.querySelectorAll('.acts button')];
+const layoutKey = el => el.id === 'stick' ? 'stick' : el.dataset.k, orient = () => landMQ.matches ? 'land' : 'port';
+function applyLayout() {
+  const L = layout[orient()] || {};
+  for (const el of layoutEls()) { const o = L[layoutKey(el)] || [0, 0]; el.style.translate = `${o[0]}px ${o[1]}px`; el.style.scale = String(layout.size); }
+  document.getElementById('layoutSize').textContent = Math.round(layout.size * 100) + '%';
+}
+function saveLayout() { try { localStorage.setItem('jigglepit-layout', JSON.stringify(layout)); } catch (e) {} }
+let layoutFrom = null;
+function editLayout(from) {
+  layoutFrom = from; if (from === 'options') document.getElementById('options').hidden = true; else document.getElementById('pause').hidden = true;
+  touchEl.hidden = false; touchEl.classList.add('edit'); document.getElementById('layoutBar').hidden = false; applyLayout();
+}
+function doneLayout() {
+  touchEl.classList.remove('edit'); document.getElementById('layoutBar').hidden = true; saveLayout();
+  if (layoutFrom === 'options') { touchEl.hidden = true; document.getElementById('options').hidden = false; } else document.getElementById('pause').hidden = false;
+}
+{
+  let drag = null;
+  touchEl.addEventListener('pointerdown', e => {
+    if (!touchEl.classList.contains('edit')) return;
+    const el = e.target.closest('.stick, .acts button'); if (!el) return;
+    e.preventDefault(); e.stopPropagation();
+    const L = layout[orient()] || (layout[orient()] = {}), o = L[layoutKey(el)] || [0, 0];
+    drag = { el, id: e.pointerId, x: e.clientX, y: e.clientY, o: o.slice() }; el.classList.add('dragging'); touchEl.setPointerCapture(e.pointerId);
+  }, true);
+  touchEl.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const L = layout[orient()]; L[layoutKey(drag.el)] = [Math.round(drag.o[0] + e.clientX - drag.x), Math.round(drag.o[1] + e.clientY - drag.y)]; applyLayout();
+  }, true);
+  const end = e => { if (drag && e.pointerId === drag.id) { drag.el.classList.remove('dragging'); drag = null; saveLayout(); } };
+  touchEl.addEventListener('pointerup', end, true); touchEl.addEventListener('pointercancel', end, true);
+}
+document.querySelectorAll('#layoutBar [data-ls]').forEach(b => b.addEventListener('click', () => { layout.size = clamp(Math.round((layout.size + 0.1 * b.dataset.ls) * 10) / 10, 0.7, 1.4); applyLayout(); }));
+document.getElementById('layoutReset').addEventListener('click', () => { layout[orient()] = {}; layout.size = 1; applyLayout(); });
+document.getElementById('layoutDone').addEventListener('click', doneLayout);
+document.getElementById('optLayout').addEventListener('click', () => editLayout('options'));
+document.getElementById('pLayout').addEventListener('click', () => editLayout('pause'));
+landMQ.addEventListener('change', applyLayout);
+syncPhone(); applyLayout();
 
 // Joystick: left/right walk (flick twice to dash), up jumps, down blocks
 {
@@ -8381,13 +8470,15 @@ addEventListener('pointerdown', () => { if (touchMode && (!fullOnce || landMQ.ma
     for (const k of held) if (!want.has(k)) { keyUp(k); held.delete(k); }
     for (const k of want) if (!held.has(k)) { keyDown(k); held.add(k); buzz(k === 'TouchUp' ? 14 : 8); }
   };
+  let cx = 0, cxT = 0;
   const move = e => {
     const r = stick.getBoundingClientRect(), R = r.width / 2; let dx = (e.clientX - r.left - R) / R, dy = (e.clientY - r.top - R) / R;
     const m = Math.hypot(dx, dy); if (m > 1) { dx /= m; dy /= m; }
+    const now = performance.now(); if (Math.abs(dx) < 0.3) { cx = 0; cxT = now; } else if (cx === 0 && Math.abs(dx) > 0.85 && now - cxT < 160 && phone.swipeDash) { cx = Math.sign(dx); touchDash = cx; buzz(16); }
     knob.style.transform = `translate(${dx * R * 0.55}px, ${dy * R * 0.55}px)`; set(dx, dy);
   };
   const end = () => { id = null; knob.style.transform = ''; stick.classList.remove('active'); set(0, 0); };
-  stick.addEventListener('pointerdown', e => { e.preventDefault(); id = e.pointerId; if (stick.setPointerCapture) stick.setPointerCapture(id); stick.classList.add('active'); move(e); });
+  stick.addEventListener('pointerdown', e => { e.preventDefault(); if (touchEl.classList.contains('edit')) return; cxT = performance.now(); cx = 0; id = e.pointerId; if (stick.setPointerCapture) stick.setPointerCapture(id); stick.classList.add('active'); move(e); });
   stick.addEventListener('pointermove', e => { if (e.pointerId === id) { e.preventDefault(); move(e); } });
   for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) stick.addEventListener(ev, e => { if (e.pointerId === id) end(); });
 }
