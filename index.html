@@ -8090,6 +8090,8 @@ function refreshSlot(i) {
 }
 // Roster grid: one portrait per wrestler. Clicking assigns the active slot.
 let activeSlot = 0;
+// Tournament and both sides of Online VS pick a single fighter: only the East card shows
+const soloPick = () => game.mode === 'tour' || !!net.role;
 const rosterEl = document.getElementById('roster');
 rosterEl.innerHTML = ROSTER.map((d, k) => d.hidden ? '' : `<button type="button" class="rbtn" data-r="${k}" aria-label="${d.name}" title="${d.name}"><canvas width="96" height="96"></canvas></button>`).join('');
 function paintPortraits() {
@@ -8108,16 +8110,16 @@ function refreshRoster() {
     if (sel[0] === k) b.insertAdjacentHTML('beforeend', '<span class="tagp t0">P1</span>');
     if (sel[1] === k && game.mode !== 'tour') b.insertAdjacentHTML('beforeend', `<span class="tagp t1">${p2cpu ? 'CPU' : 'P2'}</span>`);
   });
-  for (const i of [0, 1]) document.getElementById('slot' + i).classList.toggle('active', activeSlot === i && game.mode !== 'tour');
-  document.getElementById('pickFor').textContent = game.mode === 'tour' ? 'Pick your champion' : `Click a wrestler to pick for ${activeSlot === 0 ? 'East (Player 1)' : 'West (' + (p2cpu ? 'CPU' : 'Player 2') + ')'} · click a card to switch sides`;
+  for (const i of [0, 1]) document.getElementById('slot' + i).classList.toggle('active', activeSlot === i && !soloPick());
+  document.getElementById('pickFor').textContent = soloPick() ? 'Pick your champion' : `Click a wrestler to pick for ${activeSlot === 0 ? 'East (Player 1)' : 'West (' + (p2cpu ? 'CPU' : 'Player 2') + ')'} · click a card to switch sides`;
 }
 rosterEl.addEventListener('click', e => {
   const b = e.target.closest('.rbtn'); if (!b) return; const k = +b.dataset.r;
   if (!isUnlocked(ROSTER[k].lock)) { toast(`${ROSTER[k].name}: ${lockText(ROSTER[k].lock)}`); return; }
-  const i = game.mode === 'tour' ? 0 : activeSlot; sel[i] = k; refreshSlot(i); savePrefs(); Sfx.init(); Sfx.voice({ def: ROSTER[k] }, 'attack', 0.8);
-  if (game.mode !== 'tour' && i === 0) activeSlot = 1; refreshRoster();
+  const i = soloPick() ? 0 : activeSlot; sel[i] = k; refreshSlot(i); savePrefs(); Sfx.init(); Sfx.voice({ def: ROSTER[k] }, 'attack', 0.8);
+  if (!soloPick() && i === 0) activeSlot = 1; refreshRoster();
 });
-for (const i of [0, 1]) document.getElementById('slot' + i).addEventListener('pointerdown', () => { activeSlot = i; refreshRoster(); });
+for (const i of [0, 1]) document.getElementById('slot' + i).addEventListener('pointerdown', () => { activeSlot = soloPick() ? 0 : i; refreshRoster(); });
 function cycle(i, dir) { do { sel[i] = (sel[i] + dir + ROSTER.length) % ROSTER.length; } while (!isUnlocked(ROSTER[sel[i]].lock) || ROSTER[sel[i]].hidden); refreshSlot(i); savePrefs(); }
 function cycleCos(i, dir) { do { cos[i] = (cos[i] + dir + COSTUMES.length) % COSTUMES.length; } while (!isUnlocked(COSTUMES[cos[i]].lock)); refreshSlot(i); savePrefs(); }
 document.querySelectorAll('.arrow').forEach(b => b.addEventListener('click', () => cycle(+b.dataset.p, +b.dataset.d)));
@@ -8148,6 +8150,7 @@ function makeStageThumbs() {
   setTimeout(next, 200);
 }
 function setStage(i) {
+  if (net.role === 'host' && net.conn && !net.guestReady && game.screen === 'stagesel') { showScreen('menu'); return; }
   selStage = i; stage = STAGES[i];
   stageRow.querySelectorAll('.stage').forEach((b, k) => b.setAttribute('aria-pressed', k === i));
   document.getElementById('stageInfo').innerHTML = `<strong>${stage.name}.</strong> ${stage.hz || STAGE_HZ[stage.id]}`;
@@ -8172,11 +8175,13 @@ function showScreen(name) {
 }
 function showMenu() { showScreen('title'); }
 function applyMode() {
-  const solo = game.mode === 'tour' || net.role === 'guest';
+  const solo = soloPick();
   document.getElementById('slot1').hidden = solo; document.querySelector('.vs').hidden = solo; document.querySelector('.select').classList.toggle('solo', solo); document.querySelector('#menu .menu-inner').classList.toggle('solo', solo);
   document.getElementById('selTitle').textContent = solo ? 'Choose your champion' : 'Choose your wrestlers';
   document.getElementById('selStep').textContent = solo ? 'Tournament · 8 fights' : 'Versus · step 1 of 2';
-  if (net.role === 'guest') document.getElementById('selTitle').textContent = 'Online VS: pick your fighter';
+  if (net.role) document.getElementById('selTitle').textContent = 'Online VS: pick your fighter';
+  document.querySelector('#slot0 .who span').textContent = net.role === 'guest' ? 'West · Player 2 (you)' : net.role === 'host' ? 'East · Player 1 (you)' : 'East · Player 1';
+  if (net.role) document.getElementById('selStep').textContent = net.role === 'host' ? 'Online VS · you are Player 1' : 'Online VS · you are Player 2';
   document.getElementById('fight').textContent = net.role === 'guest' ? 'Ready ▶' : solo ? 'Begin tournament ▶' : game.mode === 'train' ? 'Enter the dojo ▶' : 'Choose stage ▶';
   if (game.mode === 'train') document.getElementById('selTitle').textContent = 'Training dojo: you and a sparring dummy';
   if (typeof netHostButton === 'function') netHostButton();
@@ -8255,6 +8260,7 @@ function menuKey(e) {
   else if (s === 'menu') {
     if (c === 'KeyA') cycle(0, -1); else if (c === 'KeyD') cycle(0, 1);
     else if (c === 'KeyQ') cycleCos(0, -1); else if (c === 'KeyE') cycleCos(0, 1);
+    else if (soloPick()) { if (c === 'ArrowLeft') cycle(0, -1); else if (c === 'ArrowRight') cycle(0, 1); else if (c === 'ArrowUp') { e.preventDefault(); cycleCos(0, -1); } else if (c === 'ArrowDown') { e.preventDefault(); cycleCos(0, 1); } }
     else if (c === 'ArrowLeft') cycle(1, -1); else if (c === 'ArrowRight') cycle(1, 1);
     else if (c === 'ArrowUp') { e.preventDefault(); cycleCos(1, -1); } else if (c === 'ArrowDown') { e.preventDefault(); cycleCos(1, 1); }
     else if (c === 'KeyC' && game.mode !== 'tour') setCpu(!p2cpu);
@@ -8395,8 +8401,8 @@ function netTick(force) {
   if (game.screen !== net.lastScreen) { if (game.screen === 'menu' && net.played && net.conn) { net.guestReady = false; net.played = false; netSend({ t: 'repick' }); } if (live) net.played = true; net.lastScreen = game.screen; netHostButton(); }
 }
 function netHostButton() {
-  const b = document.getElementById('fight'); if (net.role !== 'host' || !net.conn) { b.classList.remove('waiting'); return; }
-  b.classList.toggle('waiting', !net.guestReady); b.textContent = net.guestReady ? 'Choose stage ▶' : 'Waiting for rival…';
+  const b = document.getElementById('fight'); if (net.role !== 'host' || !net.conn) { b.classList.remove('waiting'); b.removeAttribute('aria-disabled'); return; }
+  b.classList.toggle('waiting', !net.guestReady); b.setAttribute('aria-disabled', !net.guestReady); b.textContent = net.guestReady ? 'Choose stage ▶' : 'Waiting for rival…';
 }
 function netJoin() {
   const code = document.getElementById('netJoinCode').value.trim().toUpperCase();
